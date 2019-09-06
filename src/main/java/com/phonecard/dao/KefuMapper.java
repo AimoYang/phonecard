@@ -1,9 +1,7 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.Kefu;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
 public interface KefuMapper {
     int deleteByPrimaryKey(Integer id);
 

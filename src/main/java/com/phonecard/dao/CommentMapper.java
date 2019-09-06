@@ -1,9 +1,7 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.Comment;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
 public interface CommentMapper {
     int deleteByPrimaryKey(Integer id);
 

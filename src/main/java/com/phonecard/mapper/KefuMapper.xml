@@ -12,19 +12,20 @@
     id, kefu_phone, kefu_wechat, kefu_create_time, is_delete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from kefu
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from kefu
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.phonecard.bean.Kefu" >
-    insert into kefu (id, kefu_phone, kefu_wechat, 
+    insert into kefu (id, kefu_phone, kefu_wechat,
       kefu_create_time, is_delete)
-    values (#{id,jdbcType=INTEGER}, #{kefuPhone,jdbcType=CHAR}, #{kefuWechat,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{kefuPhone,jdbcType=CHAR}, #{kefuWechat,jdbcType=VARCHAR},
       #{kefuCreateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=SMALLINT})
   </insert>
   <insert id="insertSelective" parameterType="com.phonecard.bean.Kefu" >
@@ -90,4 +91,16 @@
       is_delete = #{isDelete,jdbcType=SMALLINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getCountKefuSum" resultType="java.lang.Integer">
+    select
+    count(1)
+    from kefu
+    where is_delete = 0
+  </select>
+
+  <select id="getKefuList" resultMap="BaseResultMap">
+    select * from kefu where is_delete = 0
+  </select>
+
 </mapper>

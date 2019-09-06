@@ -1,128 +1,145 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.phonecard.dao.AddressSelfMapper" >
-  <resultMap id="BaseResultMap" type="com.phonecard.bean.AddressSelf" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="city_id" property="cityId" jdbcType="INTEGER" />
-    <result column="airport" property="airport" jdbcType="VARCHAR" />
-    <result column="detail" property="detail" jdbcType="VARCHAR" />
-    <result column="business_hours" property="businessHours" jdbcType="VARCHAR" />
-    <result column="address_code" property="addressCode" jdbcType="VARCHAR" />
-    <result column="sort" property="sort" jdbcType="INTEGER" />
-    <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, city_id, airport, detail, business_hours, address_code, sort, is_delete
+<mapper namespace="com.phonecard.dao.AddressSelfMapper">
+    <resultMap id="BaseResultMap" type="com.phonecard.bean.AddressSelf">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="city_id" property="cityId" jdbcType="INTEGER"/>
+        <result column="airport" property="airport" jdbcType="VARCHAR"/>
+        <result column="detail" property="detail" jdbcType="VARCHAR"/>
+        <result column="business_hours" property="businessHours" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="is_delete" property="isDelete" jdbcType="SMALLINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, city_id, airport, detail, business_hours, sort, is_delete
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from address_self
-    where id = #{id,jdbcType=INTEGER}
+
+    <select id="findAllAddress" resultMap="BaseResultMap">
+    select * from address_self
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from address_self
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from address_self
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.phonecard.bean.AddressSelf" >
+    <insert id="insert" parameterType="com.phonecard.bean.AddressSelf">
     insert into address_self (id, city_id, airport, 
-      detail, business_hours, address_code, 
-      sort, is_delete)
+      detail, business_hours, sort, 
+      is_delete)
     values (#{id,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{airport,jdbcType=VARCHAR}, 
-      #{detail,jdbcType=VARCHAR}, #{businessHours,jdbcType=VARCHAR}, #{addressCode,jdbcType=VARCHAR}, 
-      #{sort,jdbcType=INTEGER}, #{isDelete,jdbcType=SMALLINT})
+      #{detail,jdbcType=VARCHAR}, #{businessHours,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=SMALLINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.phonecard.bean.AddressSelf" >
-    insert into address_self
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="cityId != null" >
-        city_id,
-      </if>
-      <if test="airport != null" >
-        airport,
-      </if>
-      <if test="detail != null" >
-        detail,
-      </if>
-      <if test="businessHours != null" >
-        business_hours,
-      </if>
-      <if test="addressCode != null" >
-        address_code,
-      </if>
-      <if test="sort != null" >
-        sort,
-      </if>
-      <if test="isDelete != null" >
-        is_delete,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="cityId != null" >
-        #{cityId,jdbcType=INTEGER},
-      </if>
-      <if test="airport != null" >
-        #{airport,jdbcType=VARCHAR},
-      </if>
-      <if test="detail != null" >
-        #{detail,jdbcType=VARCHAR},
-      </if>
-      <if test="businessHours != null" >
-        #{businessHours,jdbcType=VARCHAR},
-      </if>
-      <if test="addressCode != null" >
-        #{addressCode,jdbcType=VARCHAR},
-      </if>
-      <if test="sort != null" >
-        #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="isDelete != null" >
-        #{isDelete,jdbcType=SMALLINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.phonecard.bean.AddressSelf" >
-    update address_self
-    <set >
-      <if test="cityId != null" >
-        city_id = #{cityId,jdbcType=INTEGER},
-      </if>
-      <if test="airport != null" >
-        airport = #{airport,jdbcType=VARCHAR},
-      </if>
-      <if test="detail != null" >
-        detail = #{detail,jdbcType=VARCHAR},
-      </if>
-      <if test="businessHours != null" >
-        business_hours = #{businessHours,jdbcType=VARCHAR},
-      </if>
-      <if test="addressCode != null" >
-        address_code = #{addressCode,jdbcType=VARCHAR},
-      </if>
-      <if test="sort != null" >
-        sort = #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="isDelete != null" >
-        is_delete = #{isDelete,jdbcType=SMALLINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.phonecard.bean.AddressSelf" >
+    <insert id="insertSelective" parameterType="com.phonecard.bean.AddressSelf">
+        insert into address_self
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="cityId != null">
+                city_id,
+            </if>
+            <if test="airport != null">
+                airport,
+            </if>
+            <if test="detail != null">
+                detail,
+            </if>
+            <if test="businessHours != null">
+                business_hours,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="cityId != null">
+                #{cityId,jdbcType=INTEGER},
+            </if>
+            <if test="airport != null">
+                #{airport,jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null">
+                #{detail,jdbcType=VARCHAR},
+            </if>
+            <if test="businessHours != null">
+                #{businessHours,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=SMALLINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.phonecard.bean.AddressSelf">
+        update address_self
+        <set>
+            <if test="cityId != null">
+                city_id = #{cityId,jdbcType=INTEGER},
+            </if>
+            <if test="airport != null">
+                airport = #{airport,jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null">
+                detail = #{detail,jdbcType=VARCHAR},
+            </if>
+            <if test="businessHours != null">
+                business_hours = #{businessHours,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=SMALLINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.phonecard.bean.AddressSelf">
     update address_self
     set city_id = #{cityId,jdbcType=INTEGER},
       airport = #{airport,jdbcType=VARCHAR},
       detail = #{detail,jdbcType=VARCHAR},
       business_hours = #{businessHours,jdbcType=VARCHAR},
-      address_code = #{addressCode,jdbcType=VARCHAR},
       sort = #{sort,jdbcType=INTEGER},
       is_delete = #{isDelete,jdbcType=SMALLINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+    <select id="getCountAddressSum" resultType="java.lang.Integer">
+    select
+    count(1)
+    from address_self
+    where is_delete = 0
+  </select>
+
+    <select id="checkAirportIsExist" parameterType="com.phonecard.bean.AddressSelf" resultType="java.lang.Integer">
+    select
+    count(*)
+    from address_self
+    where airport = #{airport,jdbcType=VARCHAR}
+  </select>
+
+    <select id="getAddressList" resultType="map">
+    select
+    ads.id, cc.city_name, ads.airport, ads.detail, ads.business_hours, ads.sort
+    from address_self ads left join city cc on ads.city_id = cc.id
+    order by ads.sort desc
+    limit #{pageObject.startIndex},#{pageObject.pageSize}
+  </select>
+
 </mapper>

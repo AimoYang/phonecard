@@ -23,6 +23,26 @@
     from comment
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="findAllComment" resultType="com.phonecard.bean.Comment">
+      select * from comment
+    </select>
+  <select id="getCommentList" resultType="map">
+    SELECT c.id,c.`create_time`,c.`content`,c.`pictures`,g.`goods_name`,os.`one_sort_name`,ub.`nick_name`,ub.`icon` FROM `comment` c
+    LEFT JOIN user_base ub ON c.`open_id` = ub.`open_id`
+    LEFT JOIN goods g ON c.`goods_uuid` = g.`uuid`
+    LEFT JOIN one_sort os ON g.`one_sort_id` = os.`id`
+    WHERE 1 = 1
+    <if test="nickname != null" >
+      and  ub.`nick_name` = #{nickname}
+    </if>
+    and  c.`is_delete` = 0
+  </select>
+  <select id="getCountCommentSum" resultType="java.lang.Integer">
+     select
+    count(1)
+    from `comment`
+    where is_delete = 0
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from comment
     where id = #{id,jdbcType=INTEGER}
