@@ -9,9 +9,39 @@
     <result column="company_create_time" property="companyCreateTime" jdbcType="TIMESTAMP" />
     <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
   </resultMap>
+  <resultMap id="CompanyResultMap" type="com.phonecard.vo.CompanyVo" extends="BaseResultMap">
+    <result column="leader_num" property="leaderNum" jdbcType="INTEGER" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, company_account, company_password, company_name, company_create_time, is_delete
   </sql>
+
+  <select id="findCompanyAll" resultMap="CompanyResultMap" >
+    select
+    c.id, c.company_account, c.company_password, c.company_name, c.company_create_time ,
+    (select count(1) from company_bind as b where b.is_delete = 0 and b.company_id = c.id) leader_num
+    from company as c
+    where c.is_delete = 0
+    order by c.id desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getCompanyAllRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from company
+    where is_delete = 0
+  </select>
+
+  <update id="deleteCompany" >
+    update company
+    set
+      is_delete = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -24,6 +24,11 @@
   <resultMap id="ResultMapWithBLOBs" type="com.phonecard.bean.Goods" extends="BaseResultMap" >
     <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="AdsResultMap" type="com.phonecard.vo.GoodsVo" extends="BaseResultMap" >
+    <result column="properties" property="properties" jdbcType="VARCHAR" />
+    <result column="old_price" property="oldPrice" jdbcType="DOUBLE" />
+    <result column="new_price" property="newPrice" jdbcType="DOUBLE" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, uuid, goods_name, one_sort_id, show_count, thumb, pictures, goods_create_time, 
     goods_update_time, is_shelf, pick_up, goods_type, sort, details, is_hot, is_new, 
@@ -32,6 +37,85 @@
   <sql id="Blob_Column_List" >
     introduction
   </sql>
+
+  <select id="selectAdsList" resultMap="AdsResultMap" >
+    select
+    g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf
+    from re_advertisement_goods as r
+    left join goods as g on r.goods_uuid = g.uuid
+    where g.is_delete = 0 and r.advertisement_id = #{pageObject.id}
+    order by r.id desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getAdsGoodsRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from re_advertisement_goods as r
+    left join goods as g on r.goods_uuid = g.uuid
+    where g.is_delete = 0 and r.advertisement_id = #{pageObject.id}
+  </select>
+
+  <select id="selectAdsLinKList" resultMap="AdsResultMap" >
+    select
+    g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf
+    from goods as g
+    where g.is_delete = 0 and
+    (SELECT COUNT(1) as num FROM re_advertisement_goods as r WHERE r.goods_uuid = g.uuid) = 0
+    order by g.id desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getGoodsNoLinkRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from goods as g
+    where g.is_delete = 0 and
+    (SELECT COUNT(1) as num FROM re_advertisement_goods as r WHERE r.goods_uuid = g.uuid) = 0
+  </select>
+
+  <select id="selectFloorList" resultMap="ResultMapWithBLOBs" >
+    select
+    g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf
+    from floor_bind as f
+    left join goods as g on f.goods_uuid = g.uuid
+    where g.is_delete = 0 and f.floor_id = #{pageObject.id}
+    order by f.id desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getFloorRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from floor_bind as f
+    left join goods as g on f.goods_uuid = g.uuid
+    where g.is_delete = 0 and f.floor_id = #{pageObject.id}
+  </select>
+
+  <select id="selectFloorLinkList" resultMap="ResultMapWithBLOBs" >
+    select
+    g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf
+    from goods as g
+    where g.is_delete = 0 and
+    (SELECT COUNT(1) as num FROM floor_bind as f WHERE f.goods_uuid = g.uuid) = 0
+    order by g.id desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getFloorLinkRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from goods as g
+    where g.is_delete = 0 and
+    (SELECT COUNT(1) as num FROM floor_bind as f WHERE f.goods_uuid = g.uuid) = 0
+  </select>
+
+
+
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

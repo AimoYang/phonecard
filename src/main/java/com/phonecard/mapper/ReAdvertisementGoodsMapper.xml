@@ -9,6 +9,14 @@
   <sql id="Base_Column_List" >
     id, advertisement_id, goods_uuid
   </sql>
+
+  <select id="selectByAdsAndGoods" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from re_advertisement_goods
+    where advertisement_id = #{adsId} and goods_uuid =#{goodsUuid}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -2,17 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.phonecard.dao.FloorMapper" >
   <resultMap id="BaseResultMap" type="com.phonecard.bean.Floor" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="floor_img" property="floorImg" jdbcType="VARCHAR" />
-    <result column="floor_title" property="floorTitle" jdbcType="VARCHAR" />
-    <result column="sort" property="sort" jdbcType="INTEGER" />
-    <result column="is_index" property="isIndex" jdbcType="SMALLINT" />
-    <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  <id column="id" property="id" jdbcType="INTEGER" />
+  <result column="floor_img" property="floorImg" jdbcType="VARCHAR" />
+  <result column="floor_title" property="floorTitle" jdbcType="VARCHAR" />
+  <result column="sort" property="sort" jdbcType="INTEGER" />
+  <result column="is_index" property="isIndex" jdbcType="SMALLINT" />
+  <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
+  <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+</resultMap>
+  <resultMap id="FloorResultMap" type="com.phonecard.vo.FloorVo" extends="BaseResultMap">
+    <result column="goodsSum" property="goodsSum" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, floor_img, floor_title, sort, is_index, is_delete, create_time
   </sql>
+
+  <select id="selectFloorDetail" resultMap="FloorResultMap" parameterType="java.lang.Integer" >
+    select
+    f.id, f.floor_img, f.floor_title, f.sort, f.is_index
+    from floor as f
+    where f.id = #{id}
+  </select>
+
+  <select id="selectList" resultMap="FloorResultMap" >
+    select
+    f.id, f.floor_img, f.floor_title, f.sort, f.is_index,(select count(1) from floor_bind as b where b.floor_id = f.id ) goodsSum
+    from floor as f
+    where f.is_delete = 0
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and f.floor_title LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    order by f.sort
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getFloorListRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from floor
+    where is_delete = 0
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and floor_title LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+  </select>
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

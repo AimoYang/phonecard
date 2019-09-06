@@ -25,11 +25,14 @@
     <result column="distribution_type" property="distributionType" jdbcType="SMALLINT" />
     <result column="is_comment" property="isComment" jdbcType="SMALLINT" />
     <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status_prefix" property="statusPrefix" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, uuid, product_order_uuid, one_sort_id, goods_uuid, is_one, properties, sku_id, 
     price, quantity, amount, start_time, end_time, status, deposit, commission, thumb, 
-    product_name, name_self, phone_self, distribution_type, is_comment, address
+    product_name, name_self, phone_self, distribution_type, is_comment, address, remark, 
+    status_prefix
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -49,7 +52,8 @@
       end_time, status, deposit, 
       commission, thumb, product_name, 
       name_self, phone_self, distribution_type, 
-      is_comment, address)
+      is_comment, address, remark, 
+      status_prefix)
     values (#{id,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{productOrderUuid,jdbcType=VARCHAR}, 
       #{oneSortId,jdbcType=INTEGER}, #{goodsUuid,jdbcType=VARCHAR}, #{isOne,jdbcType=INTEGER}, 
       #{properties,jdbcType=VARCHAR}, #{skuId,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
@@ -57,7 +61,8 @@
       #{endTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{deposit,jdbcType=DOUBLE}, 
       #{commission,jdbcType=DOUBLE}, #{thumb,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
       #{nameSelf,jdbcType=VARCHAR}, #{phoneSelf,jdbcType=CHAR}, #{distributionType,jdbcType=SMALLINT}, 
-      #{isComment,jdbcType=SMALLINT}, #{address,jdbcType=VARCHAR})
+      #{isComment,jdbcType=SMALLINT}, #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{statusPrefix,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.phonecard.bean.ProductOrderDetail" >
     insert into product_order_detail
@@ -131,6 +136,12 @@
       <if test="address != null" >
         address,
       </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="statusPrefix != null" >
+        status_prefix,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -201,6 +212,12 @@
       </if>
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="statusPrefix != null" >
+        #{statusPrefix,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -273,6 +290,12 @@
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="statusPrefix != null" >
+        status_prefix = #{statusPrefix,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -299,7 +322,9 @@
       phone_self = #{phoneSelf,jdbcType=CHAR},
       distribution_type = #{distributionType,jdbcType=SMALLINT},
       is_comment = #{isComment,jdbcType=SMALLINT},
-      address = #{address,jdbcType=VARCHAR}
+      address = #{address,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      status_prefix = #{statusPrefix,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,7 +1,9 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.ProductOrderDetail;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface ProductOrderDetailMapper {
     int deleteByPrimaryKey(Integer id);
 

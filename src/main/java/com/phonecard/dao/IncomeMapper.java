@@ -1,7 +1,9 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.Income;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface IncomeMapper {
     int deleteByPrimaryKey(Integer id);
 

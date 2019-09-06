@@ -1,7 +1,9 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.Address;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface AddressMapper {
     int deleteByPrimaryKey(Integer id);
 

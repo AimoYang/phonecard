@@ -1,7 +1,9 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.CashOut;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface CashOutMapper {
     int deleteByPrimaryKey(Integer id);
 

@@ -19,10 +19,10 @@ import java.net.URLEncoder;
 @Slf4j
 public class QiniuyunUtils {
 
-    private static String ACCESS_KEY = "-OLnW71ijZk1nXJ-X4pYD0_0HPkGjf-lsY6EsP93";
-    private static String SECRET_KEY = "7zx88N46-MgAYCJtbnITZ2JBiXM_w1Ybc5sYZJnJ";
+    private static String ACCESS_KEY = "FB0T2bbZ2nbNVOnYiqgibCZFL0KEFqXk27uC3zTz";
+    private static String SECRET_KEY = "isIyGRR_rGiRS-1qocGK8oFVXpGTvuAGVgUe5zwZ";
     private static String BUCKET_NAME = "file";
-    public static String DOMAIN_OF_BUCKET = "http://file.houtianfu.com/";
+    public static String DOMAIN_OF_BUCKET = "http://pwzh681n0.bkt.clouddn.com/";
 
     /**
      * 根据文件相对路径获取绝对路径
@@ -47,7 +47,7 @@ public class QiniuyunUtils {
          * 华南	Zone.zone2()
          * 北美	Zone.zoneNa0()
          */
-        Configuration c = new Configuration(Zone.zone0());
+        Configuration c = new Configuration(Zone.zone2());
         // 创建上传对象
         UploadManager uploadManager = new UploadManager(c);
         // 密钥配置

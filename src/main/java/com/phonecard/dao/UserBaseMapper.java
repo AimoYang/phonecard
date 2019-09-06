@@ -1,7 +1,9 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.UserBase;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface UserBaseMapper {
     int deleteByPrimaryKey(Integer id);
 

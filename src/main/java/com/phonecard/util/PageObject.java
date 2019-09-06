@@ -65,7 +65,17 @@ public class PageObject implements Serializable {
 		this.title = title;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	private Date endTime;
+
+	private Integer id;
 	
 	private String name;
 	

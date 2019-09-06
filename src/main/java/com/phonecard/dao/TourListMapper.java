@@ -1,7 +1,9 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.TourList;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface TourListMapper {
     int deleteByPrimaryKey(Integer id);
 

@@ -49,6 +49,18 @@ public class ProductOrderDetail {
 
     private String address;
 
+    private String remark;
+
+    private Integer statusPrefix;
+
+    public Integer getStatusPrefix() {
+        return statusPrefix;
+    }
+
+    public void setStatusPrefix(Integer statusPrefix) {
+        this.statusPrefix = statusPrefix;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -231,5 +243,13 @@ public class ProductOrderDetail {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

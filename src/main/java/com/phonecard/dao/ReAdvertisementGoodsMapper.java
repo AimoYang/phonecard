@@ -1,7 +1,10 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.ReAdvertisementGoods;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface ReAdvertisementGoodsMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +17,6 @@ public interface ReAdvertisementGoodsMapper {
     int updateByPrimaryKeySelective(ReAdvertisementGoods record);
 
     int updateByPrimaryKey(ReAdvertisementGoods record);
+
+    ReAdvertisementGoods selectByAdsAndGoods(@Param("adsId") Integer adsId, @Param("goodsUuid") String goodsUuid);
 }

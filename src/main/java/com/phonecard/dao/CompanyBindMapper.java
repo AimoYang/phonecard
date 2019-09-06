@@ -1,7 +1,9 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.CompanyBind;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface CompanyBindMapper {
     int deleteByPrimaryKey(Integer id);
 

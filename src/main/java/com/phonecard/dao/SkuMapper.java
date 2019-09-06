@@ -1,7 +1,9 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.Sku;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface SkuMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface SkuMapper {
     int updateByPrimaryKeySelective(Sku record);
 
     int updateByPrimaryKey(Sku record);
+
+    Sku selectMinSkuByGoods(String uuid);
 }

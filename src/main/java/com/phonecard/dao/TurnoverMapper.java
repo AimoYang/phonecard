@@ -1,7 +1,9 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.Turnover;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface TurnoverMapper {
     int deleteByPrimaryKey(Integer id);
 
