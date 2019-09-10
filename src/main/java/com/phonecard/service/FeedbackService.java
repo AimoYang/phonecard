@@ -27,7 +27,6 @@ public class FeedbackService {
     }
 
     public boolean handleFeedback(Integer id) {
-
         Feedback feedback = feedbackMapper.selectByPrimaryKey(id);
         if (feedback != null) {
             feedback.setFeedType((short) 1);
@@ -49,5 +48,21 @@ public class FeedbackService {
         } else {
             return null;
         }
+    }
+
+    public boolean feedbackDelete(int id) {
+        Feedback feedback = feedbackMapper.selectByPrimaryKey(id);
+        if (feedback != null){
+            feedback.setIsDelete((short) 1);
+            int row = feedbackMapper.updateByPrimaryKey(feedback);
+            if (row > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
     }
 }

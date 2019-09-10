@@ -86,4 +86,26 @@ public class FeedbackController {
         return r;
     }
 
+    @ApiOperation(value = "意见反馈", notes = "意见反馈查看")
+    @RequestMapping(value = "/feedbackDelete", method = RequestMethod.POST)
+    public JsonResult feedbackDelete(Integer id) {
+        JsonResult r = new JsonResult();
+        try {
+            boolean result = feedbackService.feedbackDelete(id);
+            if (result) {
+                r.setData("删除成功");
+                r.setResult(StatusCode.SUCCESS);
+                r.setMsg("OK");
+            } else {
+                r.setMsg("删除失败");
+                r.setResult(StatusCode.FAIL);
+            }
+        } catch (Exception e) {
+            r.setMsg(e.getClass().getName() + ":" + e.getMessage());
+            r.setResult(StatusCode.FAIL);
+            e.printStackTrace();
+        }
+        return r;
+    }
+
 }
