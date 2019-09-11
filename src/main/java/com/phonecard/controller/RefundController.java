@@ -26,14 +26,13 @@ import java.util.List;
  */
 @Api(tags = {"退款管理"})
 @RestController
-@RequestMapping(value = "refund")
 public class RefundController {
 
     @Autowired
     private RefundService refundService;
 
     @ApiOperation(value = "下载" , notes = "数据")
-    @RequestMapping(value = "/excelDownload", method = RequestMethod.GET)
+    @RequestMapping(value = "export/excelDownload", method = RequestMethod.GET)
     public void excelDownload(HttpServletResponse response, String orderNo, Integer fetchType, String leaderNickName, String startTime, String endTime) throws IOException {
         try{
             PageObject pageObject = new PageObject();
