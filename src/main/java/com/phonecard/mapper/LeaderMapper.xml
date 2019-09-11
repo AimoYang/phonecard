@@ -19,11 +19,13 @@
     <result column="is_code" property="isCode" jdbcType="VARCHAR" />
     <result column="in_type" property="inType" jdbcType="SMALLINT" />
     <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
+    <result column="is_introduce" property="isIntroduce" jdbcType="SMALLINT" />
+    <result column="is_disable" property="isDisable" jdbcType="SMALLINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, open_id, leader_wechat, leader_name, leader_phone, leader_ID, leader_company_name, 
     leader_post, leader_address, company_id, explains, leader_balance, introduce_name, 
-    introduce_phone, is_code, in_type, is_delete
+    introduce_phone, is_code, in_type, is_delete, is_introduce, is_disable
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -41,13 +43,15 @@
       leader_company_name, leader_post, leader_address, 
       company_id, explains, leader_balance, 
       introduce_name, introduce_phone, is_code, 
-      in_type, is_delete)
+      in_type, is_delete, is_introduce, 
+      is_disable)
     values (#{id,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{leaderWechat,jdbcType=VARCHAR}, 
       #{leaderName,jdbcType=VARCHAR}, #{leaderPhone,jdbcType=CHAR}, #{leaderId,jdbcType=VARCHAR}, 
       #{leaderCompanyName,jdbcType=VARCHAR}, #{leaderPost,jdbcType=VARCHAR}, #{leaderAddress,jdbcType=VARCHAR}, 
       #{companyId,jdbcType=INTEGER}, #{explains,jdbcType=VARCHAR}, #{leaderBalance,jdbcType=DOUBLE}, 
       #{introduceName,jdbcType=VARCHAR}, #{introducePhone,jdbcType=CHAR}, #{isCode,jdbcType=VARCHAR}, 
-      #{inType,jdbcType=SMALLINT}, #{isDelete,jdbcType=SMALLINT})
+      #{inType,jdbcType=SMALLINT}, #{isDelete,jdbcType=SMALLINT}, #{isIntroduce,jdbcType=SMALLINT}, 
+      #{isDisable,jdbcType=SMALLINT})
   </insert>
   <insert id="insertSelective" parameterType="com.phonecard.bean.Leader" >
     insert into leader
@@ -103,6 +107,12 @@
       <if test="isDelete != null" >
         is_delete,
       </if>
+      <if test="isIntroduce != null" >
+        is_introduce,
+      </if>
+      <if test="isDisable != null" >
+        is_disable,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -155,6 +165,12 @@
       </if>
       <if test="isDelete != null" >
         #{isDelete,jdbcType=SMALLINT},
+      </if>
+      <if test="isIntroduce != null" >
+        #{isIntroduce,jdbcType=SMALLINT},
+      </if>
+      <if test="isDisable != null" >
+        #{isDisable,jdbcType=SMALLINT},
       </if>
     </trim>
   </insert>
@@ -209,6 +225,12 @@
       <if test="isDelete != null" >
         is_delete = #{isDelete,jdbcType=SMALLINT},
       </if>
+      <if test="isIntroduce != null" >
+        is_introduce = #{isIntroduce,jdbcType=SMALLINT},
+      </if>
+      <if test="isDisable != null" >
+        is_disable = #{isDisable,jdbcType=SMALLINT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -229,7 +251,9 @@
       introduce_phone = #{introducePhone,jdbcType=CHAR},
       is_code = #{isCode,jdbcType=VARCHAR},
       in_type = #{inType,jdbcType=SMALLINT},
-      is_delete = #{isDelete,jdbcType=SMALLINT}
+      is_delete = #{isDelete,jdbcType=SMALLINT},
+      is_introduce = #{isIntroduce,jdbcType=SMALLINT},
+      is_disable = #{isDisable,jdbcType=SMALLINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

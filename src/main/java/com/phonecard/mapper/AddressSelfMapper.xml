@@ -134,7 +134,7 @@
     where airport = #{airport,jdbcType=VARCHAR}
   </select>
 
-    <select id="getAddressList" resultType="map">
+    <select id="getAddressList" resultType="com.phonecard.bean.AddressSelf">
     select
     ads.id, cc.city_name, ads.airport, ads.detail, ads.business_hours, ads.sort
     from address_self ads left join city cc on ads.city_id = cc.id

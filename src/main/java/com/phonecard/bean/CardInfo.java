@@ -31,6 +31,8 @@ public class CardInfo {
 
     private Short haveCall;
 
+    private Integer deviceStock;
+
     public Integer getId() {
         return id;
     }
@@ -149,5 +151,13 @@ public class CardInfo {
 
     public void setHaveCall(Short haveCall) {
         this.haveCall = haveCall;
+    }
+
+    public Integer getDeviceStock() {
+        return deviceStock;
+    }
+
+    public void setDeviceStock(Integer deviceStock) {
+        this.deviceStock = deviceStock;
     }
 }

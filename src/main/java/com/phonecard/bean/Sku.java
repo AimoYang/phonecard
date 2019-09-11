@@ -1,26 +1,28 @@
 package com.phonecard.bean;
 
+import javax.validation.constraints.NotNull;
+
 public class Sku {
     private Integer id;
 
     private String goodsUuid;
-
+    @NotNull
     private Integer stock;
-
+    @NotNull
     private Double commission;
 
     private String isCode;
-
+    @NotNull
     private Double deposit;
-
+    @NotNull
     private String properties;
-
+    @NotNull
     private Double oldPrice;
-
+    @NotNull
     private Double newPrice;
 
     private Short isDelete;
-
+    @NotNull
     private Short pickUp;
 
     public Integer getId() {

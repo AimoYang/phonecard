@@ -53,13 +53,9 @@ public class ProductOrderDetail {
 
     private Integer statusPrefix;
 
-    public Integer getStatusPrefix() {
-        return statusPrefix;
-    }
+    private Integer selfAddressId;
 
-    public void setStatusPrefix(Integer statusPrefix) {
-        this.statusPrefix = statusPrefix;
-    }
+    private Double actualPrice;
 
     public Integer getId() {
         return id;
@@ -251,5 +247,29 @@ public class ProductOrderDetail {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public Integer getStatusPrefix() {
+        return statusPrefix;
+    }
+
+    public void setStatusPrefix(Integer statusPrefix) {
+        this.statusPrefix = statusPrefix;
+    }
+
+    public Integer getSelfAddressId() {
+        return selfAddressId;
+    }
+
+    public void setSelfAddressId(Integer selfAddressId) {
+        this.selfAddressId = selfAddressId;
+    }
+
+    public Double getActualPrice() {
+        return actualPrice;
+    }
+
+    public void setActualPrice(Double actualPrice) {
+        this.actualPrice = actualPrice;
     }
 }

@@ -25,6 +25,20 @@
     order_status, order_status_prefix, pay_record_uuid, trade_successful_time, pay_type, 
     remark, is_print, is_affirm, today_on
   </sql>
+
+  <select id="selectProductOrderuuid" resultMap="BaseResultMap" >
+    select
+    p.id, p.uuid, p.create_time, p.is_delete, p.open_id, p.one_open_id, p.order_price, p.actual_price,
+    p.order_status, p.order_status_prefix, p.pay_record_uuid, p.trade_successful_time, p.pay_type,
+    p.remark, p.is_print, p.is_affirm, p.today_on
+    from product_order as p
+    left join product_order_detail as d on p.uuid = d.product_order_uuid
+    where d.uuid = #{orderUuid}
+  </select>
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

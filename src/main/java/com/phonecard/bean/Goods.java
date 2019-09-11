@@ -1,20 +1,22 @@
 package com.phonecard.bean;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 public class Goods {
     private Integer id;
 
     private String uuid;
-
+    @NotNull
     private String goodsName;
-
+    @NotNull
     private Integer oneSortId;
 
     private Integer showCount;
-
+    @NotNull
     private String thumb;
-
+    @NotNull
     private String pictures;
 
     private Date goodsCreateTime;
@@ -24,7 +26,7 @@ public class Goods {
     private Short isShelf;
 
     private Short pickUp;
-
+    @NotNull
     private Short goodsType;
 
     private Integer sort;
@@ -36,10 +38,40 @@ public class Goods {
     private Short isNew;
 
     private Short isDelete;
-
+    @NotNull
     private Double deposit;
 
     private String introduction;
+    @NotNull
+    private List<Sku> skus;
+
+    private CardInfo cardInfo;
+
+    private Integer state;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public List<Sku> getSkus() {
+        return skus;
+    }
+
+    public void setSkus(List<Sku> skus) {
+        this.skus = skus;
+    }
+
+    public CardInfo getCardInfo() {
+        return cardInfo;
+    }
+
+    public void setCardInfo(CardInfo cardInfo) {
+        this.cardInfo = cardInfo;
+    }
 
     public Integer getId() {
         return id;
@@ -191,5 +223,33 @@ public class Goods {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction == null ? null : introduction.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "id=" + id +
+                ", uuid='" + uuid + '\'' +
+                ", goodsName='" + goodsName + '\'' +
+                ", oneSortId=" + oneSortId +
+                ", showCount=" + showCount +
+                ", thumb='" + thumb + '\'' +
+                ", pictures='" + pictures + '\'' +
+                ", goodsCreateTime=" + goodsCreateTime +
+                ", goodsUpdateTime=" + goodsUpdateTime +
+                ", isShelf=" + isShelf +
+                ", pickUp=" + pickUp +
+                ", goodsType=" + goodsType +
+                ", sort=" + sort +
+                ", details='" + details + '\'' +
+                ", isHot=" + isHot +
+                ", isNew=" + isNew +
+                ", isDelete=" + isDelete +
+                ", deposit=" + deposit +
+                ", introduction='" + introduction + '\'' +
+                ", skus=" + skus +
+                ", cardInfo=" + cardInfo +
+                ", state=" + state +
+                '}';
     }
 }

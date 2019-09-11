@@ -58,23 +58,39 @@
 
   <select id="selectAdsLinKList" resultMap="AdsResultMap" >
     select
-    g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf
+    g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf, (SELECT COUNT(1) as num FROM re_advertisement_goods as r WHERE r.goods_uuid = g.uuid and r.advertisement_id = #{pageObject.id}) state
     from goods as g
-    where g.is_delete = 0 and
-    (SELECT COUNT(1) as num FROM re_advertisement_goods as r WHERE r.goods_uuid = g.uuid) = 0
-    order by g.id desc
+    where g.is_delete = 0
+    <if test="pageObject.type != null and pageObject.type != ''">
+      and g.goods_type = #{pageObject.type}
+    </if>
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and g.goods_name = #{pageObject.title}
+    </if>
+    <if test="pageObject.sortId != null and pageObject.sortId != ''">
+      and g.one_sort_id = #{pageObject.sortId}
+    </if>
+    order by state ,g.id desc
     limit #{pageObject.startIndex}, #{pageObject.pageSize}
   </select>
 
   <select id="getGoodsNoLinkRow" resultType="java.lang.Integer" >
     select
     count(1)
-    from goods as g
-    where g.is_delete = 0 and
-    (SELECT COUNT(1) as num FROM re_advertisement_goods as r WHERE r.goods_uuid = g.uuid) = 0
+    from goods
+    where is_delete = 0
+    <if test="pageObject.type != null and pageObject.type != ''">
+      and goods_type = #{pageObject.type}
+    </if>
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and goods_name = #{pageObject.title}
+    </if>
+    <if test="pageObject.sortId != null and pageObject.sortId != ''">
+      and one_sort_id = #{pageObject.sortId}
+    </if>
   </select>
 
-  <select id="selectFloorList" resultMap="ResultMapWithBLOBs" >
+  <select id="selectFloorList" resultMap="AdsResultMap" >
     select
     g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf
     from floor_bind as f
@@ -92,22 +108,80 @@
     where g.is_delete = 0 and f.floor_id = #{pageObject.id}
   </select>
 
-  <select id="selectFloorLinkList" resultMap="ResultMapWithBLOBs" >
+  <select id="selectFloorLinkList" resultMap="AdsResultMap" >
     select
-    g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf
+    g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf ,(SELECT COUNT(1) as num FROM floor_bind as f WHERE f.goods_uuid = g.uuid and f.floor_id = #{pageObject.id}) state
     from goods as g
-    where g.is_delete = 0 and
-    (SELECT COUNT(1) as num FROM floor_bind as f WHERE f.goods_uuid = g.uuid) = 0
-    order by g.id desc
+    where g.is_delete = 0
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and g.goods_name = #{pageObject.title}
+    </if>
+    <if test="pageObject.sortId != null and pageObject.sortId != ''">
+      and g.one_sort_id = #{pageObject.sortId}
+    </if>
+    order by state desc,g.id desc
     limit #{pageObject.startIndex}, #{pageObject.pageSize}
   </select>
 
   <select id="getFloorLinkRow" resultType="java.lang.Integer" >
     select
     count(1)
-    from goods as g
-    where g.is_delete = 0 and
-    (SELECT COUNT(1) as num FROM floor_bind as f WHERE f.goods_uuid = g.uuid) = 0
+    from goods
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and goods_name = #{pageObject.title}
+    </if>
+    <if test="pageObject.sortId != null and pageObject.sortId != ''">
+      and one_sort_id = #{pageObject.sortId}
+    </if>
+  </select>
+
+  <select id="selectGoodsDetail" resultMap="ResultMapWithBLOBs" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    where id = #{id,jdbcType=INTEGER} and is_delete = 0
+  </select>
+
+  <select id="selectGoodsList" resultMap="AdsResultMap" >
+    select
+    id, uuid, goods_name, one_sort_id, show_count, thumb, sort, is_shelf ,is_new ,is_hot
+    from goods
+    where is_delete = 0
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and goods_name LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.id != null and pageObject.id != ''">
+      and one_sort_id = #{pageObject.id}
+    </if>
+    <if test="pageObject.type == 1">
+      and is_new = 1
+    </if>
+    <if test="pageObject.type == 2">
+      and is_hot = 1
+    </if>
+    order by sort , is_shelf desc , goods_create_time desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getGoodsListRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from goods
+    where is_delete = 0
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and goods_name LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.id != null and pageObject.id != ''">
+      and one_sort_id = #{pageObject.id}
+    </if>
+    <if test="pageObject.type == 1">
+      and is_new = 1
+    </if>
+    <if test="pageObject.type == 2">
+      and is_hot = 1
+    </if>
   </select>
 
 

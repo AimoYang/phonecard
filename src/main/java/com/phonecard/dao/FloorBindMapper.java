@@ -2,6 +2,7 @@ package com.phonecard.dao;
 
 import com.phonecard.bean.FloorBind;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface FloorBindMapper {
@@ -17,5 +18,5 @@ public interface FloorBindMapper {
 
     int updateByPrimaryKey(FloorBind record);
 
-    FloorBind selectByFloorAndGoods(Integer floorId, String uuid);
+    FloorBind selectByFloorAndGoods(@Param("floorId") Integer floorId, @Param("uuid")String uuid);
 }

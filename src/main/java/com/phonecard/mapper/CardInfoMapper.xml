@@ -17,11 +17,23 @@
     <result column="card_size" property="cardSize" jdbcType="VARCHAR" />
     <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
     <result column="have_call" property="haveCall" jdbcType="SMALLINT" />
+    <result column="device_stock" property="deviceStock" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, goods_uuid, destination, supplier, self_city, start_explain, cost_explain, product_explain, 
-    reserve_notice, cancellation_policy, network, hotspot, card_size, is_delete, have_call
+    reserve_notice, cancellation_policy, network, hotspot, card_size, is_delete, have_call, 
+    device_stock
   </sql>
+  
+  
+  <select id="selectCardInfo" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from card_info
+    where goods_uuid = #{uuid} and is_delete = 0
+  </select>
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -37,14 +49,14 @@
       supplier, self_city, start_explain, 
       cost_explain, product_explain, reserve_notice, 
       cancellation_policy, network, hotspot, 
-      card_size, is_delete, have_call
-      )
+      card_size, is_delete, have_call, 
+      device_stock)
     values (#{id,jdbcType=INTEGER}, #{goodsUuid,jdbcType=VARCHAR}, #{destination,jdbcType=INTEGER}, 
       #{supplier,jdbcType=VARCHAR}, #{selfCity,jdbcType=VARCHAR}, #{startExplain,jdbcType=VARCHAR}, 
       #{costExplain,jdbcType=VARCHAR}, #{productExplain,jdbcType=VARCHAR}, #{reserveNotice,jdbcType=VARCHAR}, 
       #{cancellationPolicy,jdbcType=VARCHAR}, #{network,jdbcType=VARCHAR}, #{hotspot,jdbcType=SMALLINT}, 
-      #{cardSize,jdbcType=VARCHAR}, #{isDelete,jdbcType=SMALLINT}, #{haveCall,jdbcType=SMALLINT}
-      )
+      #{cardSize,jdbcType=VARCHAR}, #{isDelete,jdbcType=SMALLINT}, #{haveCall,jdbcType=SMALLINT}, 
+      #{deviceStock,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.phonecard.bean.CardInfo" >
     insert into card_info
@@ -94,6 +106,9 @@
       <if test="haveCall != null" >
         have_call,
       </if>
+      <if test="deviceStock != null" >
+        device_stock,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -140,6 +155,9 @@
       </if>
       <if test="haveCall != null" >
         #{haveCall,jdbcType=SMALLINT},
+      </if>
+      <if test="deviceStock != null" >
+        #{deviceStock,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -188,6 +206,9 @@
       <if test="haveCall != null" >
         have_call = #{haveCall,jdbcType=SMALLINT},
       </if>
+      <if test="deviceStock != null" >
+        device_stock = #{deviceStock,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -206,7 +227,8 @@
       hotspot = #{hotspot,jdbcType=SMALLINT},
       card_size = #{cardSize,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=SMALLINT},
-      have_call = #{haveCall,jdbcType=SMALLINT}
+      have_call = #{haveCall,jdbcType=SMALLINT},
+      device_stock = #{deviceStock,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

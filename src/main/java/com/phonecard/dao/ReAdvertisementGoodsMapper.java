@@ -4,6 +4,8 @@ import com.phonecard.bean.ReAdvertisementGoods;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface ReAdvertisementGoodsMapper {
     int deleteByPrimaryKey(Integer id);
@@ -19,4 +21,6 @@ public interface ReAdvertisementGoodsMapper {
     int updateByPrimaryKey(ReAdvertisementGoods record);
 
     ReAdvertisementGoods selectByAdsAndGoods(@Param("adsId") Integer adsId, @Param("goodsUuid") String goodsUuid);
+
+    List<ReAdvertisementGoods> selectByGoods(@Param("uuid") String uuid);
 }

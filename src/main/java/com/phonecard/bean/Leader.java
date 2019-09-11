@@ -35,6 +35,10 @@ public class Leader {
 
     private Short isDelete;
 
+    private Short isIntroduce;
+
+    private Short isDisable;
+
     public Integer getId() {
         return id;
     }
@@ -169,5 +173,21 @@ public class Leader {
 
     public void setIsDelete(Short isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public Short getIsIntroduce() {
+        return isIntroduce;
+    }
+
+    public void setIsIntroduce(Short isIntroduce) {
+        this.isIntroduce = isIntroduce;
+    }
+
+    public Short getIsDisable() {
+        return isDisable;
+    }
+
+    public void setIsDisable(Short isDisable) {
+        this.isDisable = isDisable;
     }
 }

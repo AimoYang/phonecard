@@ -10,6 +10,19 @@
   <sql id="Base_Column_List" >
     id, goods_uuid, sku_id, floor_id
   </sql>
+
+  <select id="selectByFloorAndGoods" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from floor_bind
+    where floor_id = #{floorId} and goods_uuid = #{uuid}
+  </select>
+
+
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

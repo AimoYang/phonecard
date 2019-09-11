@@ -2,6 +2,7 @@ package com.phonecard.dao;
 
 import com.phonecard.bean.RecordRefund;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface RecordRefundMapper {
@@ -16,4 +17,10 @@ public interface RecordRefundMapper {
     int updateByPrimaryKeySelective(RecordRefund record);
 
     int updateByPrimaryKey(RecordRefund record);
+
+    void updateRefuseCancel(@Param("orderUuid") String orderUuid);
+
+    RecordRefund selectByOrdersUuid(@Param("orderUuid") String orderUuid);
+
+    RecordRefund selectByOutRefundNo(@Param("outRefundNo") String outRefundNo);
 }

@@ -1,7 +1,12 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.Comment;
+import com.phonecard.util.PageObject;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+@Mapper
 public interface CommentMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +19,10 @@ public interface CommentMapper {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+    List<Comment> findAllComment();
+
+    List<Comment> getCommentList(@Param("pageObject") PageObject pageObject, @Param("nickname") String nickname);
+
+    int getCountCommentSum();
 }

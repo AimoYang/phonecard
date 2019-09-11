@@ -19,7 +19,7 @@ public class AdvertisementForm {
 
     private Short type;
 
-    private Integer isShow;
+    private Short isShow;
 
     private Short isDelete;
 }

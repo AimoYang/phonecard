@@ -28,7 +28,7 @@
     <if test="pageObject.title != null and pageObject.title != ''">
       and a.title LIKE CONCAT ('%',#{pageObject.title},'%')
     </if>
-    order by a.sort
+    order by a.sort , a.create_time desc
     limit #{pageObject.startIndex}, #{pageObject.pageSize}
   </select>
 
@@ -41,6 +41,7 @@
       and title LIKE CONCAT ('%',#{pageObject.title},'%')
     </if>
   </select>
+
 
 
 

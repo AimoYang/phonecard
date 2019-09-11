@@ -1,7 +1,11 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.Kefu;
+import com.phonecard.util.PageObject;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+@Mapper
 public interface KefuMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,8 @@ public interface KefuMapper {
     int updateByPrimaryKeySelective(Kefu record);
 
     int updateByPrimaryKey(Kefu record);
+
+    int getCountKefuSum();
+
+    List<Kefu> getKefuList(PageObject pageObject);
 }

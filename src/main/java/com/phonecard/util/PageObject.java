@@ -24,7 +24,15 @@ public class PageObject implements Serializable {
 	private int startIndex = 1;
 	
     private Date startTime;
-	
+
+	public Integer getSortId() {
+		return sortId;
+	}
+
+	public void setSortId(Integer sortId) {
+		this.sortId = sortId;
+	}
+
 	public Date getStartTime() {
 		return startTime;
 	}
@@ -82,6 +90,8 @@ public class PageObject implements Serializable {
 	private Short type;
 	
 	private String title;
+
+	private Integer sortId;
 	
 	public int getStartIndex(){
 		return (pageCurrent-1)*pageSize;

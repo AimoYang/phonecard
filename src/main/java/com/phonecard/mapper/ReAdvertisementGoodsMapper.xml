@@ -17,6 +17,18 @@
     where advertisement_id = #{adsId} and goods_uuid =#{goodsUuid}
   </select>
 
+  <select id="selectByGoods" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from re_advertisement_goods
+    where goods_uuid = #{uuid}
+  </select>
+
+
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -16,4 +16,6 @@ public interface IncomeMapper {
     int updateByPrimaryKeySelective(Income record);
 
     int updateByPrimaryKey(Income record);
+
+    void updateByOpenId(Income income);
 }

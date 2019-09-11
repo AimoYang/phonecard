@@ -10,10 +10,37 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="is_success" property="isSuccess" jdbcType="INTEGER" />
     <result column="is_deposit" property="isDeposit" jdbcType="SMALLINT" />
+    <result column="refund_sum" property="refundSum" jdbcType="INTEGER" />
+    <result column="refund_cause" property="refundCause" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, type, order_uuid, out_refund_no, refund_fee, create_time, is_success, is_deposit
+    id, type, order_uuid, out_refund_no, refund_fee, create_time, is_success, is_deposit, 
+    refund_sum, refund_cause
   </sql>
+
+  <select id="selectByOutRefundNo" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from record_refund
+    where out_refund_no = #{outRefundNo}
+  </select>
+
+  <select id="selectByOrdersUuid" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from record_refund
+    where order_uuid = #{orderUuid}
+  </select>
+
+  <update id="updateRefuseCancel" >
+    update record_refund
+    set
+      is_success = #{isSuccess,jdbcType=INTEGER}
+    where order_uuid = #{orderUuid}
+  </update>
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -27,10 +54,12 @@
   <insert id="insert" parameterType="com.phonecard.bean.RecordRefund" >
     insert into record_refund (id, type, order_uuid, 
       out_refund_no, refund_fee, create_time, 
-      is_success, is_deposit)
+      is_success, is_deposit, refund_sum, 
+      refund_cause)
     values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{orderUuid,jdbcType=VARCHAR}, 
       #{outRefundNo,jdbcType=VARCHAR}, #{refundFee,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{isSuccess,jdbcType=INTEGER}, #{isDeposit,jdbcType=SMALLINT})
+      #{isSuccess,jdbcType=INTEGER}, #{isDeposit,jdbcType=SMALLINT}, #{refundSum,jdbcType=INTEGER}, 
+      #{refundCause,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.phonecard.bean.RecordRefund" >
     insert into record_refund
@@ -59,6 +88,12 @@
       <if test="isDeposit != null" >
         is_deposit,
       </if>
+      <if test="refundSum != null" >
+        refund_sum,
+      </if>
+      <if test="refundCause != null" >
+        refund_cause,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -84,6 +119,12 @@
       </if>
       <if test="isDeposit != null" >
         #{isDeposit,jdbcType=SMALLINT},
+      </if>
+      <if test="refundSum != null" >
+        #{refundSum,jdbcType=INTEGER},
+      </if>
+      <if test="refundCause != null" >
+        #{refundCause,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -111,6 +152,12 @@
       <if test="isDeposit != null" >
         is_deposit = #{isDeposit,jdbcType=SMALLINT},
       </if>
+      <if test="refundSum != null" >
+        refund_sum = #{refundSum,jdbcType=INTEGER},
+      </if>
+      <if test="refundCause != null" >
+        refund_cause = #{refundCause,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -122,7 +169,9 @@
       refund_fee = #{refundFee,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       is_success = #{isSuccess,jdbcType=INTEGER},
-      is_deposit = #{isDeposit,jdbcType=SMALLINT}
+      is_deposit = #{isDeposit,jdbcType=SMALLINT},
+      refund_sum = #{refundSum,jdbcType=INTEGER},
+      refund_cause = #{refundCause,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

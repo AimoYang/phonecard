@@ -23,10 +23,24 @@
     <include refid="Base_Column_List" />
     from sku
     where is_delete = 0
-    and goods_uuid = #{goodsUuid}
+    and goods_uuid = #{uuid}
     order by new_price
     limit 1
   </select>
+
+  <select id="selectByGoodsUuid" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sku
+    where is_delete = 0
+    and goods_uuid = #{uuid}
+  </select>
+
+
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

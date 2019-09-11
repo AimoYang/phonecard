@@ -2,6 +2,9 @@ package com.phonecard.dao;
 
 import com.phonecard.bean.Sku;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface SkuMapper {
@@ -17,5 +20,7 @@ public interface SkuMapper {
 
     int updateByPrimaryKey(Sku record);
 
-    Sku selectMinSkuByGoods(String uuid);
+    Sku selectMinSkuByGoods(@Param("uuid") String uuid);
+
+    List<Sku> selectByGoodsUuid(@Param("uuid")String uuid);
 }

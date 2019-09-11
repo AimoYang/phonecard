@@ -19,6 +19,10 @@ public class RecordRefund {
 
     private Short isDeposit;
 
+    private Integer refundSum;
+
+    private String refundCause;
+
     public Integer getId() {
         return id;
     }
@@ -82,4 +86,21 @@ public class RecordRefund {
     public void setIsDeposit(Short isDeposit) {
         this.isDeposit = isDeposit;
     }
+
+    public Integer getRefundSum() {
+        return refundSum;
+    }
+
+    public void setRefundSum(Integer refundSum) {
+        this.refundSum = refundSum;
+    }
+
+    public String getRefundCause() {
+        return refundCause;
+    }
+
+    public void setRefundCause(String refundCause) {
+        this.refundCause = refundCause == null ? null : refundCause.trim();
+    }
+
 }

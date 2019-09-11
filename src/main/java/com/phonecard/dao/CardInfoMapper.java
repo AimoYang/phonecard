@@ -2,6 +2,7 @@ package com.phonecard.dao;
 
 import com.phonecard.bean.CardInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface CardInfoMapper {
@@ -16,4 +17,6 @@ public interface CardInfoMapper {
     int updateByPrimaryKeySelective(CardInfo record);
 
     int updateByPrimaryKey(CardInfo record);
+
+    CardInfo selectCardInfo(@Param("uuid") String uuid);
 }

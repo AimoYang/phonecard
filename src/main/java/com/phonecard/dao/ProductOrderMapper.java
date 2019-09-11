@@ -2,6 +2,7 @@ package com.phonecard.dao;
 
 import com.phonecard.bean.ProductOrder;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ProductOrderMapper {
@@ -16,4 +17,6 @@ public interface ProductOrderMapper {
     int updateByPrimaryKeySelective(ProductOrder record);
 
     int updateByPrimaryKey(ProductOrder record);
+
+    ProductOrder selectProductOrderuuid(@Param("orderUuid") String orderUuid);
 }

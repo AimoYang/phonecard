@@ -26,7 +26,7 @@
     <select id="findAllComment" resultType="com.phonecard.bean.Comment">
       select * from comment
     </select>
-  <select id="getCommentList" resultType="map">
+  <select id="getCommentList" resultType="com.phonecard.bean.Comment">
     SELECT c.id,c.`create_time`,c.`content`,c.`pictures`,g.`goods_name`,os.`one_sort_name`,ub.`nick_name`,ub.`icon` FROM `comment` c
     LEFT JOIN user_base ub ON c.`open_id` = ub.`open_id`
     LEFT JOIN goods g ON c.`goods_uuid` = g.`uuid`

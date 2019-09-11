@@ -27,13 +27,171 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="status_prefix" property="statusPrefix" jdbcType="INTEGER" />
+    <result column="self_address_id" property="selfAddressId" jdbcType="INTEGER" />
+    <result column="actual_price" property="actualPrice" jdbcType="DOUBLE" />
+  </resultMap>
+  <resultMap id="OrderVoResultMap" type="com.phonecard.vo.ProductOrderVo" extends="BaseResultMap">
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="leader_name" property="leaderName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="CancelVoResultMap" type="com.phonecard.vo.CancelOrdersDetailVo" extends="OrderVoResultMap">
   </resultMap>
   <sql id="Base_Column_List" >
     id, uuid, product_order_uuid, one_sort_id, goods_uuid, is_one, properties, sku_id, 
     price, quantity, amount, start_time, end_time, status, deposit, commission, thumb, 
     product_name, name_self, phone_self, distribution_type, is_comment, address, remark, 
-    status_prefix
+    status_prefix, self_address_id, actual_price
   </sql>
+
+  <select id="selectOrdersList" resultMap="OrderVoResultMap" >
+    select
+    d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
+    d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
+    d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name, p.create_time
+    from product_order_detail as d
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    left join user_base as u on u.open_id = p.open_id
+    where 0 = 0
+    <if test="pageObject.type != null and pageObject.type != ''">
+      and d.distribution_type = #{pageObject.type}
+    </if>
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.startTime != null">
+      and p.create_time &gt; #{page.startTime}
+    </if>
+    <if test="pageObject.endTime != null">
+      and p.create_time &lt; #{page.endTime}
+    </if>
+    order by p.create_time desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getOrdersListRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from product_order_detail as d
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    where 0 = 0
+    <if test="pageObject.type != null and pageObject.type != ''">
+      and d.distribution_type = #{pageObject.type}
+    </if>
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.startTime != null">
+      and p.create_time &gt; #{page.startTime}
+    </if>
+    <if test="pageObject.endTime != null">
+      and p.create_time &lt; #{page.endTime}
+    </if>
+  </select>
+
+  <select id="selectByOrderUuid" resultMap="OrderVoResultMap" >
+    select
+    d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
+    d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
+    d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name, p.create_time
+    from product_order_detail as d
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    left join user_base as u on u.open_id = p.open_id
+    where d.id = #{id}
+  </select>
+
+  <select id="selectCancelOrders" resultMap="CancelVoResultMap" >
+    select
+    d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
+    d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
+    d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name
+    from record_refund as r
+    left join product_order_detail as d on r.order_uuid = d.uuid
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    left join user_base as u on u.open_id = p.open_id
+    where 0 = 0
+    <if test="pageObject.type != null and pageObject.type != ''">
+      and d.distribution_type = #{pageObject.type}
+    </if>
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.startTime != null">
+      and r.create_time &gt; #{page.startTime}
+    </if>
+    <if test="pageObject.endTime != null">
+      and r.create_time &lt; #{page.endTime}
+    </if>
+    order by r.create_time desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getCancelOrdersRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from record_refund as r
+    left join product_order_detail as d on r.order_uuid = d.uuid
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    left join user_base as u on u.open_id = p.open_id
+    where 0 = 0
+    <if test="pageObject.type != null and pageObject.type != ''">
+      and d.distribution_type = #{pageObject.type}
+    </if>
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.startTime != null">
+      and r.create_time &gt; #{page.startTime}
+    </if>
+    <if test="pageObject.endTime != null">
+      and r.create_time &lt; #{page.endTime}
+    </if>
+  </select>
+
+  <select id="selectByUuid" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from product_order_detail
+    where uuid = #{orderUuid}
+  </select>
+
+  <select id="cancelOrdersDetailSelect" resultMap="CancelVoResultMap" >
+    select
+    d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
+    d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
+    d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name
+    from record_refund as r
+    left join product_order_detail as d on r.order_uuid = d.uuid
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    left join user_base as u on u.open_id = p.open_id
+    where r.order_uuid = #{orderUuid}
+  </select>
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -53,7 +211,8 @@
       commission, thumb, product_name, 
       name_self, phone_self, distribution_type, 
       is_comment, address, remark, 
-      status_prefix)
+      status_prefix, self_address_id, actual_price
+      )
     values (#{id,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{productOrderUuid,jdbcType=VARCHAR}, 
       #{oneSortId,jdbcType=INTEGER}, #{goodsUuid,jdbcType=VARCHAR}, #{isOne,jdbcType=INTEGER}, 
       #{properties,jdbcType=VARCHAR}, #{skuId,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
@@ -62,7 +221,8 @@
       #{commission,jdbcType=DOUBLE}, #{thumb,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
       #{nameSelf,jdbcType=VARCHAR}, #{phoneSelf,jdbcType=CHAR}, #{distributionType,jdbcType=SMALLINT}, 
       #{isComment,jdbcType=SMALLINT}, #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{statusPrefix,jdbcType=INTEGER})
+      #{statusPrefix,jdbcType=INTEGER}, #{selfAddressId,jdbcType=INTEGER}, #{actualPrice,jdbcType=DOUBLE}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.phonecard.bean.ProductOrderDetail" >
     insert into product_order_detail
@@ -142,6 +302,12 @@
       <if test="statusPrefix != null" >
         status_prefix,
       </if>
+      <if test="selfAddressId != null" >
+        self_address_id,
+      </if>
+      <if test="actualPrice != null" >
+        actual_price,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -218,6 +384,12 @@
       </if>
       <if test="statusPrefix != null" >
         #{statusPrefix,jdbcType=INTEGER},
+      </if>
+      <if test="selfAddressId != null" >
+        #{selfAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="actualPrice != null" >
+        #{actualPrice,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -296,6 +468,12 @@
       <if test="statusPrefix != null" >
         status_prefix = #{statusPrefix,jdbcType=INTEGER},
       </if>
+      <if test="selfAddressId != null" >
+        self_address_id = #{selfAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="actualPrice != null" >
+        actual_price = #{actualPrice,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -324,7 +502,9 @@
       is_comment = #{isComment,jdbcType=SMALLINT},
       address = #{address,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
-      status_prefix = #{statusPrefix,jdbcType=INTEGER}
+      status_prefix = #{statusPrefix,jdbcType=INTEGER},
+      self_address_id = #{selfAddressId,jdbcType=INTEGER},
+      actual_price = #{actualPrice,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

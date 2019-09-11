@@ -4,6 +4,7 @@ import com.phonecard.bean.Goods;
 import com.phonecard.util.PageObject;
 import com.phonecard.vo.GoodsVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,19 +24,25 @@ public interface GoodsMapper {
 
     int updateByPrimaryKey(Goods record);
 
-    Integer getAdsGoodsRow(PageObject pageObject);
+    Integer getAdsGoodsRow(@Param("pageObject") PageObject pageObject);
 
-    List<GoodsVo> selectAdsList(PageObject pageObject);
+    List<GoodsVo> selectAdsList(@Param("pageObject")PageObject pageObject);
 
-    Integer getGoodsNoLinkRow(PageObject pageObject);
+    Integer getGoodsNoLinkRow(@Param("pageObject")PageObject pageObject);
 
-    List<GoodsVo> selectAdsLinKList(PageObject pageObject);
+    List<GoodsVo> selectAdsLinKList(@Param("pageObject")PageObject pageObject);
 
-    Integer getFloorRow(PageObject pageObject);
+    Integer getFloorRow(@Param("pageObject")PageObject pageObject);
 
-    List<GoodsVo> selectFloorList(PageObject pageObject);
+    List<GoodsVo> selectFloorList(@Param("pageObject")PageObject pageObject);
 
-    Integer getFloorLinkRow(PageObject pageObject);
+    Integer getFloorLinkRow(@Param("pageObject")PageObject pageObject);
 
-    List<GoodsVo> selectFloorLinkList(PageObject pageObject);
+    List<GoodsVo> selectFloorLinkList(@Param("pageObject")PageObject pageObject);
+
+    Goods selectGoodsDetail(@Param("id") Integer id);
+
+    int getGoodsListRow(@Param("pageObject")PageObject pageObject);
+
+    List<GoodsVo> selectGoodsList(@Param("pageObject")PageObject pageObject);
 }
