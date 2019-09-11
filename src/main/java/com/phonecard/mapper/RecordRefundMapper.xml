@@ -13,6 +13,40 @@
     <result column="refund_sum" property="refundSum" jdbcType="INTEGER" />
     <result column="refund_cause" property="refundCause" jdbcType="VARCHAR" />
   </resultMap>
+
+  <resultMap id="refundOrderExportMap" type="com.phonecard.bean.RefundOrderDto" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="product_order_uuid" property="productOrderUuid" jdbcType="VARCHAR" />
+    <result column="one_sort_id" property="oneSortId" jdbcType="INTEGER" />
+    <result column="goods_uuid" property="goodsUuid" jdbcType="VARCHAR" />
+    <result column="is_one" property="isOne" jdbcType="INTEGER" />
+    <result column="properties" property="properties" jdbcType="VARCHAR" />
+    <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="deposit" property="deposit" jdbcType="DOUBLE" />
+    <result column="commission" property="commission" jdbcType="DOUBLE" />
+    <result column="thumb" property="thumb" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="name_self" property="nameSelf" jdbcType="VARCHAR" />
+    <result column="phone_self" property="phoneSelf" jdbcType="CHAR" />
+    <result column="distribution_type" property="distributionType" jdbcType="SMALLINT" />
+    <result column="is_comment" property="isComment" jdbcType="SMALLINT" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="actual_price" property="actualPrice" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="nick_name" property="nickname" jdbcType="VARCHAR" />
+    <result column="leader_name" property="leaderName" jdbcType="VARCHAR" />
+    <result column="refund_fee" property="refundMoney" jdbcType="DOUBLE" />
+
+  </resultMap>
+
+
   <sql id="Base_Column_List" >
     id, type, order_uuid, out_refund_no, refund_fee, create_time, is_success, is_deposit, 
     refund_sum, refund_cause
@@ -47,7 +81,33 @@
     from record_refund
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+   <select id="findRefundOrderByPage" resultMap="refundOrderExportMap">
+     SELECT pod.*,po.*,us.nick_name,temp.leader_name,rr.refund_fee FROM record_refund rr
+     LEFT JOIN product_order_detail pod ON pod.uuid = rr.order_uuid
+     LEFT JOIN product_order po ON pod.product_order_uuid = po.uuid
+     LEFT JOIN user_base us ON po.open_id = us.open_id
+     LEFT JOIN
+     (
+     SELECT l.leader_name,s.open_id FROM leader l LEFT JOIN `share` s ON l.open_id = s.one_open_id
+     ) temp  ON us.open_id = temp.open_id
+     where 1 =1
+     <if test="orderNo != null">
+       and pod.uuid = #{orderNo,jdbcType=VARCHAR}
+     </if>
+     <if test="fetchType != null">
+       and pod.distribution_type = #{fetchType,jdbcType=INTEGER}
+     </if>
+     <if test="leaderNickName != null">
+       and temp.leader_name = #{leaderNickName,jdbcType=VARCHAR}
+     </if>
+     <if test="startTime != null">
+       and po.create_time &gt;= #{startTime,jdbcType=VARCHAR}
+     </if>
+     <if test="endTime != null">
+       and po.create_time &lt;= #{endTime,jdbcType=VARCHAR}
+     </if>
+   </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from record_refund
     where id = #{id,jdbcType=INTEGER}
   </delete>

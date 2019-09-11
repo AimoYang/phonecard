@@ -1,9 +1,7 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.Coupon;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
 public interface CouponMapper {
     int deleteByPrimaryKey(Integer id);
 

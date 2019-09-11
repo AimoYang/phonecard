@@ -8,6 +8,9 @@ import com.phonecard.util.ResultUtil;
 import com.phonecard.util.WeiXinRefund;
 import com.phonecard.vo.CancelOrdersDetailVo;
 import com.phonecard.vo.ProductOrderVo;
+import com.phonecard.bean.OrderDto;
+import com.phonecard.dao.ProductOrderDetailMapper;
+import com.phonecard.util.PageObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,8 @@ import java.util.Map;
  * @Date: 2019/9/9 0009 17:39
  * @Description:
  */
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -199,5 +204,11 @@ public class OrderService {
         CancelOrdersDetailVo cancelOrdersDetailVo = productOrderDetailMapper.cancelOrdersDetailSelect(orderUuid);
         cancelOrdersDetailVo.setRecordRefund(recordRefundMapper.selectByOrdersUuid(cancelOrdersDetailVo.getUuid()));
         return ResultUtil.success(cancelOrdersDetailVo);
+    private ProductOrderDetailMapper orderMapper;
+
+
+    public List<OrderDto> findOrderByPage(PageObject pageObject, String orderNo, Integer fetchType, String leaderNickName, Date startTime, Date endTime) {
+        List<OrderDto> list = orderMapper.findOrderByPage(pageObject, orderNo, fetchType, leaderNickName, startTime, endTime);
+        return list;
     }
 }

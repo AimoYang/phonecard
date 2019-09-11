@@ -36,6 +36,7 @@
       and  ub.`nick_name` = #{nickname}
     </if>
     and  c.`is_delete` = 0
+    limit #{pageObject.startIndex},#{pageObject.pageSize}
   </select>
   <select id="getCountCommentSum" resultType="java.lang.Integer">
      select
