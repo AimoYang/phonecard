@@ -153,3 +153,6 @@ Caused by: java.io.IOException: 您的主机中的软件中止了一个已建立
 	... 63 common frames omitted
 2019-09-11 14:01:23,778 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
 2019-09-11 14:19:45,733 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-11 14:21:30,761 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'id' is not present]
+2019-09-11 14:23:01,990 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-11 14:23:13,734 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'id' is not present]
