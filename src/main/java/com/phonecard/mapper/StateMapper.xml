@@ -18,6 +18,18 @@
     from state
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getCountStateSum" resultType="java.lang.Integer">
+    select COUNT(1) from state
+    where is_delete = 0
+  </select>
+  <select id="getStateRecommedList" resultType="map">
+    select * from state where is_recommend = 1
+    limit #{pageObject.startIndex},#{pageObject.pageSize}
+  </select>
+  <select id="getStateHotList" resultType="map">
+     select * from state where is_hot = 1
+    limit #{pageObject.startIndex},#{pageObject.pageSize}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from state
     where id = #{id,jdbcType=INTEGER}

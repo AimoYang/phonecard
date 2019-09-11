@@ -1,42 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.phonecard.dao.FeedbackMapper" >
-  <resultMap id="BaseResultMap" type="com.phonecard.bean.Feedback" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="open_id" property="openId" jdbcType="VARCHAR" />
-    <result column="feed_create_time" property="feedCreateTime" jdbcType="TIMESTAMP" />
-    <result column="feed_phone" property="feedPhone" jdbcType="CHAR" />
-    <result column="feed_img" property="feedImg" jdbcType="VARCHAR" />
-    <result column="feed_question" property="feedQuestion" jdbcType="VARCHAR" />
-    <result column="feed_type" property="feedType" jdbcType="SMALLINT" />
-    <result column="reserve" property="reserve" jdbcType="VARCHAR" />
-    <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.phonecard.dao.FeedbackMapper">
+    <resultMap id="BaseResultMap" type="com.phonecard.bean.Feedback">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="open_id" property="openId" jdbcType="VARCHAR"/>
+        <result column="feed_create_time" property="feedCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="feed_phone" property="feedPhone" jdbcType="CHAR"/>
+        <result column="feed_img" property="feedImg" jdbcType="VARCHAR"/>
+        <result column="feed_question" property="feedQuestion" jdbcType="VARCHAR"/>
+        <result column="feed_type" property="feedType" jdbcType="SMALLINT"/>
+        <result column="reserve" property="reserve" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="SMALLINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, open_id, feed_create_time, feed_phone, feed_img, feed_question, feed_type, reserve, 
     is_delete
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from feedback
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="getCountFeedbackSum" resultType="java.lang.Integer">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from feedback
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getCountFeedbackSum" resultType="java.lang.Integer">
     select count(1)
     from feedback
     where is_delete = 0
   </select>
-  <select id="getFeedbackList" resultType="com.phonecard.bean.Feedback">
-
-
-
+    <select id="getFeedbackList" resultType="map">
+     SELECT f.*,ub.nick_name,ub.`icon` FROM feedback f LEFT JOIN user_base ub ON f.open_id = ub.`open_id`
+     where f.is_delete = 0
+     limit #{pageObject.startIndex},#{pageObject.pageSize}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="findFeedbackById" resultType="map" parameterType="java.lang.Integer">
+    SELECT f.*,ub.nick_name,ub.`icon` FROM feedback f LEFT JOIN user_base ub ON f.open_id = ub.`open_id`
+     where f.is_delete = 0 and f.id = #{id,jdbcType=INTEGER}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from feedback
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.phonecard.bean.Feedback" >
+    <insert id="insert" parameterType="com.phonecard.bean.Feedback">
     insert into feedback (id, open_id, feed_create_time, 
       feed_phone, feed_img, feed_question, 
       feed_type, reserve, is_delete
@@ -46,98 +51,98 @@
       #{feedType,jdbcType=SMALLINT}, #{reserve,jdbcType=VARCHAR}, #{isDelete,jdbcType=SMALLINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.phonecard.bean.Feedback" >
-    insert into feedback
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="openId != null" >
-        open_id,
-      </if>
-      <if test="feedCreateTime != null" >
-        feed_create_time,
-      </if>
-      <if test="feedPhone != null" >
-        feed_phone,
-      </if>
-      <if test="feedImg != null" >
-        feed_img,
-      </if>
-      <if test="feedQuestion != null" >
-        feed_question,
-      </if>
-      <if test="feedType != null" >
-        feed_type,
-      </if>
-      <if test="reserve != null" >
-        reserve,
-      </if>
-      <if test="isDelete != null" >
-        is_delete,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="openId != null" >
-        #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="feedCreateTime != null" >
-        #{feedCreateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="feedPhone != null" >
-        #{feedPhone,jdbcType=CHAR},
-      </if>
-      <if test="feedImg != null" >
-        #{feedImg,jdbcType=VARCHAR},
-      </if>
-      <if test="feedQuestion != null" >
-        #{feedQuestion,jdbcType=VARCHAR},
-      </if>
-      <if test="feedType != null" >
-        #{feedType,jdbcType=SMALLINT},
-      </if>
-      <if test="reserve != null" >
-        #{reserve,jdbcType=VARCHAR},
-      </if>
-      <if test="isDelete != null" >
-        #{isDelete,jdbcType=SMALLINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.phonecard.bean.Feedback" >
-    update feedback
-    <set >
-      <if test="openId != null" >
-        open_id = #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="feedCreateTime != null" >
-        feed_create_time = #{feedCreateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="feedPhone != null" >
-        feed_phone = #{feedPhone,jdbcType=CHAR},
-      </if>
-      <if test="feedImg != null" >
-        feed_img = #{feedImg,jdbcType=VARCHAR},
-      </if>
-      <if test="feedQuestion != null" >
-        feed_question = #{feedQuestion,jdbcType=VARCHAR},
-      </if>
-      <if test="feedType != null" >
-        feed_type = #{feedType,jdbcType=SMALLINT},
-      </if>
-      <if test="reserve != null" >
-        reserve = #{reserve,jdbcType=VARCHAR},
-      </if>
-      <if test="isDelete != null" >
-        is_delete = #{isDelete,jdbcType=SMALLINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.phonecard.bean.Feedback" >
+    <insert id="insertSelective" parameterType="com.phonecard.bean.Feedback">
+        insert into feedback
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="openId != null">
+                open_id,
+            </if>
+            <if test="feedCreateTime != null">
+                feed_create_time,
+            </if>
+            <if test="feedPhone != null">
+                feed_phone,
+            </if>
+            <if test="feedImg != null">
+                feed_img,
+            </if>
+            <if test="feedQuestion != null">
+                feed_question,
+            </if>
+            <if test="feedType != null">
+                feed_type,
+            </if>
+            <if test="reserve != null">
+                reserve,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="openId != null">
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="feedCreateTime != null">
+                #{feedCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="feedPhone != null">
+                #{feedPhone,jdbcType=CHAR},
+            </if>
+            <if test="feedImg != null">
+                #{feedImg,jdbcType=VARCHAR},
+            </if>
+            <if test="feedQuestion != null">
+                #{feedQuestion,jdbcType=VARCHAR},
+            </if>
+            <if test="feedType != null">
+                #{feedType,jdbcType=SMALLINT},
+            </if>
+            <if test="reserve != null">
+                #{reserve,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=SMALLINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.phonecard.bean.Feedback">
+        update feedback
+        <set>
+            <if test="openId != null">
+                open_id = #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="feedCreateTime != null">
+                feed_create_time = #{feedCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="feedPhone != null">
+                feed_phone = #{feedPhone,jdbcType=CHAR},
+            </if>
+            <if test="feedImg != null">
+                feed_img = #{feedImg,jdbcType=VARCHAR},
+            </if>
+            <if test="feedQuestion != null">
+                feed_question = #{feedQuestion,jdbcType=VARCHAR},
+            </if>
+            <if test="feedType != null">
+                feed_type = #{feedType,jdbcType=SMALLINT},
+            </if>
+            <if test="reserve != null">
+                reserve = #{reserve,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=SMALLINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.phonecard.bean.Feedback">
     update feedback
     set open_id = #{openId,jdbcType=VARCHAR},
       feed_create_time = #{feedCreateTime,jdbcType=TIMESTAMP},

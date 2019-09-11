@@ -23,6 +23,17 @@
     from coupon
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getCountCouponSum" resultType="java.lang.Integer">
+    select COUNT(1) from coupon where is_delete = 0
+  </select>
+  <select id="getCouponList" resultType="map">
+    SELECT c.*, c.coupon_num - COUNT(cb.id) AS leftNum FROM coupon c LEFT JOIN coupon_bind cb ON c.uuid = cb.coupon_uuid WHERE c.is_delete = 0
+    <if test="couponName != null">
+      and c.coupon_name = #{couponName}
+    </if>
+    GROUP BY c.uuid
+    limit #{pageObject.startIndex},#{pageObject.pageSize}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from coupon
     where id = #{id,jdbcType=INTEGER}

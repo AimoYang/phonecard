@@ -196,4 +196,32 @@
       is_delete = #{isDelete,jdbcType=SMALLINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getCountCouponSum" resultType="java.lang.Integer">
+    SELECT COUNT(1) from user_base
+    where is_delete = 0
+
+  </select>
+  <select id="getCouponList" resultType="map">
+    SELECT ub.icon,ub.nick_name nickName,ub.create_time createTime,l.leader_name leaderName,ub.consume_money consumeMoney,COUNT(temp.uuid) AS orderCount,ub.is_enable isEnable
+    FROM user_base ub
+    LEFT JOIN `share` s ON ub.open_id = s.open_id
+    LEFT JOIN leader l ON s.one_open_id = l.open_id
+    LEFT JOIN
+    (
+    SELECT po.open_id,pod.uuid FROM product_order_detail pod LEFT JOIN
+    product_order po ON pod.product_order_uuid = po.uuid
+    ) temp
+    ON ub.open_id = temp.open_id
+    where 1 = 1
+    <if test="nickName != null">
+      and ub.nick_name = #{nickName}
+    </if>
+    <if test="leaderName != null">
+      and l.leader_name = #{leaderName}
+    </if>
+    GROUP BY ub.open_id
+    limit #{pageObject.startIndex},#{pageObject.pageSize}
+  </select>
+
 </mapper>

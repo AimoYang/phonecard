@@ -26,4 +26,43 @@ public class FeedbackService {
         return map;
     }
 
+    public boolean handleFeedback(Integer id) {
+        Feedback feedback = feedbackMapper.selectByPrimaryKey(id);
+        if (feedback != null) {
+            feedback.setFeedType((short) 1);
+            int row = feedbackMapper.updateByPrimaryKey(feedback);
+            if (row > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public Map<String, Object> feedbackDetail(Integer id) {
+        Map<String, Object> feedback = feedbackMapper.findFeedbackById(id);
+        if (feedback != null) {
+            return feedback;
+        } else {
+            return null;
+        }
+    }
+
+    public boolean feedbackDelete(int id) {
+        Feedback feedback = feedbackMapper.selectByPrimaryKey(id);
+        if (feedback != null){
+            feedback.setIsDelete((short) 1);
+            int row = feedbackMapper.updateByPrimaryKey(feedback);
+            if (row > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+    }
 }
