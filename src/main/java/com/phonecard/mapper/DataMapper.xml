@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.phonecard.dao.DataMapper">
+
+    <select id="getOrderNum" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM product_order_detail a LEFT JOIN product_ORDER b ON a.product_order_uuid = b.uuid WHERE
+        a.status = 1
+        <if test="type == 1 || type == -1">
+            AND DATE_FORMAT(b.create_time,'%Y-%m-%d') = #{startDate}
+        </if>
+        <if test="type == 2 || type == 3 || type == -2 || type == -3">
+            AND DATE_FORMAT(b.create_time,'%Y-%m-%d %H:%i:%s') BETWEEN #{startDate} AND #{endDate}
+        </if>
+    </select>
+
+    <select id="getOrderAmount" resultType="java.math.BigDecimal">
+        SELECT SUM(a.actual_price) FROM product_order_detail a LEFT JOIN product_ORDER b ON a.product_order_uuid =
+        b.uuid WHERE a.status = 1
+        <if test="type == 1 || type == -1">
+            AND DATE_FORMAT(b.create_time,'%Y-%m-%d') = #{startDate}
+        </if>
+        <if test="type == 2 || type == 3 || type == -2 || type == -3">
+            AND DATE_FORMAT(b.create_time,'%Y-%m-%d %H:%i:%s') BETWEEN #{startDate} AND #{endDate}
+        </if>
+    </select>
+
+    <select id="getGoodsOverview" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM goods WHERE 1 = 1
+        <if test="_parameter != null">
+            AND is_shelf = #{_parameter}
+        </if>
+    </select>
+
+    <select id="getUserOverview" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM user_base WHERE 1 = 1
+        <if test="type == 1 || type == -1">
+            AND DATE_FORMAT(create_time,'%Y-%m-%d') = #{startDate}
+        </if>
+    </select>
+
+    <select id="getTop10SaleGoods" resultType="map">
+         SELECT goods_name goodsName, show_count showCount, (SELECT IFNULL(SUM(a.actual_price),0) FROM product_order_detail a WHERE a.goods_uuid = goods.uuid AND STATUS = 1) totalPrice
+         FROM goods ORDER BY show_count DESC LIMIT 0,10
+    </select>
+
+    <select id="getTop10Leader" resultType="map">
+        SELECT cc.leader_name, COUNT(*) orderNum, IFNULL(SUM(cc.actual_price),0) totalActualPrice, IFNULL(SUM(cc.commission),0) totalCommission FROM
+          (SELECT a.*,c.leader_name FROM product_order_detail a LEFT JOIN product_order b ON a.product_order_uuid = b.uuid
+        LEFT JOIN leader c ON b.one_open_id = c.open_id WHERE b.one_open_id IS NOT NULL AND a.status = 1) cc GROUP BY cc.leader_name
+        ORDER BY totalCommission DESC LIMIT 0,10
+    </select>
+
+    <select id="getOrderCount" resultType="map">
+        SELECT a.date,IFNULL(cc.total,0) total FROM
+        (SELECT DATE_FORMAT(ADDDATE(#{startDate},INTERVAL @d DAY),'%m-%d') AS DATE ,@d :=@d + 1 DAY
+        FROM product_order_detail,(SELECT @d := 0) temp
+        WHERE 1 = 1
+        <if test="type == 1 || type == -1">
+            AND ADDDATE(DATE_FORMAT(#{startDate}, '%Y-%m-%d'),INTERVAL @d DAY) <![CDATA[ <= ]]>
+            DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+        </if>
+        <if test="type == 2 || type == 3 || type == -2 || type == -3">
+            AND ADDDATE(DATE_FORMAT(#{startDate}, '%Y-%m-%d'),INTERVAL @d DAY) <![CDATA[ <= ]]> DATE_FORMAT(#{endDate},
+            '%Y-%m-%d')
+        </if>
+        ORDER BY DAY) a LEFT JOIN (SELECT DATE_FORMAT(b.create_time,'%m-%d') groupDate,COUNT(1) total FROM
+        product_order_detail a
+        LEFT JOIN product_ORDER b ON a.product_order_uuid = b.uuid WHERE a.status = 1
+        <if test="type == 1 || type == -1">
+            AND DATE_FORMAT(b.create_time,'%Y-%m-%d') = #{startDate}
+        </if>
+        <if test="type == 2 || type == 3 || type == -2 || type == -3">
+            AND DATE_FORMAT(b.create_time,'%Y-%m-%d %H:%i:%s') BETWEEN #{startDate} AND #{endDate}
+        </if>
+        GROUP BY groupDate) cc ON a.date = cc.groupDate;
+    </select>
+
+    <select id="getSaleCount" resultType="map">
+        SELECT a.date,IFNULL(cc.total,0) total FROM
+        (SELECT DATE_FORMAT(ADDDATE(#{startDate},INTERVAL @d DAY),'%m-%d') AS DATE ,@d :=@d + 1 DAY
+        FROM product_order_detail,(SELECT @d := 0) temp
+        WHERE 1 = 1
+        <if test="type == 1 || type == -1">
+            AND ADDDATE(DATE_FORMAT(#{startDate}, '%Y-%m-%d'),INTERVAL @d DAY) <![CDATA[ <= ]]>
+            DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+        </if>
+        <if test="type == 2 || type == 3 || type == -2 || type == -3">
+            AND ADDDATE(DATE_FORMAT(#{startDate}, '%Y-%m-%d'),INTERVAL @d DAY) <![CDATA[ <= ]]> DATE_FORMAT(#{endDate},
+            '%Y-%m-%d')
+        </if>
+        ORDER BY DAY) a LEFT JOIN (SELECT DATE_FORMAT(b.create_time,'%m-%d') groupDate,SUM(a.actual_price) total FROM
+        product_order_detail a
+        LEFT JOIN product_ORDER b ON a.product_order_uuid = b.uuid WHERE a.status = 1
+        <if test="type == 1 || type == -1">
+            AND DATE_FORMAT(b.create_time,'%Y-%m-%d') = #{startDate}
+        </if>
+        <if test="type == 2 || type == 3 || type == -2 || type == -3">
+            AND DATE_FORMAT(b.create_time,'%Y-%m-%d %H:%i:%s') BETWEEN #{startDate} AND #{endDate}
+        </if>
+        GROUP BY groupDate) cc ON a.date = cc.groupDate;
+    </select>
+
+</mapper>
