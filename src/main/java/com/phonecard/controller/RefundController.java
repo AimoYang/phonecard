@@ -106,8 +106,6 @@ public class RefundController {
             }catch (Exception e){
                 e.printStackTrace();
             }
-        } else{
-
         }
 
     }

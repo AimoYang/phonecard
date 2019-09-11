@@ -107,8 +107,6 @@ public class OrdersController {
             }catch (Exception e){
                 e.printStackTrace();
             }
-        } else {
-
         }
 
     }
