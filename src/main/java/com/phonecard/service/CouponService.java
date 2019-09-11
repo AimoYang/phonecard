@@ -50,4 +50,13 @@ public class CouponService {
         }
 
     }
+
+    public boolean couponUpdate(Coupon coupon) {
+        int row = couponMapper.updateByPrimaryKey(coupon);
+        if (row > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
