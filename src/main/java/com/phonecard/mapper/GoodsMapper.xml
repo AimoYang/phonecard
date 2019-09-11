@@ -127,6 +127,7 @@
     select
     count(1)
     from goods
+    where is_delete = 0
     <if test="pageObject.title != null and pageObject.title != ''">
       and goods_name = #{pageObject.title}
     </if>
@@ -184,7 +185,33 @@
     </if>
   </select>
 
+  <select id="selectTourListNoLink" resultMap="AdsResultMap" >
+    select
+     g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf ,(SELECT COUNT(1) as num FROM tour_list as t WHERE t.goods_uuid = g.uuid and t.tour_id = #{pageObject.id}) state
+    from goods as g
+    where g.is_delete = 0
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and g.goods_name = #{pageObject.title}
+    </if>
+    <if test="pageObject.sortId != null and pageObject.sortId != ''">
+      and g.one_sort_id = #{pageObject.sortId}
+    </if>
+    order by state desc,g.id desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
 
+  <select id="getTourListRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from goods
+    where is_delete = 0
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and goods_name = #{pageObject.title}
+    </if>
+    <if test="pageObject.sortId != null and pageObject.sortId != ''">
+      and one_sort_id = #{pageObject.sortId}
+    </if>
+  </select>
 
 
 

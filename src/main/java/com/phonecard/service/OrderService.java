@@ -43,7 +43,7 @@ public class OrderService {
     private WeiXinRefund weiXinRefund;
 
     public ResultVO ordersListSelect(PageObject pageObject) {
-        if (pageObject.getType() == null || pageObject.getType().intValue() == -1){
+        if (pageObject.getType() == null || pageObject.getType().intValue() == 2){
             pageObject.setType(null);
         }
         int row = productOrderDetailMapper.getOrdersListRow(pageObject);
@@ -204,11 +204,11 @@ public class OrderService {
         CancelOrdersDetailVo cancelOrdersDetailVo = productOrderDetailMapper.cancelOrdersDetailSelect(orderUuid);
         cancelOrdersDetailVo.setRecordRefund(recordRefundMapper.selectByOrdersUuid(cancelOrdersDetailVo.getUuid()));
         return ResultUtil.success(cancelOrdersDetailVo);
-    private ProductOrderDetailMapper orderMapper;
+    }
 
 
     public List<OrderDto> findOrderByPage(PageObject pageObject, String orderNo, Integer fetchType, String leaderNickName, Date startTime, Date endTime) {
-        List<OrderDto> list = orderMapper.findOrderByPage(pageObject, orderNo, fetchType, leaderNickName, startTime, endTime);
-        return list;
+            List<OrderDto> list = productOrderDetailMapper.findOrderByPage(pageObject, orderNo, fetchType, leaderNickName, startTime, endTime);
+            return list;
     }
 }

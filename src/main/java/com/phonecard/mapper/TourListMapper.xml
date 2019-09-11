@@ -16,6 +16,29 @@
     id, main_title, second_title, tour_img, explanation, create_time, sort, is_show, 
     is_delete
   </sql>
+
+  <select id="selectTourList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tour_list
+    where is_delete = 0
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and main_title LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    order by sort, id desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getTourRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from tour_list
+    where is_delete = 0
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and main_title LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

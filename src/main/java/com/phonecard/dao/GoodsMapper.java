@@ -45,4 +45,8 @@ public interface GoodsMapper {
     int getGoodsListRow(@Param("pageObject")PageObject pageObject);
 
     List<GoodsVo> selectGoodsList(@Param("pageObject")PageObject pageObject);
+
+    int getTourListRow(@Param("pageObject")PageObject pageObject);
+
+    List<GoodsVo> selectTourListNoLink(@Param("pageObject")PageObject pageObject);
 }

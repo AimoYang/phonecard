@@ -35,7 +35,6 @@ import java.util.List;
  */
 @Api(tags = {"订单管理"})
 @RestController
-@RequestMapping(value = "order")
 public class OrdersController {
 
     @Autowired
@@ -89,12 +88,8 @@ public class OrdersController {
         return orderService.orderFininsh(orderUuid);
     }
 
-
-    @Autowired
-    private OrderService orderService;
-
     @ApiOperation(value = "下载" , notes = "数据")
-    @RequestMapping(value = "/excelDownload", method = RequestMethod.GET)
+    @RequestMapping(value = "/order/excelDownload", method = RequestMethod.GET)
     public void excelDownload(HttpServletResponse response, String orderNo, Integer fetchType,String leaderNickName, String startTime, String endTime) throws IOException {
         try{
             PageObject pageObject = new PageObject();

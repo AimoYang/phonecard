@@ -9,6 +9,14 @@
   <sql id="Base_Column_List" >
     id, tour_id, goods_uuid
   </sql>
+
+  <select id="selectByTourList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tour_list_bind
+    where tour_id = #{tourId} and goods_uuid = #{goodsUuid}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

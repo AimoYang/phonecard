@@ -31,6 +31,10 @@ public class GoodsService {
     private CardInfoMapper cardInfoMapper;
     @Autowired
     private ReAdvertisementGoodsMapper reAdvertisementGoodsMapper;
+    @Autowired
+    private TourListBindMapper tourListBindMapper;
+    @Autowired
+    private TourListMapper tourListMapper;
 
     public ResultVO selectAdsGoods(PageObject pageObject) {
         Integer row = goodsMapper.getAdsGoodsRow(pageObject);
@@ -234,6 +238,43 @@ public class GoodsService {
         List<GoodsVo> list = goodsMapper.selectGoodsList(pageObject);
         Map<String,Object> map = new HashMap<>(2);
         map.put("list",getPrice(list));
+        map.put("pageObject",pageObject);
+        return ResultUtil.success(map);
+    }
+
+    public ResultVO selectTourListNoLink(PageObject pageObject) {
+        int row = goodsMapper.getTourListRow(pageObject);
+        pageObject.setRowCount(row);
+        List<GoodsVo> list = goodsMapper.selectTourListNoLink(pageObject);
+        Map<String,Object> map = new HashMap<>(2);
+        map.put("list",getPrice(list));
+        map.put("pageObject",pageObject);
+        return ResultUtil.success(map);
+    }
+
+    public ResultVO cancelGoodsTourList(Integer tourId, String goodsUuid, Integer status) {
+        TourListBind tourListBind  = tourListBindMapper.selectByTourList(tourId,goodsUuid);
+        if(status == 0){
+            if(tourListBind != null){
+                tourListBindMapper.deleteByPrimaryKey(tourListBind.getId());
+            }
+        }else {
+            if(tourListBind == null){
+                TourListBind tourListBind1 = new TourListBind();
+                tourListBind1.setTourId(tourId);
+                tourListBind1.setGoodsUuid(goodsUuid);
+                tourListBindMapper.insertSelective(tourListBind1);
+            }
+        }
+        return ResultUtil.success();
+    }
+
+    public ResultVO selectTourList(PageObject pageObject) {
+        int row = tourListMapper.getTourRow(pageObject);
+        pageObject.setRowCount(row);
+        List<TourList> list = tourListMapper.selectTourList(pageObject);
+        Map<String,Object> map = new HashMap<>(2);
+        map.put("list",list);
         map.put("pageObject",pageObject);
         return ResultUtil.success(map);
     }

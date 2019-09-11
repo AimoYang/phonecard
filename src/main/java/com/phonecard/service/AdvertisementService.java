@@ -3,8 +3,10 @@ package com.phonecard.service;
 import com.phonecard.bean.Advertisement;
 import com.phonecard.bean.ReAdvertisementGoods;
 import com.phonecard.bean.ResultVO;
+import com.phonecard.bean.TourList;
 import com.phonecard.dao.AdvertisementMapper;
 import com.phonecard.dao.ReAdvertisementGoodsMapper;
+import com.phonecard.dao.TourListMapper;
 import com.phonecard.util.PageObject;
 import com.phonecard.util.ResultUtil;
 import com.phonecard.vo.AdvertisementVo;
@@ -28,6 +30,8 @@ public class AdvertisementService {
     private AdvertisementMapper advertisementMapper;
     @Autowired
     private ReAdvertisementGoodsMapper reAdvertisementGoodsMapper;
+    @Autowired
+    private TourListMapper tourListMapper;
 
     public ResultVO addAds(Advertisement advertisement) {
         advertisement.setCreateTime(new Date());
@@ -67,6 +71,26 @@ public class AdvertisementService {
                 re.setGoodsUuid(goodsUuid);
                 reAdvertisementGoodsMapper.insertSelective(re);
             }
+        }
+        return ResultUtil.success();
+    }
+
+    public ResultVO addTourList(TourList tourList) {
+        tourList.setCreateTime(new Date());
+        int row = tourListMapper.insertSelective(tourList);
+        if (row <= 0){
+            return ResultUtil.fail("添加失败");
+        }
+        return ResultUtil.success();
+    }
+
+    public ResultVO deleteTourList(Integer id) {
+        TourList tourList = new TourList();
+        tourList.setId(id);
+        tourList.setIsDelete((short)1);
+        int row = tourListMapper.updateByPrimaryKeySelective(tourList);
+        if (row <= 0){
+            return ResultUtil.fail("添加失败");
         }
         return ResultUtil.success();
     }

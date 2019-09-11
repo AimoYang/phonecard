@@ -2,6 +2,7 @@ package com.phonecard.dao;
 
 import com.phonecard.bean.TourListBind;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface TourListBindMapper {
@@ -16,4 +17,6 @@ public interface TourListBindMapper {
     int updateByPrimaryKeySelective(TourListBind record);
 
     int updateByPrimaryKey(TourListBind record);
+
+    TourListBind selectByTourList(@Param("tourId") Integer tourId, @Param("goodsUuid") String goodsUuid);
 }

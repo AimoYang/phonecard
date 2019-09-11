@@ -2,6 +2,7 @@ package com.phonecard.form;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -16,19 +17,19 @@ public class GoodsForm {
     private Integer id;
 
     private String uuid;
-
+    @NotNull
     private String goodsName;
-
+    @NotNull
     private Integer oneSortId;
-
+    @NotNull
     private String thumb;
-
+    @NotNull
     private String pictures;
 
     private Short isShelf;
 
     private Short pickUp;
-
+    @NotNull
     private Short goodsType;
 
     private Integer sort;
@@ -44,7 +45,7 @@ public class GoodsForm {
     private Double deposit;
 
     private String introduction;
-
+    @NotNull
     private List<SkuForm> skus;
 
     private CardInfoForm cardInfoForm;

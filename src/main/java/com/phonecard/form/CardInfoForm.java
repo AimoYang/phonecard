@@ -2,6 +2,8 @@ package com.phonecard.form;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @Auther: Mr.Yang
  * @Date: 2019/9/6 0006 15:21
@@ -13,7 +15,7 @@ public class CardInfoForm {
     private Integer id;
 
     private String goodsUuid;
-
+    @NotNull
     private Integer destination;
 
     private String supplier;

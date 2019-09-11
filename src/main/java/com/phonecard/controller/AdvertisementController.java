@@ -2,6 +2,7 @@ package com.phonecard.controller;
 
 import com.phonecard.bean.Advertisement;
 import com.phonecard.bean.ResultVO;
+import com.phonecard.bean.TourList;
 import com.phonecard.form.AdvertisementForm;
 import com.phonecard.service.AdvertisementService;
 import com.phonecard.service.GoodsService;
@@ -33,6 +34,36 @@ public class AdvertisementController {
     private AdvertisementService advertisementService;
     @Autowired
     private GoodsService goodsService;
+
+    @PostMapping("/addTourList")
+    @ApiOperation("旅游清单添加")
+    public ResultVO addTourList(@RequestBody @ApiParam("旅游清单信息") TourList tourList){
+        return advertisementService.addTourList(tourList);
+    }
+
+    @PostMapping("/deleteTourList")
+    @ApiOperation("旅游清单删除")
+    public ResultVO deleteTourList(@RequestParam @ApiParam("旅游清单id") Integer id){
+        return advertisementService.deleteTourList(id);
+    }
+
+    @PostMapping("/selectTourListNoLink")
+    @ApiOperation("查询广告未关联的商品  -- 分页")
+    public ResultVO selectTourListNoLink(@ApiParam(value = "分页信息")@RequestBody PageObject pageObject){
+        return goodsService.selectTourListNoLink(pageObject);
+    }
+
+    @PostMapping("/selectTourList")
+    @ApiOperation("查询广告未关联的商品  -- 分页")
+    public ResultVO selectTourList(@ApiParam(value = "分页信息")@RequestBody PageObject pageObject){
+        return goodsService.selectTourList(pageObject);
+    }
+
+    @PostMapping("/cancelGoodsTourList")
+    @ApiOperation("关联/取消关联商品和旅游清单 ")
+    public ResultVO cancelGoodsTourList(@RequestParam @ApiParam("旅游清单id")Integer tourId,@RequestParam @ApiParam("商品uuid")String goodsUuid ,@RequestParam @ApiParam("1关联 0取消关联")Integer status){
+        return goodsService.cancelGoodsTourList(tourId,goodsUuid,status);
+    }
 
     @PostMapping("/addAds")
     @ApiOperation("广告添加")

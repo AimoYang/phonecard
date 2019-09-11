@@ -91,6 +91,9 @@
     <if test="pageObject.type != null and pageObject.type != ''">
       and d.distribution_type = #{pageObject.type}
     </if>
+    <if test="pageObject.type == '0'.toString()">
+      and d.distribution_type = 0
+    </if>
     <if test="pageObject.title != null and pageObject.title != ''">
       and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
     </if>
@@ -98,10 +101,10 @@
       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
     </if>
     <if test="pageObject.startTime != null">
-      and p.create_time &gt; #{page.startTime}
+      and p.create_time &gt; #{pageObject.startTime}
     </if>
     <if test="pageObject.endTime != null">
-      and p.create_time &lt; #{page.endTime}
+      and p.create_time &lt; #{pageObject.endTime}
     </if>
     order by p.create_time desc
     limit #{pageObject.startIndex}, #{pageObject.pageSize}
@@ -117,6 +120,9 @@
     <if test="pageObject.type != null and pageObject.type != ''">
       and d.distribution_type = #{pageObject.type}
     </if>
+    <if test="pageObject.type == '0'.toString()">
+      and d.distribution_type = 0
+    </if>
     <if test="pageObject.title != null and pageObject.title != ''">
       and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
     </if>
@@ -124,10 +130,10 @@
       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
     </if>
     <if test="pageObject.startTime != null">
-      and p.create_time &gt; #{page.startTime}
+      and p.create_time &gt; #{pageObject.startTime}
     </if>
     <if test="pageObject.endTime != null">
-      and p.create_time &lt; #{page.endTime}
+      and p.create_time &lt; #{pageObject.endTime}
     </if>
   </select>
 
@@ -159,6 +165,9 @@
     <if test="pageObject.type != null and pageObject.type != ''">
       and d.distribution_type = #{pageObject.type}
     </if>
+    <if test="pageObject.type == '0'.toString()">
+      and d.distribution_type = 0
+    </if>
     <if test="pageObject.title != null and pageObject.title != ''">
       and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
     </if>
@@ -186,6 +195,9 @@
     where 0 = 0
     <if test="pageObject.type != null and pageObject.type != ''">
       and d.distribution_type = #{pageObject.type}
+    </if>
+    <if test="pageObject.type == '0'.toString()">
+      and d.distribution_type = 0
     </if>
     <if test="pageObject.title != null and pageObject.title != ''">
       and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
