@@ -95,7 +95,7 @@ public class CouponController {
         return r;
     }
 
-    @ApiOperation(value = "优惠券删除", notes = "删除优惠券")
+    @ApiOperation(value = "优惠券修改", notes = "修改优惠券")
     @RequestMapping(value = "/couponUpdate", method = RequestMethod.POST)
     public JsonResult couponUpdate(Coupon coupon) {
         JsonResult r = new JsonResult();
