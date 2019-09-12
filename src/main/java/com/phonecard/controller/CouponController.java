@@ -94,4 +94,24 @@ public class CouponController {
         }
         return r;
     }
+
+    @ApiOperation(value = "优惠券修改", notes = "修改优惠券")
+    @RequestMapping(value = "/couponUpdate", method = RequestMethod.POST)
+    public JsonResult couponUpdate(Coupon coupon) {
+        JsonResult r = new JsonResult();
+        try {
+            boolean addResult = couponService.couponUpdate(coupon);
+            if (addResult) {
+                r.setMsg("修改成功");
+                r.setResult(StatusCode.SUCCESS);
+            } else {
+                r.setMsg("修改失败");
+                r.setResult(StatusCode.FAIL);
+            }
+        } catch (Exception e) {
+            r.setMsg(e.getClass().getName() + ":" + e.getMessage());
+            r.setResult(StatusCode.FAIL);
+        }
+        return r;
+    }
 }
