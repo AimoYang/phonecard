@@ -87,7 +87,7 @@
     <include refid="Base_Column_List" />
     from admin
     where is_delete = 0
-    order by is_super desc ,is_enable
+    order by is_super desc ,create_time desc
     limit #{pageObject.startIndex},#{pageObject.pageSize}
   </select>
 

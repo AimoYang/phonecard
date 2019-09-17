@@ -21,7 +21,9 @@ public interface UserBaseMapper {
 
     int updateByPrimaryKey(UserBase record);
 
-    int getCountCouponSum();
+    int getCountCouponSum(@Param("pageObject") PageObject pageObject);
 
-    List<UserBase> getCouponList(@Param("pageObject") PageObject pageObject,@Param("nickName") String nickName,@Param("leaderName") String leaderName);
+    List<UserBase> getCouponList(@Param("pageObject") PageObject pageObject);
+
+    UserBase selectByOpenId(String openId);
 }

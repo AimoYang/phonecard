@@ -30,10 +30,10 @@ public class CouponController {
 
     @ApiOperation(value = "优惠券列表", notes = "优惠券表")
     @RequestMapping(value = "/couponList", method = RequestMethod.POST)
-    public JsonResult commnetList(@ApiParam(value = "分页信息") @RequestBody PageObject pageObject, String couponName) {
+    public JsonResult commnetList(@ApiParam(value = "分页信息") @RequestBody PageObject pageObject) {
         JsonResult r = new JsonResult();
         try {
-            Map<String, Object> map = couponService.getCouponList(pageObject, couponName);
+            Map<String, Object> map = couponService.getCouponList(pageObject);
             r.setData(map);
             r.setResult(StatusCode.SUCCESS);
             r.setMsg("OK");

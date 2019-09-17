@@ -22,6 +22,15 @@
     where open_id = #{openId}
   </update>
 
+  <update id="agreeState" parameterType="com.phonecard.bean.Income" >
+    update income
+    set
+      remain = remain - #{remain},
+      wait_cash = 0,
+      already_cash = already_cash + #{alreadyCash}
+    where open_id = #{openId}
+  </update>
+
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

@@ -26,4 +26,6 @@ public interface StateMapper {
     List<State> getStateRecommedList(@Param("pageObject") PageObject pageObject);
 
     List<State> getStateHotList(@Param("pageObject") PageObject pageObject);
+
+    List<State> selectStateAllList();
 }

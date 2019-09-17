@@ -11,9 +11,56 @@
     <result column="status" property="status" jdbcType="SMALLINT" />
     <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
   </resultMap>
+  <resultMap id="CashOutResultMap" type="com.phonecard.vo.CashOutVo" extends="BaseResultMap">
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="leader_name" property="leaderName" jdbcType="VARCHAR" />
+    <result column="leader_company_name" property="leaderCompanyName" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, open_id, cash_number, create_time, count_time, pay_uuid, status, is_delete
   </sql>
+
+  <select id="selectStateList" resultMap="CashOutResultMap" >
+    select
+    c.id, c.open_id, c.cash_number, c.create_time, c.count_time, c.pay_uuid, c.status, c.is_delete,
+    u.nick_name, u.icon, l.leader_name, l.leader_company_name
+    from cash_out as c
+    left join user_base as u on u.open_id = c.open_id
+    left join leader as l on l.open_id = c.open_id
+    where c.status = #{pageObject.type} and c.is_delete = 0
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and l.leader_name = #{pageObject.name}
+    </if>
+    <if test="pageObject.startTime != null">
+      and c.create_time &gt; #{pageObject.startTime}
+    </if>
+    <if test="pageObject.endTime != null">
+      and c.create_time &lt; #{pageObject.endTime}
+    </if>
+    order by c.create_time desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getStateRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from cash_out as c
+    left join leader as l on l.open_id = c.open_id
+    where c.status = #{pageObject.type} and c.is_delete = 0
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and l.leader_name = #{pageObject.name}
+    </if>
+    <if test="pageObject.startTime != null">
+      and c.create_time &gt; #{pageObject.startTime}
+    </if>
+    <if test="pageObject.endTime != null">
+      and c.create_time &lt; #{pageObject.endTime}
+    </if>
+  </select>
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

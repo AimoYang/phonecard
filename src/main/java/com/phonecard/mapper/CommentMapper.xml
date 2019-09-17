@@ -13,6 +13,23 @@
     <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
     <result column="is_reply" property="isReply" jdbcType="SMALLINT" />
   </resultMap>
+
+  <resultMap id="commentDtoMap" type="com.phonecard.bean.CommentDto" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="order_uuid" property="orderUuid" jdbcType="VARCHAR" />
+    <result column="goods_uuid" property="goodsUuid" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="pictures" property="pictures" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="reply" property="reply" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
+    <result column="is_reply" property="isReply" jdbcType="SMALLINT" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="one_sort_name" property="sortName" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, open_id, order_uuid, goods_uuid, content, pictures, create_time, reply, is_delete, 
     is_reply
@@ -26,14 +43,22 @@
     <select id="findAllComment" resultType="com.phonecard.bean.Comment">
       select * from comment
     </select>
-  <select id="getCommentList" resultType="com.phonecard.bean.Comment">
+  <select id="getCommentDetail" parameterType="java.lang.Integer" resultMap="commentDtoMap">
+    SELECT c.*,g.`goods_name`,os.`one_sort_name`,ub.`nick_name`,ub.`icon` FROM `comment` c
+    LEFT JOIN user_base ub ON c.`open_id` = ub.`open_id`
+    LEFT JOIN goods g ON c.`goods_uuid` = g.`uuid`
+    LEFT JOIN one_sort os ON g.`one_sort_id` = os.`id`
+    where 1 = 1
+    and c.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getCommentList" resultType="map">
     SELECT c.id,c.`create_time`,c.`content`,c.`pictures`,g.`goods_name`,os.`one_sort_name`,ub.`nick_name`,ub.`icon` FROM `comment` c
     LEFT JOIN user_base ub ON c.`open_id` = ub.`open_id`
     LEFT JOIN goods g ON c.`goods_uuid` = g.`uuid`
     LEFT JOIN one_sort os ON g.`one_sort_id` = os.`id`
     WHERE 1 = 1
-    <if test="nickname != null" >
-      and  ub.`nick_name` = #{nickname}
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and ub.`nick_name` LIKE CONCAT ('%',#{pageObject.name},'%')
     </if>
     and  c.`is_delete` = 0
     limit #{pageObject.startIndex},#{pageObject.pageSize}
@@ -41,8 +66,12 @@
   <select id="getCountCommentSum" resultType="java.lang.Integer">
      select
     count(1)
-    from `comment`
-    where is_delete = 0
+    from `comment` c
+    LEFT JOIN user_base ub ON c.`open_id` = ub.`open_id`
+    where c.is_delete = 0
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and ub.`nick_name` LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from comment

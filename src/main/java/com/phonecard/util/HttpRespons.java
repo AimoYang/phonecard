@@ -1,4 +1,4 @@
-package com.ruiguo.util.pay;
+package com.phonecard.util;
 import java.util.Vector;
 public class HttpRespons {
 	String urlString;  

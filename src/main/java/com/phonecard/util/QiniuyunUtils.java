@@ -22,7 +22,7 @@ public class QiniuyunUtils {
     private static String ACCESS_KEY = "FB0T2bbZ2nbNVOnYiqgibCZFL0KEFqXk27uC3zTz";
     private static String SECRET_KEY = "isIyGRR_rGiRS-1qocGK8oFVXpGTvuAGVgUe5zwZ";
     private static String BUCKET_NAME = "file";
-    public static String DOMAIN_OF_BUCKET = "http://file.fuwii.com/";
+    public static String DOMAIN_OF_BUCKET = "https://file.fuwii.com/";
 
     /**
      * 根据文件相对路径获取绝对路径

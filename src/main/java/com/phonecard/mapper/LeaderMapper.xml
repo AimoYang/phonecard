@@ -22,17 +22,87 @@
     <result column="is_introduce" property="isIntroduce" jdbcType="SMALLINT" />
     <result column="is_disable" property="isDisable" jdbcType="SMALLINT" />
   </resultMap>
+  <resultMap id="LeaderResultMap" type="com.phonecard.vo.LeaderVo" extends="BaseResultMap">
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, open_id, leader_wechat, leader_name, leader_phone, leader_ID, leader_company_name, 
     leader_post, leader_address, company_id, explains, leader_balance, introduce_name, 
     introduce_phone, is_code, in_type, is_delete, is_introduce, is_disable
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from leader
-    where id = #{id,jdbcType=INTEGER}
+
+  <select id="selectLeaderList" resultMap="LeaderResultMap" >
+    select
+    l.id, l.open_id, l.leader_wechat, l.leader_name, l.leader_phone, l.leader_ID, l.leader_company_name,
+    l.leader_post, l.leader_address, l.company_id, l.explains, i.income_all as leader_balance, l.introduce_name,
+    l.introduce_phone, l.is_code, l.in_type, l.is_delete, l.is_introduce, l.is_disable, u.nick_name, u.icon
+    from leader as l
+    left join user_base as u on u.open_id = l.open_id
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and l.leader_company_name LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    order by l.id desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
   </select>
+
+  <select id="getLeaderRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from leader
+    where 0 = 0
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and leader_company_name LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+  </select>
+
+  <update id="setLeaderInfo" >
+    update leader
+    set
+      is_disable = #{status}
+    where open_id = #{openId}
+  </update>
+
+  <select id="selectLeaderDetail" resultMap="LeaderResultMap" >
+    select
+    l.id, l.open_id, l.leader_wechat, l.leader_name, l.leader_phone, l.leader_ID, l.leader_company_name,
+    l.leader_post, l.leader_address, l.company_id, l.explains, i.income_all as leader_balance, l.introduce_name,
+    l.introduce_phone, l.is_code, l.in_type, l.is_delete, l.is_introduce, l.is_disable, u.nick_name, u.icon
+    from leader as l
+    left join user_base as u on u.open_id = l.open_id
+    left join income as i on i.open_id = l.open_id
+    where l.id = #{id}
+  </select>
+
+  <select id="selectOrderSum" resultType="java.lang.Integer" >
+  (SELECT sum(t.cout) as consumeSum FROM
+  (select count(1) as cout from
+  product_order as p
+  left join `share` as s on s.open_id = p.open_id
+  where s.one_open_id = #{openId} and p.order_status = 1
+  ) as t)
+  </select>
+
+  <select id="selectUserSum" resultType="java.lang.Integer" >
+    select count(1) from share as s where s.one_open_id = #{openId}
+  </select>
+
+  <select id="selectLeaderAllList" resultMap="LeaderResultMap" >
+    select
+    id, open_id, leader_name
+    from leader
+    where is_delete = 0 and is_disable = 0 and in_type = 1
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from leader
     where id = #{id,jdbcType=INTEGER}

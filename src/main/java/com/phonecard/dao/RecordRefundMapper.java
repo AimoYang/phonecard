@@ -35,4 +35,6 @@ public interface RecordRefundMapper {
                                                @Param("fetchType") Integer fetchType,
                                                @Param("leaderNickName") String leaderNickName,
                                                @Param("startTime")Date startTime, @Param("endTime") Date endTime);
+
+    RecordRefund selectByOrdersUuidAndDesposit(@Param("uuid") String uuid, @Param("isDeposit") Short isDeposit);
 }

@@ -2,6 +2,7 @@ package com.phonecard.dao;
 
 import com.phonecard.bean.Feedback;
 import com.phonecard.util.PageObject;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public interface FeedbackMapper {
 
     int getCountFeedbackSum();
 
-    List<Feedback> getFeedbackList(PageObject pageObject);
+    List<Feedback> getFeedbackList(@Param("pageObject") PageObject pageObject);
 
     Map<String,Object> findFeedbackById(Integer id);
 }

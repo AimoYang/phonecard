@@ -61,9 +61,12 @@ public class OrderService {
     }
 
     public ResultVO selectCancelOrders(PageObject pageObject) {
+        if (pageObject.getType() == null || pageObject.getType().intValue() == 2){
+            pageObject.setType(null);
+        }
         List<CancelOrdersDetailVo> list = productOrderDetailMapper.selectCancelOrders(pageObject);
         for (CancelOrdersDetailVo c: list) {
-            c.setRecordRefund(recordRefundMapper.selectByOrdersUuid(c.getUuid()));
+            c.setRecordRefund(recordRefundMapper.selectByOrdersUuidAndDesposit(c.getUuid(),c.getIsDeposit()));
         }
         int row = productOrderDetailMapper.getCancelOrdersRow(pageObject);
         pageObject.setRowCount(row);

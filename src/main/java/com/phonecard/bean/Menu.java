@@ -1,4 +1,4 @@
-package com.ruiguo.bean;
+package com.phonecard.bean;
 
 import java.awt.Button;
 

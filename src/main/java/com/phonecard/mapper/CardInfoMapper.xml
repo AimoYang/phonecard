@@ -28,9 +28,12 @@
   
   <select id="selectCardInfo" resultMap="BaseResultMap" >
     select
-    <include refid="Base_Column_List" />
-    from card_info
-    where goods_uuid = #{uuid} and is_delete = 0
+    c.id, c.goods_uuid, c.destination, c.supplier, c.self_city, c.start_explain, c.cost_explain, c.product_explain,
+    c.reserve_notice, c.cancellation_policy, c.network, c.hotspot, c.card_size, c.is_delete, c.have_call,
+    c.device_stock ,s.state_name stateName
+    from card_info as c
+    left join state as s on c.destination = s.id
+    where c.goods_uuid = #{uuid} and c.is_delete = 0
   </select>
   
   

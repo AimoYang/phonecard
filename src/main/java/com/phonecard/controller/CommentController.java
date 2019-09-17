@@ -1,6 +1,7 @@
 package com.phonecard.controller;
 
 import com.phonecard.bean.Comment;
+import com.phonecard.bean.CommentDto;
 import com.phonecard.bean.JsonResult;
 import com.phonecard.service.CommentService;
 import com.phonecard.util.PageObject;
@@ -27,10 +28,10 @@ public class CommentController {
 
     @ApiOperation(value = "评论列表" , notes = "商品评价表")
     @RequestMapping(value = "/commentList" , method = RequestMethod.POST)
-    public JsonResult commnetList(@ApiParam(value = "分页信息") @RequestBody PageObject pageObject,String nickname){
+    public JsonResult commnetList(@ApiParam(value = "分页信息") @RequestBody PageObject pageObject){
         JsonResult r = new JsonResult();
         try {
-            Map<String, Object> map = commentService.getCommentList(pageObject,nickname);
+            Map<String, Object> map = commentService.getCommentList(pageObject);
             r.setData(map);
             r.setResult(StatusCode.SUCCESS);
             r.setMsg("OK");
@@ -46,7 +47,7 @@ public class CommentController {
     public JsonResult commentDetail(Integer id){
         JsonResult r = new JsonResult();
         try {
-            Comment comment = commentService.getCommentDetail(id);
+            CommentDto comment = commentService.getCommentDetail(id);
             if (comment != null){
                 r.setData(comment);
                 r.setResult(StatusCode.SUCCESS);

@@ -1,7 +1,11 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.RelationGoodsAddress;
+import com.phonecard.vo.RelationGoodsAddressVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface RelationGoodsAddressMapper {
@@ -16,4 +20,6 @@ public interface RelationGoodsAddressMapper {
     int updateByPrimaryKeySelective(RelationGoodsAddress record);
 
     int updateByPrimaryKey(RelationGoodsAddress record);
+
+    List<RelationGoodsAddressVo> selectList(@Param("uuid") String uuid);
 }

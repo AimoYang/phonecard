@@ -2,6 +2,7 @@ package com.phonecard.service;
 
 import com.phonecard.bean.AddressSelf;
 import com.phonecard.bean.Comment;
+import com.phonecard.bean.CommentDto;
 import com.phonecard.dao.AddressSelfMapper;
 import com.phonecard.dao.CommentMapper;
 import com.phonecard.util.PageObject;
@@ -18,17 +19,17 @@ public class CommentService {
     @Autowired
     private CommentMapper commentMapper;
 
-    public Map<String, Object> getCommentList(PageObject pageObject,String nickname) {
-        pageObject.setRowCount(commentMapper.getCountCommentSum());
-        List<Comment> list = commentMapper.getCommentList(pageObject, nickname);
+    public Map<String, Object> getCommentList(PageObject pageObject) {
+        pageObject.setRowCount(commentMapper.getCountCommentSum(pageObject));
+        List<Comment> list = commentMapper.getCommentList(pageObject);
         Map<String, Object> map = new HashMap<>();
         map.put("page", pageObject);
         map.put("info", list);
         return map;
     }
 
-    public Comment getCommentDetail(Integer id) {
-        Comment comment = commentMapper.selectByPrimaryKey(id);
+    public CommentDto getCommentDetail(Integer id) {
+        CommentDto comment = commentMapper.getCommentDetail(id);
         if (comment != null){
             return comment;
         }else {

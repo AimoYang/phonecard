@@ -27,4 +27,6 @@ public interface CompanyMapper {
     int getCompanyAllRow();
 
     int deleteCompany(@Param("id")Integer id);
+
+    List<Company> findCompanyAllList();
 }

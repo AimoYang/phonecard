@@ -1,4 +1,4 @@
-package com.ruiguo.util.pay;
+package com.phonecard.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,8 +19,8 @@ import javax.net.ssl.TrustManager;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
-import com.ruiguo.bean.AccessToken;
-import com.ruiguo.bean.Menu;
+import com.phonecard.bean.AccessToken;
+import com.phonecard.bean.Menu;
 
 //http://blog.csdn.net/lyq8479/article/details/9841371
 //公众平台通用接口工具类
@@ -38,20 +38,20 @@ public class WeixinUtil {
 	//public static final String appSecret = "6732b8ad290a02313b71c6ae57c3ac53";
 
 	//正式
-	public static final String appId = "wxa5b1eb668aa02c25";
+	public static final String appId = "wx9462bdbda12444d9";
 	public static final String appSecret = "543f44d1a5b394803279d3cc187d3cbf";
-	public static final String mch_id = "1486497472";
+	public static final String mch_id = "1500910161";
 	public static final String refundURL = "https://api.mch.weixin.qq.com/secapi/pay/refund";
 	public static final String WITHDRAW_URL= "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 	//private static Logger log = LoggerFactory.getLogger(WeixinUtil.class);
-	public static String notify_url = "localhost";
+	public static String notify_url = "http://47.103.135.181:82/WeiXinRet/weixinrefund";
 	public static String key = "123456789987654321123456789";
-	public static String partnerkey = "qwertyuiopasdfghjklzxcvbnm654321";
+	public static String partnerkey = "YOUxing123qwefuwei321FUWEI123321";
 	public static final String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESSTOKEN";
 	public static final String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	private static final String template_msg_url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
-	public static final String CERT_PATH = "/usr/apiclient_cert.p12"; ///usr/apiclient_cert.p12
-	public static final String mch_appid = "wxa5b1eb668aa02c25";
+	public static final String CERT_PATH = "/usr/local/certificate/apiclient_cert.p12"; ///usr/apiclient_cert.p12
+	public static final String mch_appid = "wx9462bdbda12444d9";
 	//客服消息url
 	private static final String customer_service_message_url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN";
 	

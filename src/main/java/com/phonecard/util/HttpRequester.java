@@ -1,4 +1,4 @@
-package com.ruiguo.util.pay;
+package com.phonecard.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

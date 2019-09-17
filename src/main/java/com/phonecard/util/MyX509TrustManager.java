@@ -1,4 +1,4 @@
-package com.ruiguo.util.pay;
+package com.phonecard.util;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;

@@ -2,6 +2,7 @@ package com.phonecard.dao;
 
 import com.phonecard.bean.Coupon;
 import com.phonecard.util.PageObject;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface CouponMapper {
 
     int updateByPrimaryKey(Coupon record);
 
-    int getCountCouponSum();
+    int getCountCouponSum(@Param("pageObject") PageObject pageObject);
 
-    List<Coupon> getCouponList(PageObject pageObject, String couponName);
+    List<Coupon> getCouponList(@Param("pageObject") PageObject pageObject);
 }

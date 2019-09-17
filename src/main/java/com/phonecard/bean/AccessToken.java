@@ -1,4 +1,4 @@
-package com.ruiguo.bean;
+package com.phonecard.bean;
 
  //令牌
 public class AccessToken {

@@ -8,9 +8,26 @@
     <result column="address_self_id" property="addressSelfId" jdbcType="INTEGER" />
     <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
   </resultMap>
+  <resultMap id="ReAddressResultMap" type="com.phonecard.vo.RelationGoodsAddressVo" extends="BaseResultMap">
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="address_self" property="addressSelf" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, goods_uuid, city_id, address_self_id, is_delete
   </sql>
+
+  <select id="selectList" resultMap="ReAddressResultMap" >
+    select
+    r.id, r.goods_uuid, r.city_id, r.address_self_id, r.is_delete,c.city_name city, a.airport address_self
+    from relation_goods_address as r
+    left join city as c on c.id = r.city_id
+    left join address_self as a on a.id = r.address_self_id
+    where r.goods_uuid = #{uuid} and r.is_delete = 0
+  </select>
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

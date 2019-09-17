@@ -25,11 +25,16 @@
   </select>
   <select id="getCountCouponSum" resultType="java.lang.Integer">
     select COUNT(1) from coupon where is_delete = 0
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and coupon_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
   </select>
   <select id="getCouponList" resultType="map">
-    SELECT c.*, c.coupon_num - COUNT(cb.id) AS leftNum FROM coupon c LEFT JOIN coupon_bind cb ON c.uuid = cb.coupon_uuid WHERE c.is_delete = 0
-    <if test="couponName != null">
-      and c.coupon_name = #{couponName}
+    SELECT c.*, c.coupon_num - COUNT(cb.id) AS leftNum FROM coupon c
+    LEFT JOIN coupon_bind cb ON c.uuid = cb.coupon_uuid
+    WHERE c.is_delete = 0
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and c.coupon_name LIKE CONCAT ('%',#{pageObject.name},'%')
     </if>
     GROUP BY c.uuid
     limit #{pageObject.startIndex},#{pageObject.pageSize}

@@ -1,5 +1,10 @@
 package com.phonecard.bean;
 
+import com.phonecard.form.AddressForm;
+import com.phonecard.vo.RelationGoodsAddressVo;
+
+import java.util.List;
+
 public class CardInfo {
     private Integer id;
 
@@ -32,6 +37,26 @@ public class CardInfo {
     private Short haveCall;
 
     private Integer deviceStock;
+
+    private String stateName;
+
+    private List<RelationGoodsAddressVo> list;
+
+    public List<RelationGoodsAddressVo> getList() {
+        return list;
+    }
+
+    public void setList(List<RelationGoodsAddressVo> list) {
+        this.list = list;
+    }
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
 
     public Integer getId() {
         return id;

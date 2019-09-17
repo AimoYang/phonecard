@@ -48,13 +48,13 @@ public class AdvertisementController {
     }
 
     @PostMapping("/selectTourListNoLink")
-    @ApiOperation("查询广告未关联的商品  -- 分页")
+    @ApiOperation("查询旅游清单未关联的商品  -- 分页")
     public ResultVO selectTourListNoLink(@ApiParam(value = "分页信息")@RequestBody PageObject pageObject){
         return goodsService.selectTourListNoLink(pageObject);
     }
 
     @PostMapping("/selectTourList")
-    @ApiOperation("查询广告未关联的商品  -- 分页")
+    @ApiOperation("查询旅游清单  -- 分页")
     public ResultVO selectTourList(@ApiParam(value = "分页信息")@RequestBody PageObject pageObject){
         return goodsService.selectTourList(pageObject);
     }

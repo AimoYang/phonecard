@@ -1,6 +1,7 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.Comment;
+import com.phonecard.bean.CommentDto;
 import com.phonecard.util.PageObject;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,7 +23,9 @@ public interface CommentMapper {
 
     List<Comment> findAllComment();
 
-    List<Comment> getCommentList(@Param("pageObject") PageObject pageObject, @Param("nickname") String nickname);
+    List<Comment> getCommentList(@Param("pageObject") PageObject pageObject);
 
-    int getCountCommentSum();
+    int getCountCommentSum(@Param("pageObject") PageObject pageObject);
+
+    CommentDto getCommentDetail(Integer id);
 }

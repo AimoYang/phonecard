@@ -1,6 +1,7 @@
 package com.phonecard.service;
 
 import com.phonecard.bean.Coupon;
+import com.phonecard.bean.ResultVO;
 import com.phonecard.bean.State;
 import com.phonecard.dao.StateMapper;
 import com.phonecard.util.PageObject;
@@ -16,6 +17,8 @@ public class StateService {
 
     @Autowired
     private StateMapper stateMapper;
+
+
 
     public Map<String, Object> getStateRecomendList(PageObject pageObject) {
         pageObject.setRowCount(stateMapper.getCountStateSum());
@@ -63,5 +66,10 @@ public class StateService {
         } else{
             return  false;
         }
+    }
+
+    public ResultVO selectStateAllList() {
+        List<State> list = stateMapper.selectStateAllList();
+        return new ResultVO();
     }
 }

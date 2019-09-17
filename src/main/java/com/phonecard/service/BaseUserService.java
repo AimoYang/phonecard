@@ -17,9 +17,9 @@ public class BaseUserService {
     @Autowired
     private UserBaseMapper userBaseMapper;
 
-    public Map<String, Object> getUserList(PageObject pageObject, String nickName, String leaderName) {
-        pageObject.setRowCount(userBaseMapper.getCountCouponSum());
-        List<UserBase> list = userBaseMapper.getCouponList(pageObject, nickName, leaderName);
+    public Map<String, Object> getUserList(PageObject pageObject) {
+        pageObject.setRowCount(userBaseMapper.getCountCouponSum(pageObject));
+        List<UserBase> list = userBaseMapper.getCouponList(pageObject);
         Map<String, Object> map = new HashMap<>();
         map.put("page", pageObject);
         map.put("info", list);

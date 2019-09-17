@@ -1,8 +1,10 @@
 package com.phonecard.form;
 
+import com.phonecard.bean.RelationGoodsAddress;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @Auther: Mr.Yang
@@ -39,5 +41,7 @@ public class CardInfoForm {
     private String cardSize;
 
     private Short haveCall;
+
+    List<RelationGoodsAddress> relationGoodsAddress;
 
 }

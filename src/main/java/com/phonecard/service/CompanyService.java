@@ -59,4 +59,9 @@ public class CompanyService {
         }
         return new JsonResult(StatusCode.SUCCESS,"OK");
     }
+
+    public JsonResult findCompanyAllList() {
+        List<Company> list = companyMapper.findCompanyAllList();
+        return new JsonResult(StatusCode.SUCCESS,"OK",list);
+    }
 }

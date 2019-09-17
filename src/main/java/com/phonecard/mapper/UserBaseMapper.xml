@@ -21,6 +21,14 @@
     id, open_id, nick_name, icon, name, phone, birth_date, is_enable, create_time, last_login, 
     consume_money, reserve, user_type, is_delete
   </sql>
+
+  <select id="selectByOpenId" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from user_base
+    where open_id = #{openId}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -198,12 +206,20 @@
   </update>
 
   <select id="getCountCouponSum" resultType="java.lang.Integer">
-    SELECT COUNT(1) from user_base
-    where is_delete = 0
+    SELECT COUNT(1) from user_base ub
+    LEFT JOIN `share` s ON ub.open_id = s.open_id
+    LEFT JOIN leader l ON s.one_open_id = l.open_id
+    where ub.is_delete = 0
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and ub.nick_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and l.leader_name LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
 
   </select>
   <select id="getCouponList" resultType="map">
-    SELECT ub.icon,ub.nick_name nickName,ub.create_time createTime,l.leader_name leaderName,ub.consume_money consumeMoney,COUNT(temp.uuid) AS orderCount,ub.is_enable isEnable
+    SELECT ub.id,ub.icon,ub.nick_name nickName,ub.create_time createTime,l.leader_name leaderName,ub.consume_money consumeMoney,COUNT(temp.uuid) AS orderCount,ub.is_enable isEnable
     FROM user_base ub
     LEFT JOIN `share` s ON ub.open_id = s.open_id
     LEFT JOIN leader l ON s.one_open_id = l.open_id
@@ -214,12 +230,13 @@
     ) temp
     ON ub.open_id = temp.open_id
     where 1 = 1
-    <if test="nickName != null">
-      and ub.nick_name = #{nickName}
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and ub.nick_name LIKE CONCAT ('%',#{pageObject.name},'%')
     </if>
-    <if test="leaderName != null">
-      and l.leader_name = #{leaderName}
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and l.leader_name LIKE CONCAT ('%',#{pageObject.title},'%')
     </if>
+      AND ub.nick_name is not null
     GROUP BY ub.open_id
     limit #{pageObject.startIndex},#{pageObject.pageSize}
   </select>

@@ -10,9 +10,50 @@
     <result column="reserve" property="reserve" jdbcType="VARCHAR" />
     <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
   </resultMap>
+  <resultMap id="ShareResultMap" type="com.phonecard.vo.ShareVo" >
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="consume_money" property="consumeMoney" jdbcType="DOUBLE" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, open_id, one_open_id, create_time, in_type, reserve, is_delete
   </sql>
+
+  <update id="updateLeaderBind" parameterType="com.phonecard.bean.Share" >
+    update share
+    set
+      one_open_id = #{nowOpenId}
+    where one_open_id = #{agoOpenId} and is_delete = 0
+  </update>
+
+  <select id="selectLeaderBind" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from share
+    where one_open_id = #{openId} and is_delete = 0
+  </select>
+
+  <select id="selectLeaderUserList" resultMap="ShareResultMap" >
+    select
+    u.nick_name, u.icon, u.create_time, u.consume_money,
+    (select count(1) from product_order as p where p.open_id = s.open_id ) consumeSum,
+    (select sum(turnover_mon) from turnover as t where t.open_id = s.open_id) commissionAll
+    from `share` as s
+    left join user_base as u on u.open_id = s.open_id
+    where s.one_open_id = #{pageObject.openId} and s.is_delete = 0
+    order by commissionAll desc,s.id desc
+    limit #{pageObject.startIndex},#{pageObject.pageSize}
+  </select>
+
+  <select id="getLeaderUserRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from `share`
+    where one_open_id = #{pageObject.openId} and is_delete = 0
+  </select>
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -1,9 +1,125 @@
 package com.phonecard.service;
 
+import com.phonecard.bean.*;
+import com.phonecard.dao.CompanyMapper;
+import com.phonecard.dao.LeaderMapper;
+import com.phonecard.dao.ShareMapper;
+import com.phonecard.dao.UserBaseMapper;
+import com.phonecard.util.PageObject;
+import com.phonecard.util.ResultUtil;
+import com.phonecard.vo.LeaderVo;
+import com.phonecard.vo.ShareVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Auther: Mr.Yang
  * @Date: 2019/9/11 0011 14:42
  * @Description:
  */
+@Service
 public class LeaderService {
+
+    @Autowired
+    private LeaderMapper leaderMapper;
+    @Autowired
+    private ShareMapper shareMapper;
+    @Autowired
+    private UserBaseMapper userBaseMapper;
+    @Autowired
+    private CompanyMapper companyMapper;
+
+    public ResultVO selectLeaderList(PageObject pageObject) {
+        int row = leaderMapper.getLeaderRow(pageObject);
+        pageObject.setRowCount(row);
+        List<LeaderVo> list = leaderMapper.selectLeaderList(pageObject);
+        for (LeaderVo l : list) {
+            l.setUserNum(leaderMapper.selectUserSum(l.getOpenId()));
+            l.setConsumeSum(leaderMapper.selectOrderSum(l.getOpenId()));
+        }
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("list", list);
+        map.put("pageObject", pageObject);
+        return ResultUtil.success(map);
+    }
+
+    public ResultVO updateLeaderBind(String agoOpenId, String nowOpenId) {
+        int row = shareMapper.updateLeaderBind(agoOpenId, nowOpenId);
+        if (row <= 0){
+            int count = shareMapper.selectLeaderBind(agoOpenId);
+            if (count == 0){
+                return ResultUtil.fail("该团长旗下没有用户");
+            }
+           return ResultUtil.fail("更换失败");
+        }
+        return ResultUtil.success();
+    }
+
+    public ResultVO setLeaderInfo(String openId, Short status) {
+        if (status == 1){
+           int count = shareMapper.selectLeaderBind(openId);
+           if (count > 0){
+               return ResultUtil.fail("该团长下有用户");
+           }
+        }
+        int row = leaderMapper.setLeaderInfo(openId, status);
+        if (row <= 0){
+            return ResultUtil.fail("更新失败");
+        }
+        return ResultUtil.success();
+    }
+
+    public ResultVO selectLeaderDetail(Integer id) {
+        LeaderVo leaderVo = leaderMapper.selectLeaderDetail(id);
+        return ResultUtil.success(leaderVo);
+    }
+
+    public ResultVO selectLeaderUserList(PageObject pageObject) {
+        int row = shareMapper.getLeaderUserRow(pageObject);
+        pageObject.setRowCount(row);
+        List<ShareVo> list = shareMapper.selectLeaderUserList(pageObject);
+        int sum = 0;
+        for (ShareVo s : list) {
+            sum = sum + s.getConsumeSum();
+        }
+        Map<String, Object> map = new HashMap<>(3);
+        map.put("list", list);
+        map.put("pageObject", pageObject);
+        map.put("OrderSum",sum);
+        return ResultUtil.success(map);
+    }
+
+    public ResultVO agreeLeader(Leader leader) {
+        try {
+            Company company = companyMapper.selectByPrimaryKey(leader.getCompanyId());
+            leader.setInType((short)1);
+            leader.setLeaderCompanyName(company.getCompanyName());
+            leaderMapper.updateByPrimaryKeySelective(leader);
+            UserBase userBase = userBaseMapper.selectByOpenId(leader.getOpenId());
+            userBase.setUserType((short)2);
+            userBaseMapper.updateByPrimaryKeySelective(userBase);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultUtil.fail("设置失败");
+        }
+        return ResultUtil.success();
+    }
+
+    public ResultVO refuseLeader(Leader leader) {
+        leader.setInType((short)2);
+        int row = leaderMapper.updateByPrimaryKeySelective(leader);
+        if (row <= 0){
+            return ResultUtil.fail("设置失败");
+        }
+        return ResultUtil.success();
+    }
+
+    public ResultVO selectLeaderAllList() {
+        List<Leader> list = leaderMapper.selectLeaderAllList();
+        return ResultUtil.success(list);
+    }
 }

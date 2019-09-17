@@ -18,6 +18,13 @@
     select * from address_self
   </select>
 
+    <select id="findCityByAdAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from address_self
+        where city_id = #{id}
+    </select>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -134,7 +141,7 @@
     where airport = #{airport,jdbcType=VARCHAR}
   </select>
 
-    <select id="getAddressList" resultType="com.phonecard.bean.AddressSelf">
+    <select id="getAddressList" resultType="map">
     select
     ads.id, cc.city_name, ads.airport, ads.detail, ads.business_hours, ads.sort, ads.address_code
     from address_self ads left join city cc on ads.city_id = cc.id

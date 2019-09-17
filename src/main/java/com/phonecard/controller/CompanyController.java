@@ -30,6 +30,13 @@ public class CompanyController {
         return r;
     }
 
+    @ApiOperation(value = "查询全部公司列表" , notes = "查询全部公司列表")
+    @RequestMapping(value = "findCompanyAllList" , method = RequestMethod.POST)
+    public JsonResult findCompanyAllList() {
+        JsonResult r = companyService.findCompanyAllList();
+        return r;
+    }
+
     @ApiOperation(value = "编辑公司信息" , notes = "编辑公司信息")
     @RequestMapping(value = "updateCompanyInfo" , method = RequestMethod.POST)
     public JsonResult updateCompanyInfo(@ApiParam(value = "公司信息")@RequestBody Company company) {

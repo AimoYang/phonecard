@@ -73,6 +73,14 @@
     where order_uuid = #{orderUuid}
   </update>
 
+  <select id="selectByOrdersUuidAndDesposit" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from record_refund
+    where order_uuid = #{uuid} and is_deposit = #{isDeposit}
+    limit 1
+  </select>
+
 
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

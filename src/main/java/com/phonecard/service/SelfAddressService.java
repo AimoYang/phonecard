@@ -1,12 +1,16 @@
 package com.phonecard.service;
 
 import com.phonecard.bean.AddressSelf;
+import com.phonecard.bean.JsonResult;
 import com.phonecard.dao.AddressSelfMapper;
+import com.phonecard.dao.CityMapper;
 import com.phonecard.util.PageObject;
+import com.phonecard.util.StatusCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +20,8 @@ public class SelfAddressService {
 
     @Autowired
     private AddressSelfMapper addressSelfMapper;
+    @Autowired
+    private CityMapper cityMapper;
 
     public Map<String, Object> getSelfAddress(PageObject pageObject) {
         pageObject.setRowCount(addressSelfMapper.getCountAddressSum());
@@ -56,5 +62,20 @@ public class SelfAddressService {
 
     public List<AddressSelf> findAllAddress() {
         return addressSelfMapper.findAllAddress();
+    }
+
+    public JsonResult findCityAll() {
+        return new JsonResult(StatusCode.SUCCESS,"OK",cityMapper.findCityAll());
+    }
+
+    public JsonResult findCityByAdAll(List<Integer> list) {
+        List<AddressSelf> Add = new ArrayList<>();
+        for (Integer e:list) {
+            List<AddressSelf>  AddressList = addressSelfMapper.findCityByAdAll(e);
+            for (AddressSelf a: AddressList) {
+                Add.add(a);
+            }
+        }
+        return new JsonResult(StatusCode.SUCCESS,"OK",Add);
     }
 }

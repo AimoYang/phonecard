@@ -37,6 +37,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="CancelVoResultMap" type="com.phonecard.vo.CancelOrdersDetailVo" extends="OrderVoResultMap">
+    <result column="is_deposit" property="isDeposit" jdbcType="SMALLINT" />
   </resultMap>
 
   <resultMap id="orderExportMap" type="com.phonecard.bean.OrderDto" >
@@ -155,7 +156,7 @@
     d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
     d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
     d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
-    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name, r.is_deposit
     from record_refund as r
     left join product_order_detail as d on r.order_uuid = d.uuid
     left join product_order as p on p.uuid = d.product_order_uuid
@@ -175,10 +176,10 @@
       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
     </if>
     <if test="pageObject.startTime != null">
-      and r.create_time &gt; #{page.startTime}
+      and r.create_time &gt; #{pageObject.startTime}
     </if>
     <if test="pageObject.endTime != null">
-      and r.create_time &lt; #{page.endTime}
+      and r.create_time &lt; #{pageObject.endTime}
     </if>
     order by r.create_time desc
     limit #{pageObject.startIndex}, #{pageObject.pageSize}
@@ -206,10 +207,10 @@
       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
     </if>
     <if test="pageObject.startTime != null">
-      and r.create_time &gt; #{page.startTime}
+      and r.create_time &gt; #{pageObject.startTime}
     </if>
     <if test="pageObject.endTime != null">
-      and r.create_time &lt; #{page.endTime}
+      and r.create_time &lt; #{pageObject.endTime}
     </if>
   </select>
 

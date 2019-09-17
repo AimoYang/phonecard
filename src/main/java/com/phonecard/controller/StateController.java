@@ -2,6 +2,7 @@ package com.phonecard.controller;
 
 
 import com.phonecard.bean.JsonResult;
+import com.phonecard.bean.ResultVO;
 import com.phonecard.service.StateService;
 import com.phonecard.util.PageObject;
 import com.phonecard.util.StatusCode;
@@ -9,10 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -87,5 +85,11 @@ public class StateController {
             r.setResult(StatusCode.FAIL);
         }
         return r;
+    }
+
+    @PostMapping("/selectStateAllList")
+    @ApiOperation("目的地全部查询")
+    public ResultVO selectLeaderAllList(){
+        return stateService.selectStateAllList();
     }
 }

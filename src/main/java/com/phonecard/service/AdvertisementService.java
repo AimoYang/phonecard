@@ -77,6 +77,9 @@ public class AdvertisementService {
 
     public ResultVO addTourList(TourList tourList) {
         tourList.setCreateTime(new Date());
+        if (tourList.getIsShow() == null){
+            tourList.setIsShow((short)1);
+        }
         int row = tourListMapper.insertSelective(tourList);
         if (row <= 0){
             return ResultUtil.fail("添加失败");

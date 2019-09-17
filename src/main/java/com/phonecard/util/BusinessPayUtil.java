@@ -1,4 +1,4 @@
-package com.ruiguo.util.pay;
+package com.phonecard.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -28,8 +28,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
-import com.ruiguo.bean.JsonResult;
-import com.ruiguo.util.StatusCode;
+import com.phonecard.bean.JsonResult;
+import com.phonecard.util.StatusCode;
 
 public class BusinessPayUtil {
 	private byte[] certData;
@@ -98,7 +98,7 @@ public class BusinessPayUtil {
 		paraMap.put("mch_appid", WeixinUtil.mch_appid);
 		paraMap.put("mchid", WeixinUtil.mch_id);
 		paraMap.put("nonce_str", OtherUtils.getNonceStr());
-		paraMap.put("partner_trade_no", randNo);
+		paraMap.put("partner_trade_no", params.get("randNo"));
 		paraMap.put("openid", params.get("openId"));// "o5mZ40yBjIqco2NzKc19k9oIBI9o");
 		// 校验用户姓名选项 NO_CHECK：不校验真实姓名 FORCE_CHECK：强校验真实姓名
 		paraMap.put("check_name", "NO_CHECK");

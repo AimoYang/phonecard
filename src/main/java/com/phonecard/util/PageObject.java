@@ -92,7 +92,17 @@ public class PageObject implements Serializable {
 	private String title;
 
 	private Integer sortId;
-	
+
+	private String openId;
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+
 	public int getStartIndex(){
 		return (pageCurrent-1)*pageSize;
 	}

@@ -2,6 +2,7 @@ package com.phonecard.service;
 
 import com.phonecard.bean.*;
 import com.phonecard.dao.*;
+import com.phonecard.form.AddressForm;
 import com.phonecard.form.CardInfoForm;
 import com.phonecard.form.GoodsForm;
 import com.phonecard.form.SkuForm;
@@ -35,6 +36,8 @@ public class GoodsService {
     private TourListBindMapper tourListBindMapper;
     @Autowired
     private TourListMapper tourListMapper;
+    @Autowired
+    private RelationGoodsAddressMapper relationGoodsAddressMapper;
 
     public ResultVO selectAdsGoods(PageObject pageObject) {
         Integer row = goodsMapper.getAdsGoodsRow(pageObject);
@@ -105,24 +108,30 @@ public class GoodsService {
         for (SkuForm skuForm: list) {
             Sku sku = new Sku();
             BeanUtils.copyProperties(skuForm,sku);
-            if (type == 3){
-               type = sku.getPickUp();
-            }
-            if (type == 2){
-               goods.setPickUp((short)2);
-            }
-            if (type != sku.getPickUp()){
-                type = 2;
+            if (goods.getGoodsType() == 0){
+                if (type == 3){
+                    type = sku.getPickUp();
+                }
+                if (type == 2){
+                    goods.setPickUp((short)2);
+                }
+                if (type != sku.getPickUp()){
+                    type = 2;
+                }
+            }else {
+                sku.setPickUp((short)1);
             }
             sku.setIsDelete((short)0);
             sku.setGoodsUuid(uuid);
             skuMapper.insertSelective(sku);
         }
-
-        if (goods.getPickUp() == null){
-            goods.setPickUp(type);
+        if (goods.getGoodsType() == 0){
+            if (goods.getPickUp() == null){
+                goods.setPickUp(type);
+            }
+        }else {
+            goods.setPickUp((short)1);
         }
-
         if (goods.getGoodsType() == 0){
             if (goodsForm.getCardInfoForm() != null){
                 CardInfoForm infoForm = goodsForm.getCardInfoForm();
@@ -131,6 +140,10 @@ public class GoodsService {
                 cardInfo.setIsDelete((short)0);
                 cardInfo.setGoodsUuid(uuid);
                 cardInfoMapper.insertSelective(cardInfo);
+                List<RelationGoodsAddress> list1 = infoForm.getRelationGoodsAddress();
+                for (RelationGoodsAddress r : list1) {
+                    relationGoodsAddressMapper.insertSelective(r);
+                }
             }else {
                 return ResultUtil.fail("没有电话卡信息");
             }
@@ -147,7 +160,9 @@ public class GoodsService {
         List<Sku> list = skuMapper.selectByGoodsUuid(goods.getUuid());
         goods.setSkus(list);
         if (goods.getGoodsType() == 0){
-            goods.setCardInfo(cardInfoMapper.selectCardInfo(goods.getUuid()));
+            CardInfo cardInfo = cardInfoMapper.selectCardInfo(goods.getUuid());
+            cardInfo.setList(relationGoodsAddressMapper.selectList(goods.getUuid()));
+            goods.setCardInfo(cardInfo);
         }
         return ResultUtil.success(goods);
     }
@@ -177,8 +192,17 @@ public class GoodsService {
             CardInfo cardInfo = new CardInfo();
             BeanUtils.copyProperties(goodsForm.getCardInfoForm(),cardInfo);
             cardInfoMapper.updateByPrimaryKeySelective(cardInfo);
+            if (goodsForm.getCardInfoForm().getRelationGoodsAddress() != null){
+                List<RelationGoodsAddress> list = goodsForm.getCardInfoForm().getRelationGoodsAddress();
+                for (RelationGoodsAddress r:list) {
+                    if (r.getId() != null){
+                        relationGoodsAddressMapper.updateByPrimaryKeySelective(r);
+                    }else {
+                        relationGoodsAddressMapper.insertSelective(r);
+                    }
+                }
+            }
         }
-
         goodsMapper.updateByPrimaryKeySelective(goods);
         return ResultUtil.success();
     }

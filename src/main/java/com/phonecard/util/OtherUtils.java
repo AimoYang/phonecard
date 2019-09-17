@@ -1,4 +1,4 @@
-package com.ruiguo.util.pay;
+package com.phonecard.util;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;

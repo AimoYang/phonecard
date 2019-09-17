@@ -153,11 +153,15 @@ public class DataService {
         BigDecimal thisMonthAmount = dataMapper.getOrderAmount(Data.getThisMonth());
         map.put("thisMonth", thisMonthAmount);
         //上月销售总额
+        System.out.print("1-------------------");
         BigDecimal lastMonthAmount = dataMapper.getOrderAmount(Data.getLastMonth());
         lastMonthAmount = lastMonthAmount == null ? BigDecimal.ZERO : lastMonthAmount;
         //同比上月
-        String monthPercent = thisMonthAmount.subtract(lastMonthAmount).divide(lastMonthAmount.compareTo(BigDecimal.ZERO) == 0 ? BigDecimal.ONE : lastMonthAmount).multiply(new BigDecimal(100)) + "%";
+        System.out.print("3--------------------");
+        thisMonthAmount = thisMonthAmount == null ? BigDecimal.ZERO : thisMonthAmount;
+        String monthPercent = (thisMonthAmount.subtract(lastMonthAmount)).divide((lastMonthAmount.compareTo(BigDecimal.ZERO) == 0 ? BigDecimal.ONE : lastMonthAmount),2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)) + "%";
         map.put("monthPercent", monthPercent);
+        System.out.print("4--------------------");
         //本周销售总额
         BigDecimal thisWeekAmount = dataMapper.getOrderAmount(Data.getThisWeek());
         map.put("thisWeek", thisWeekAmount);
@@ -165,7 +169,8 @@ public class DataService {
         BigDecimal lastWeekAmount = dataMapper.getOrderAmount(Data.getLastWeek());
         lastWeekAmount = lastWeekAmount == null ? BigDecimal.ZERO : lastWeekAmount;
         //同比上周
-        String weekPercent = thisWeekAmount.subtract(lastWeekAmount).divide(lastWeekAmount.compareTo(BigDecimal.ZERO) == 0 ? BigDecimal.ONE : lastWeekAmount).multiply(new BigDecimal(100)) + "%";
+        thisWeekAmount = thisWeekAmount == null ? BigDecimal.ZERO : thisWeekAmount;
+        String weekPercent = (thisWeekAmount.subtract(lastWeekAmount)).divide((lastWeekAmount.compareTo(BigDecimal.ZERO) == 0 ? BigDecimal.ONE : lastWeekAmount),2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)) + "%";
         map.put("weekPercent", weekPercent);
         //今日销售额统计
         map.put("todayCount", dataMapper.getSaleCount(Data.getToday()));

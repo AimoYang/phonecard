@@ -25,10 +25,10 @@ public class BaseUserController {
 
     @ApiOperation(value = "用户列表", notes = "用户表")
     @RequestMapping(value = "/userList", method = RequestMethod.POST)
-    public JsonResult commnetList(@ApiParam(value = "分页信息") @RequestBody PageObject pageObject, String nickName, String leaderName) {
+    public JsonResult commnetList(@ApiParam(value = "分页信息") @RequestBody PageObject pageObject) {
         JsonResult r = new JsonResult();
         try {
-            Map<String, Object> map = baseUserService.getUserList(pageObject, nickName, leaderName);
+            Map<String, Object> map = baseUserService.getUserList(pageObject);
             r.setData(map);
             r.setResult(StatusCode.SUCCESS);
             r.setMsg("OK");

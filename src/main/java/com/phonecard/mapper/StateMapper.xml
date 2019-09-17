@@ -12,6 +12,15 @@
   <sql id="Base_Column_List" >
     id, state_name, is_hot, state_sort, is_delete, is_recommend
   </sql>
+
+  <select id="selectStateAllList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from state
+    where is_delete = 0
+    order by is_hot desc, is_recommend desc ,state_sort
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -23,11 +32,15 @@
     where is_delete = 0
   </select>
   <select id="getStateRecommedList" resultType="map">
-    select * from state where is_recommend = 1
+    select * from state
+    where is_delete = 0
+    order by is_recommend desc ,state_sort
     limit #{pageObject.startIndex},#{pageObject.pageSize}
   </select>
   <select id="getStateHotList" resultType="map">
-     select * from state where is_hot = 1
+     select * from state
+     where is_delete = 0
+     order by is_hot desc, state_sort
     limit #{pageObject.startIndex},#{pageObject.pageSize}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

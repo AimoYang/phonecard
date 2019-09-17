@@ -17,10 +17,10 @@ public class CouponService {
     @Autowired
     private CouponMapper couponMapper;
 
-    public Map<String, Object> getCouponList(PageObject pageObject,String couponName) {
-        pageObject.setRowCount(couponMapper.getCountCouponSum());
-        List<Coupon> list = couponMapper.getCouponList(pageObject,couponName);
-        Map<String, Object> map = new HashMap<>();
+    public Map<String, Object> getCouponList(PageObject pageObject) {
+        pageObject.setRowCount(couponMapper.getCountCouponSum(pageObject));
+        List<Coupon> list = couponMapper.getCouponList(pageObject);
+        Map<String, Object> map = new HashMap<>(2);
         map.put("page", pageObject);
         map.put("info", list);
         return map;

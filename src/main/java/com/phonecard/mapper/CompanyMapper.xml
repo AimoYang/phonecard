@@ -40,10 +40,17 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <select id="findCompanyAllList" resultMap="BaseResultMap" >
+    select
+     id, company_name
+    from company
+    where is_delete = 0
+  </select>
+
 
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from company
     where id = #{id,jdbcType=INTEGER}

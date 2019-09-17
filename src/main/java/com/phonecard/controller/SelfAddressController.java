@@ -2,6 +2,7 @@ package com.phonecard.controller;
 
 import com.phonecard.bean.AddressSelf;
 import com.phonecard.bean.JsonResult;
+import com.phonecard.form.ListForm;
 import com.phonecard.service.SelfAddressService;
 import com.phonecard.util.PageObject;
 import com.phonecard.util.StatusCode;
@@ -9,11 +10,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Api(value = "自提地址controller", tags = {"自提"})
@@ -94,6 +93,20 @@ public class SelfAddressController {
             r.setResult(StatusCode.FAIL);
             r.setMsg("修改失败！");
         }
+        return r;
+    }
+
+    @ApiOperation(value = "城市列表", notes = "城市列表")
+    @RequestMapping(value = "/findCityAll", method = RequestMethod.POST)
+    public JsonResult findCityAll() {
+        JsonResult r = selfAddressService.findCityAll();
+        return r;
+    }
+
+    @ApiOperation(value = "柜台列表", notes = "柜台列表")
+    @RequestMapping(value = "/findCityByAdAll", method = RequestMethod.POST)
+    public JsonResult findCityByAdAll(@RequestBody @ApiParam("城市id") ListForm listForm) {
+        JsonResult r = selfAddressService.findCityByAdAll(listForm.getList());
         return r;
     }
 

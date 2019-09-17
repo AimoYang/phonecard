@@ -18,4 +18,6 @@ public interface IncomeMapper {
     int updateByPrimaryKey(Income record);
 
     void updateByOpenId(Income income);
+
+    void agreeState(Income income);
 }

@@ -1,5 +1,6 @@
 package com.phonecard.controller;
 
+import com.phonecard.bean.CashOut;
 import com.phonecard.bean.ResultVO;
 import com.phonecard.service.StatementService;
 import com.phonecard.util.PageObject;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Auther: Mr.Yang
@@ -30,4 +33,15 @@ public class StatementController {
         return statementService.selectStateList(pageObject);
     }
 
+    @PostMapping("/agreeState")
+    @ApiOperation("同意结算")
+    public ResultVO agreeState(@ApiParam(value = "结算信息")@RequestBody CashOut cashOut, HttpServletRequest request){
+        return statementService.agreeState(cashOut, request);
+    }
+
+    @PostMapping("/refuseState")
+    @ApiOperation("拒绝结算")
+    public ResultVO refuseState(@ApiParam(value = "结算信息")@RequestBody CashOut cashOut){
+        return statementService.refuseState(cashOut);
+    }
 }

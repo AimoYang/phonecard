@@ -27,4 +27,6 @@ public interface AddressSelfMapper {
     int getCountAddressSum();
 
     int checkAirportIsExist(AddressSelf addressSelf);
+
+    List<AddressSelf> findCityByAdAll(Integer id);
 }
