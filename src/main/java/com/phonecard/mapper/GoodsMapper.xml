@@ -112,7 +112,7 @@
     select
     g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf ,(SELECT COUNT(1) as num FROM floor_bind as f WHERE f.goods_uuid = g.uuid and f.floor_id = #{pageObject.id}) state
     from goods as g
-    where g.is_delete = 0 and g.goods_type = 1
+    where g.is_delete = 0
     <if test="pageObject.title != null and pageObject.title != ''">
       and g.goods_name = #{pageObject.title}
     </if>
@@ -162,7 +162,14 @@
     <if test="pageObject.type == 2">
       and is_hot = 1
     </if>
-    order by goods_create_time desc , is_shelf desc
+    order by
+    <if test="pageObject.state == 1">
+      is_hot desc,
+    </if>
+    <if test="pageObject.state == 2">
+      is_new desc,
+    </if>
+    goods_create_time desc , is_shelf desc
     limit #{pageObject.startIndex}, #{pageObject.pageSize}
   </select>
 
@@ -187,9 +194,10 @@
 
   <select id="selectTourListNoLink" resultMap="AdsResultMap" >
     select
-     g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf ,(SELECT COUNT(1) as num FROM tour_list_bind as t WHERE t.goods_uuid = g.uuid and t.tour_id = #{pageObject.id}) state
+     g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf ,
+    (SELECT COUNT(1) as num FROM tour_list_bind as t WHERE t.goods_uuid = g.uuid and t.tour_id = #{pageObject.id}) state
     from goods as g
-    where g.is_delete = 0
+    where g.is_delete = 0 and g.goods_type = 1
     <if test="pageObject.title != null and pageObject.title != ''">
       and g.goods_name = #{pageObject.title}
     </if>
@@ -204,7 +212,7 @@
     select
     count(1)
     from goods
-    where is_delete = 0
+    where is_delete = 0 and goods_type = 1
     <if test="pageObject.title != null and pageObject.title != ''">
       and goods_name = #{pageObject.title}
     </if>
@@ -212,6 +220,27 @@
       and one_sort_id = #{pageObject.sortId}
     </if>
   </select>
+
+  <select id="selectTourListGoods" resultMap="AdsResultMap" >
+    select
+    g.id, g.uuid, g.goods_name, g.thumb, g.is_shelf
+    from tour_list_bind as t
+    left join goods as g on t.goods_uuid = g.uuid
+    where g.is_delete = 0 and t.tour_id = #{pageObject.id}
+    order by t.id desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getTourGoodsRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from tour_list_bind as t
+    left join goods as g on t.goods_uuid = g.uuid
+    where g.is_delete = 0 and t.tour_id = #{pageObject.id}
+  </select>
+
+
+
 
 
 

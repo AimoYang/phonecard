@@ -40,27 +40,57 @@
     from leader as l
     left join user_base as u on u.open_id = l.open_id
     left join income as i on i.open_id = l.open_id
-    where 0 = 0
+    where 0 = 0 and l.is_delete = 0
     <if test="pageObject.title != null and pageObject.title != ''">
       and l.leader_company_name LIKE CONCAT ('%',#{pageObject.title},'%')
     </if>
     <if test="pageObject.name != null and pageObject.name != ''">
       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
     </if>
-    order by l.id desc
+    <if test="pageObject.type != null and pageObject.type != ''">
+      and l.in_type = #{pageObject.type}
+    </if>
+    <if test="pageObject.type == '0'.toString()">
+      and l.in_type = 0
+    </if>
+    <if test="pageObject.id != null and pageObject.id != ''">
+      and l.company_id = #{pageObject.id}
+    </if>
+    order by
+    <if test="pageObject.state == 1">
+      i.income_all desc,
+    </if>
+    <if test="pageObject.state == 2">
+      (SELECT sum(t.cout) as consumeSum FROM
+      (select count(1) as cout from
+      product_order as p
+      left join `share` as s on s.open_id = p.open_id
+      where p.one_open_id = l.open_id and p.order_status = 1
+      ) as t) desc,
+    </if>
+    l.in_type,l.id desc
     limit #{pageObject.startIndex}, #{pageObject.pageSize}
   </select>
 
   <select id="getLeaderRow" resultType="java.lang.Integer" >
     select
     count(1)
-    from leader
-    where 0 = 0
+    from leader as l
+    where 0 = 0 and l.is_delete = 0
     <if test="pageObject.title != null and pageObject.title != ''">
-      and leader_company_name LIKE CONCAT ('%',#{pageObject.title},'%')
+      and l.leader_company_name LIKE CONCAT ('%',#{pageObject.title},'%')
     </if>
     <if test="pageObject.name != null and pageObject.name != ''">
-      and leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+      and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.type != null and pageObject.type != ''">
+      and l.in_type = #{pageObject.type}
+    </if>
+    <if test="pageObject.type == '0'.toString()">
+      and l.in_type = 0
+    </if>
+    <if test="pageObject.id != null and pageObject.id != ''">
+      and l.company_id = #{pageObject.id}
     </if>
   </select>
 
@@ -87,7 +117,7 @@
   (select count(1) as cout from
   product_order as p
   left join `share` as s on s.open_id = p.open_id
-  where s.one_open_id = #{openId} and p.order_status = 1
+  where p.one_open_id = #{openId} and p.order_status = 1
   ) as t)
   </select>
 

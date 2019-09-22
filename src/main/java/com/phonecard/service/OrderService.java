@@ -42,6 +42,16 @@ public class OrderService {
     @Autowired
     private WeiXinRefund weiXinRefund;
 
+    public ResultVO findCompanyOrderInfo(PageObject pageObject) {
+        int row = productOrderDetailMapper.getCompanyOrderRow(pageObject);
+        pageObject.setRowCount(row);
+        List<ProductOrderVo> list = productOrderDetailMapper.findCompanyOrderInfo(pageObject);
+        Map<String,Object> map = new HashMap<>(2);
+        map.put("list",list);
+        map.put("pageObject",pageObject);
+        return ResultUtil.success(map);
+    }
+
     public ResultVO ordersListSelect(PageObject pageObject) {
         if (pageObject.getType() == null || pageObject.getType().intValue() == 2){
             pageObject.setType(null);
@@ -76,8 +86,9 @@ public class OrderService {
         return ResultUtil.success(map);
     }
 
-    public ResultVO refuseCancelOrders(String orderUuid) {
-        ProductOrderDetail productOrderDetail = productOrderDetailMapper.selectByUuid(orderUuid);
+    public ResultVO refuseCancelOrders(Integer id) {
+        RecordRefund recordRefund = recordRefundMapper.selectByPrimaryKey(id);
+        ProductOrderDetail productOrderDetail = productOrderDetailMapper.selectByUuid(recordRefund.getOrderUuid());
         if(productOrderDetail == null ){
             return ResultUtil.fail("订单不存在");
         }
@@ -88,7 +99,10 @@ public class OrderService {
         try {
             productOrderDetail.setStatus(productOrderDetail.getStatusPrefix());
             productOrderDetailMapper.updateByPrimaryKeySelective(productOrderDetail);
-            recordRefundMapper.updateRefuseCancel(orderUuid);
+            RecordRefund r = new RecordRefund();
+            r.setId(id);
+            r.setIsSuccess(2);
+            recordRefundMapper.updateByPrimaryKeySelective(r);
         }catch (Exception e){
             e.printStackTrace();
             return  ResultUtil.fail("操作失败");
@@ -96,29 +110,34 @@ public class OrderService {
         return  ResultUtil.success();
     }
 
-    public ResultVO agreeCancelOrders(String orderUuid) {
-        RecordRefund recordRefund = recordRefundMapper.selectByOrdersUuid(orderUuid);
+    public ResultVO agreeCancelOrders(Integer id) {
+        RecordRefund recordRefund = recordRefundMapper.selectByPrimaryKey(id);
         if (recordRefund == null){
             return ResultUtil.fail("退款订单不存在");
         }
-        ProductOrder productOrder = productOrderMapper.selectProductOrderuuid(orderUuid);
+        ProductOrder productOrder = productOrderMapper.selectProductOrderuuid(recordRefund.getOrderUuid());
         if(productOrder == null){
             return ResultUtil.fail("总订单不存在");
         }
         if (productOrder.getActualPrice() > 0){
             try {
                 String out_refund_no = "Tu" + RandomNum.getRandomFileName();
+                JsonResult r = weiXinRefund.refund(productOrder.getUuid(), out_refund_no, String.valueOf(productOrder.getActualPrice()), recordRefund.getRefundFee());
+                if (r.getResult() != 0){
+                    return  ResultUtil.fail(r.getMsg());
+                }
                 recordRefund.setOutRefundNo(out_refund_no);
+                recordRefund.setIsSuccess(1);
                 recordRefundMapper.updateByPrimaryKeySelective(recordRefund);
                 if (recordRefund.getIsDeposit() != 1){
-                    ProductOrderDetail productOrderDetail = productOrderDetailMapper.selectByUuid(orderUuid);
+                    ProductOrderDetail productOrderDetail = productOrderDetailMapper.selectByUuid(recordRefund.getOrderUuid());
                     if (productOrder.getOneOpenId() != null){
                         if (productOrderDetail.getQuantity() > recordRefund.getRefundSum()){
                             double mon = (productOrderDetail.getQuantity()-recordRefund.getRefundSum())/productOrderDetail.getQuantity()*productOrderDetail.getCommission();
                             Turnover turnover = new Turnover();
                             turnover.setTurnoverTime(new Date());
                             turnover.setOpenId(productOrder.getOneOpenId());
-                            turnover.setOrderUuid(orderUuid);
+                            turnover.setOrderUuid(recordRefund.getOrderUuid());
                             turnover.setTurnoverMon(mon);
                             turnover.setTurnoverType((short)0);
                             turnover.setInType((short)1);
@@ -136,10 +155,8 @@ public class OrderService {
                     productOrderDetailMapper.updateByPrimaryKeySelective(productOrderDetail);
                 }
                 //退款
-                weiXinRefund.refund(productOrder.getUuid(), out_refund_no, String.valueOf(productOrder.getActualPrice()), recordRefund.getRefundFee());
             }catch (Exception e){
                 e.printStackTrace();
-                return  ResultUtil.fail("退款失败");
             }
         }else {
             return  ResultUtil.fail("总订单实际付款过少");
@@ -155,7 +172,7 @@ public class OrderService {
         if(productOrderDetail.getStatus() != 1){
             return ResultUtil.fail("该订单无法发货");
         }
-        productOrderDetail.setStatus(2);
+        productOrderDetail.setStatus(3);
         productOrderDetailMapper.updateByPrimaryKeySelective(productOrderDetail);
         return ResultUtil.success();
     }
@@ -199,7 +216,7 @@ public class OrderService {
         if(recordRefund == null){
             return;
         }
-        recordRefund.setIsSuccess(1);
+        recordRefund.setType(1);
         recordRefundMapper.updateByPrimaryKeySelective(recordRefund);
     }
 

@@ -30,6 +30,7 @@
     <select id="getFeedbackList" resultType="map">
      SELECT f.*,ub.nick_name,ub.`icon` FROM feedback f LEFT JOIN user_base ub ON f.open_id = ub.`open_id`
      where f.is_delete = 0
+     order by feed_type desc
      limit #{pageObject.startIndex},#{pageObject.pageSize}
   </select>
     <select id="findFeedbackById" resultType="map" parameterType="java.lang.Integer">

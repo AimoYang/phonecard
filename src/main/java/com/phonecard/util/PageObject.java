@@ -93,7 +93,27 @@ public class PageObject implements Serializable {
 
 	private Integer sortId;
 
+	private Integer state;
+
+	private String goodsName;
+
 	private String openId;
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public String getGoodsName() {
+		return goodsName;
+	}
+
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
 
 	public String getOpenId() {
 		return openId;

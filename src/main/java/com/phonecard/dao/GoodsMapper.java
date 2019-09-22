@@ -1,6 +1,7 @@
 package com.phonecard.dao;
 
 import com.phonecard.bean.Goods;
+import com.phonecard.bean.TourList;
 import com.phonecard.util.PageObject;
 import com.phonecard.vo.GoodsVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -49,4 +50,8 @@ public interface GoodsMapper {
     int getTourListRow(@Param("pageObject")PageObject pageObject);
 
     List<GoodsVo> selectTourListNoLink(@Param("pageObject")PageObject pageObject);
+
+    int getTourGoodsRow(@Param("pageObject")PageObject pageObject);
+
+    List<GoodsVo> selectTourListGoods(@Param("pageObject")PageObject pageObject);
 }

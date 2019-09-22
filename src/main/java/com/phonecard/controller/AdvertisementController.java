@@ -47,6 +47,12 @@ public class AdvertisementController {
         return advertisementService.deleteTourList(id);
     }
 
+    @PostMapping("/selectTourListGoods")
+    @ApiOperation("查询旅游清单已关联的商品  -- 分页")
+    public ResultVO selectTourListGoods(@ApiParam(value = "分页信息")@RequestBody PageObject pageObject){
+        return goodsService.selectTourListGoods(pageObject);
+    }
+
     @PostMapping("/selectTourListNoLink")
     @ApiOperation("查询旅游清单未关联的商品  -- 分页")
     public ResultVO selectTourListNoLink(@ApiParam(value = "分页信息")@RequestBody PageObject pageObject){
@@ -57,6 +63,12 @@ public class AdvertisementController {
     @ApiOperation("查询旅游清单  -- 分页")
     public ResultVO selectTourList(@ApiParam(value = "分页信息")@RequestBody PageObject pageObject){
         return goodsService.selectTourList(pageObject);
+    }
+
+    @PostMapping("/updateTourList")
+    @ApiOperation("旅游清单修改")
+    public ResultVO updateTourList(@RequestBody @ApiParam("旅游清单信息") TourList tourList){
+        return advertisementService.updateTourList(tourList);
     }
 
     @PostMapping("/cancelGoodsTourList")

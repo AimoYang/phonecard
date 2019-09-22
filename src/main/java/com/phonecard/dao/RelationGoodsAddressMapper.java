@@ -22,4 +22,6 @@ public interface RelationGoodsAddressMapper {
     int updateByPrimaryKey(RelationGoodsAddress record);
 
     List<RelationGoodsAddressVo> selectList(@Param("uuid") String uuid);
+
+    void updateDelete(@Param("uuid")String uuid);
 }

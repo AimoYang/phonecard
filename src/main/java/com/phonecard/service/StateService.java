@@ -5,6 +5,7 @@ import com.phonecard.bean.ResultVO;
 import com.phonecard.bean.State;
 import com.phonecard.dao.StateMapper;
 import com.phonecard.util.PageObject;
+import com.phonecard.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ public class StateService {
         State state = stateMapper.selectByPrimaryKey(id);
         if (state != null){
             state.setIsRecommend((short) isRecommend);
-            int row = stateMapper.updateByPrimaryKey(state);
+            int row = stateMapper.updateByPrimaryKeySelective(state);
             if (row >0 ){
                 return true;
             } else{
@@ -57,7 +58,7 @@ public class StateService {
         State state = stateMapper.selectByPrimaryKey(id);
         if (state != null){
             state.setIsHot((short) isHot);
-            int row = stateMapper.updateByPrimaryKey(state);
+            int row = stateMapper.updateByPrimaryKeySelective(state);
             if (row >0 ){
                 return true;
             } else{
@@ -70,6 +71,6 @@ public class StateService {
 
     public ResultVO selectStateAllList() {
         List<State> list = stateMapper.selectStateAllList();
-        return new ResultVO();
+        return ResultUtil.success(list);
     }
 }

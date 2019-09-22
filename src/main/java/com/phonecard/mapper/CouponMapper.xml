@@ -24,19 +24,34 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="getCountCouponSum" resultType="java.lang.Integer">
-    select COUNT(1) from coupon where is_delete = 0
+    select COUNT(1)
+    from coupon
+    where is_delete = 0
     <if test="pageObject.name != null and pageObject.name != ''">
       and coupon_name LIKE CONCAT ('%',#{pageObject.name},'%')
     </if>
+    <if test="pageObject.type != null and pageObject.type != ''">
+      and if(UNIX_TIMESTAMP(start_time) - UNIX_TIMESTAMP(now()) &lt; 0 ,if(UNIX_TIMESTAMP(end_time) - UNIX_TIMESTAMP(now()) &gt; 0,1,2),0) = #{pageObject.type}
+    </if>
+    <if test="pageObject.type == '0'.toString()">
+      and if(UNIX_TIMESTAMP(start_time) - UNIX_TIMESTAMP(now()) &lt; 0 ,if(UNIX_TIMESTAMP(end_time) - UNIX_TIMESTAMP(now()) &gt; 0,1,2),0) = 0
+    </if>
   </select>
   <select id="getCouponList" resultType="map">
-    SELECT c.*, c.coupon_num - COUNT(cb.id) AS leftNum FROM coupon c
-    LEFT JOIN coupon_bind cb ON c.uuid = cb.coupon_uuid
+    SELECT c.*, (c.coupon_num - (SELECT count(1) FROM coupon_bind as cb WHERE c.uuid = cb.coupon_uuid)) AS leftNum ,
+    if(UNIX_TIMESTAMP(start_time) - UNIX_TIMESTAMP(now()) &lt; 0 ,if(UNIX_TIMESTAMP(end_time) - UNIX_TIMESTAMP(now()) &gt; 0,1,2),0) state
+    FROM coupon c
     WHERE c.is_delete = 0
     <if test="pageObject.name != null and pageObject.name != ''">
       and c.coupon_name LIKE CONCAT ('%',#{pageObject.name},'%')
     </if>
-    GROUP BY c.uuid
+    <if test="pageObject.type != null and pageObject.type != ''">
+      and if(UNIX_TIMESTAMP(start_time) - UNIX_TIMESTAMP(now()) &lt; 0 ,if(UNIX_TIMESTAMP(end_time) - UNIX_TIMESTAMP(now()) &gt; 0,1,2),0) = #{pageObject.type}
+    </if>
+    <if test="pageObject.type == '0'.toString()">
+      and if(UNIX_TIMESTAMP(start_time) - UNIX_TIMESTAMP(now()) &lt; 0 ,if(UNIX_TIMESTAMP(end_time) - UNIX_TIMESTAMP(now()) &gt; 0,1,2),0) = 0
+    </if>
+    order by create_time desc
     limit #{pageObject.startIndex},#{pageObject.pageSize}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

@@ -15,8 +15,6 @@ import java.util.List;
 public class CardInfoForm {
 
     private Integer id;
-
-    private String goodsUuid;
     @NotNull
     private Integer destination;
 
@@ -41,6 +39,8 @@ public class CardInfoForm {
     private String cardSize;
 
     private Short haveCall;
+
+    private Integer deviceStock;
 
     List<RelationGoodsAddress> relationGoodsAddress;
 

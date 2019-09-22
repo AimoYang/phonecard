@@ -14,5 +14,4 @@ public class CancelOrdersDetailVo extends ProductOrderVo{
     private Short isDeposit;
 
     private RecordRefund recordRefund;
-
 }

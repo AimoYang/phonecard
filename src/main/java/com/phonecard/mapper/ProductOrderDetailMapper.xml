@@ -88,15 +88,24 @@
     left join product_order as p on p.uuid = d.product_order_uuid
     left join leader as l on p.one_open_id = l.open_id
     left join user_base as u on u.open_id = p.open_id
-    where 0 = 0
+    where p.order_status = 1
     <if test="pageObject.type != null and pageObject.type != ''">
       and d.distribution_type = #{pageObject.type}
     </if>
     <if test="pageObject.type == '0'.toString()">
       and d.distribution_type = 0
     </if>
+    <if test="pageObject.id != null and pageObject.id != ''">
+      and d.one_sort_id = #{pageObject.id}
+    </if>
     <if test="pageObject.title != null and pageObject.title != ''">
       and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.goodsName != null and pageObject.goodsName != ''">
+      and d.product_name LIKE CONCAT ('%',#{pageObject.goodsName},'%')
+    </if>
+    <if test="pageObject.state != null and pageObject.state != ''">
+      and d.status = #{pageObject.state}
     </if>
     <if test="pageObject.name != null and pageObject.name != ''">
       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
@@ -117,18 +126,27 @@
     from product_order_detail as d
     left join product_order as p on p.uuid = d.product_order_uuid
     left join leader as l on p.one_open_id = l.open_id
-    where 0 = 0
+    where p.order_status = 1
     <if test="pageObject.type != null and pageObject.type != ''">
       and d.distribution_type = #{pageObject.type}
     </if>
     <if test="pageObject.type == '0'.toString()">
       and d.distribution_type = 0
     </if>
+    <if test="pageObject.id != null and pageObject.id != ''">
+      and d.one_sort_id = #{pageObject.id}
+    </if>
     <if test="pageObject.title != null and pageObject.title != ''">
       and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
     </if>
     <if test="pageObject.name != null and pageObject.name != ''">
       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.goodsName != null and pageObject.goodsName != ''">
+      and d.product_name LIKE CONCAT ('%',#{pageObject.goodsName},'%')
+    </if>
+    <if test="pageObject.state != null and pageObject.state != ''">
+      and d.status = #{pageObject.state}
     </if>
     <if test="pageObject.startTime != null">
       and p.create_time &gt; #{pageObject.startTime}
@@ -156,7 +174,8 @@
     d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
     d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
     d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
-    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name, r.is_deposit
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name, r.is_deposit,
+    p.create_time
     from record_refund as r
     left join product_order_detail as d on r.order_uuid = d.uuid
     left join product_order as p on p.uuid = d.product_order_uuid
@@ -169,11 +188,23 @@
     <if test="pageObject.type == '0'.toString()">
       and d.distribution_type = 0
     </if>
+    <if test="pageObject.id != null and pageObject.id != ''">
+      and d.one_sort_id = #{pageObject.id}
+    </if>
     <if test="pageObject.title != null and pageObject.title != ''">
       and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
     </if>
     <if test="pageObject.name != null and pageObject.name != ''">
       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.goodsName != null and pageObject.goodsName != ''">
+      and d.product_name LIKE CONCAT ('%',#{pageObject.goodsName},'%')
+    </if>
+    <if test="pageObject.state != null and pageObject.state != ''">
+      and r.is_success = #{pageObject.state}
+    </if>
+    <if test="pageObject.state == '0'.toString()">
+      and r.is_success = 0
     </if>
     <if test="pageObject.startTime != null">
       and r.create_time &gt; #{pageObject.startTime}
@@ -200,8 +231,20 @@
     <if test="pageObject.type == '0'.toString()">
       and d.distribution_type = 0
     </if>
+    <if test="pageObject.id != null and pageObject.id != ''">
+      and d.one_sort_id = #{pageObject.id}
+    </if>
     <if test="pageObject.title != null and pageObject.title != ''">
       and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.goodsName != null and pageObject.goodsName != ''">
+      and d.product_name LIKE CONCAT ('%',#{pageObject.goodsName},'%')
+    </if>
+    <if test="pageObject.state != null and pageObject.state != ''">
+      and r.is_success = #{pageObject.state}
+    </if>
+    <if test="pageObject.state == '0'.toString()">
+      and r.is_success = 0
     </if>
     <if test="pageObject.name != null and pageObject.name != ''">
       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
@@ -234,6 +277,91 @@
     left join user_base as u on u.open_id = p.open_id
     where r.order_uuid = #{orderUuid}
   </select>
+
+  <select id="findCompanyOrderInfo" resultMap="OrderVoResultMap" >
+    select
+    d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
+    d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
+    d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name, p.create_time
+    from product_order_detail as d
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    left join user_base as u on u.open_id = p.open_id
+    left join company as c on c.id = l.company_id
+    where p.order_status = 1 and c.id = #{pageObject.id}
+    <if test="pageObject.type == 1 ">
+      and d.distribution_type = 1
+    </if>
+    <if test="pageObject.type == '0'.toString()">
+      and d.distribution_type = 0
+    </if>
+    <if test="pageObject.sortId != null and pageObject.sortId != ''">
+      and d.one_sort_id = #{pageObject.sortId}
+    </if>
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.goodsName != null and pageObject.goodsName != ''">
+      and d.product_name LIKE CONCAT ('%',#{pageObject.goodsName},'%')
+    </if>
+    <if test="pageObject.state != null and pageObject.state != ''">
+      and d.status = #{pageObject.state}
+    </if>
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.startTime != null">
+      and p.create_time &gt; #{pageObject.startTime}
+    </if>
+    <if test="pageObject.endTime != null">
+      and p.create_time &lt; #{pageObject.endTime}
+    </if>
+    order by p.create_time desc
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
+  <select id="getCompanyOrderRow" resultType="java.lang.Integer" >
+    select
+    count(1)
+    from product_order_detail as d
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    left join company as c on c.id = l.company_id
+    where p.order_status = 1 and c.id = #{pageObject.id}
+    <if test="pageObject.type != null and pageObject.type != ''">
+      and d.distribution_type = #{pageObject.type}
+    </if>
+    <if test="pageObject.type == '0'.toString()">
+      and d.distribution_type = 0
+    </if>
+    <if test="pageObject.sortId != null and pageObject.sortId != ''">
+      and d.one_sort_id = #{pageObject.sortId}
+    </if>
+    <if test="pageObject.title != null and pageObject.title != ''">
+      and d.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
+    </if>
+    <if test="pageObject.name != null and pageObject.name != ''">
+      and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.goodsName != null and pageObject.goodsName != ''">
+      and d.product_name LIKE CONCAT ('%',#{pageObject.goodsName},'%')
+    </if>
+    <if test="pageObject.state != null and pageObject.state != ''">
+      and d.status = #{pageObject.state}
+    </if>
+    <if test="pageObject.startTime != null">
+      and p.create_time &gt; #{pageObject.startTime}
+    </if>
+    <if test="pageObject.endTime != null">
+      and p.create_time &lt; #{pageObject.endTime}
+    </if>
+  </select>
+
+
+
+
+
 
 
 

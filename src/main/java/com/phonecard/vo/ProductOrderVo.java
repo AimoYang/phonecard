@@ -1,7 +1,6 @@
 package com.phonecard.vo;
 
 import com.phonecard.bean.ProductOrderDetail;
-import lombok.Data;
 
 import java.util.Date;
 
@@ -10,7 +9,7 @@ import java.util.Date;
  * @Date: 2019/9/9 0009 19:40
  * @Description:
  */
-@Data
+
 public class ProductOrderVo extends ProductOrderDetail {
 
     private Date createTime;
@@ -21,4 +20,35 @@ public class ProductOrderVo extends ProductOrderDetail {
 
     private String icon;
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getLeaderName() {
+        return leaderName;
+    }
+
+    public void setLeaderName(String leaderName) {
+        this.leaderName = leaderName;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 }

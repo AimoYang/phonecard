@@ -29,7 +29,7 @@ public class KefuService {
 
     public boolean updateInfo(Kefu kefu) {
         try {
-            int updateRows = kefuMapper.updateByPrimaryKey(kefu);
+            int updateRows = kefuMapper.updateByPrimaryKeySelective(kefu);
             if (updateRows > 0){
                 return  true;
             } else {

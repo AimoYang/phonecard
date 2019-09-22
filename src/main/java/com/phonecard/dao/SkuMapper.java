@@ -23,4 +23,6 @@ public interface SkuMapper {
     Sku selectMinSkuByGoods(@Param("uuid") String uuid);
 
     List<Sku> selectByGoodsUuid(@Param("uuid")String uuid);
+
+    void updateDelete(@Param("uuid") String uuid);
 }

@@ -97,4 +97,11 @@ public class AdvertisementService {
         }
         return ResultUtil.success();
     }
+
+    public ResultVO updateTourList(TourList tourList) {
+        if (tourListMapper.updateByPrimaryKeySelective(tourList)< 0){
+            return ResultUtil.fail("修改失败");
+        }
+        return ResultUtil.success();
+    }
 }

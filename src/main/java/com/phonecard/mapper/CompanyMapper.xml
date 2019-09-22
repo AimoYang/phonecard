@@ -47,6 +47,14 @@
     where is_delete = 0
   </select>
 
+  <select id="loginCompany" resultMap="BaseResultMap" parameterType="com.phonecard.bean.Company" >
+    select
+    <include refid="Base_Column_List" />
+    from company
+    where company_account = #{companyAccount} and company_password = #{companyPassword}
+  </select>
+
+
 
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

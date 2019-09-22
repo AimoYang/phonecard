@@ -30,7 +30,7 @@ public class BaseUserService {
         UserBase userBase = userBaseMapper.selectByPrimaryKey(userId);
         if (userBase != null) {
             userBase.setIsEnable((short) status);
-            int row = userBaseMapper.updateByPrimaryKey(userBase);
+            int row = userBaseMapper.updateByPrimaryKeySelective(userBase);
             if (row > 0) {
                 return true;
             } else {

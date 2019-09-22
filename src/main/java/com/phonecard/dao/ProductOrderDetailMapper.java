@@ -48,4 +48,8 @@ public interface ProductOrderDetailMapper {
     ProductOrderDetail selectByUuid(@Param("orderUuid") String orderUuid);
 
     CancelOrdersDetailVo cancelOrdersDetailSelect(@Param("orderUuid")String orderUuid);
+
+    int getCompanyOrderRow(@Param("pageObject")PageObject pageObject);
+
+    List<ProductOrderVo> findCompanyOrderInfo(@Param("pageObject")PageObject pageObject);
 }

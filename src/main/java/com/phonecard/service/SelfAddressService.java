@@ -26,7 +26,7 @@ public class SelfAddressService {
     public Map<String, Object> getSelfAddress(PageObject pageObject) {
         pageObject.setRowCount(addressSelfMapper.getCountAddressSum());
         List<AddressSelf> list = addressSelfMapper.getAddressList(pageObject);
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(2);
         map.put("page", pageObject);
         map.put("info", list);
         return map;
@@ -57,7 +57,7 @@ public class SelfAddressService {
     }
 
     public boolean updateAddress(AddressSelf addressSelf) {
-        return addressSelfMapper.updateByPrimaryKey(addressSelf) > 0;
+        return addressSelfMapper.updateByPrimaryKeySelective(addressSelf) > 0;
     }
 
     public List<AddressSelf> findAllAddress() {

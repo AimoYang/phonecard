@@ -37,6 +37,14 @@
   </select>
 
 
+  <update id="updateDelete" >
+    update sku
+    set
+      is_delete = 1
+    where goods_uuid = #{uuid}
+  </update>
+
+
 
 
 

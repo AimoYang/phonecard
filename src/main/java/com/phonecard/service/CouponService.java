@@ -38,8 +38,9 @@ public class CouponService {
     public boolean deleteCoupon(Integer id) {
         Coupon coupon = couponMapper.selectByPrimaryKey(id);
         if (coupon != null){
+            coupon.setCouponNum(0);
             coupon.setIsDelete((short)1);
-            int row = couponMapper.updateByPrimaryKey(coupon);
+            int row = couponMapper.updateByPrimaryKeySelective(coupon);
             if (row > 0){
                 return true;
             }else{
@@ -48,11 +49,10 @@ public class CouponService {
         } else{
             return false;
         }
-
     }
 
     public boolean couponUpdate(Coupon coupon) {
-        int row = couponMapper.updateByPrimaryKey(coupon);
+        int row = couponMapper.updateByPrimaryKeySelective(coupon);
         if (row > 0){
             return true;
         }else{

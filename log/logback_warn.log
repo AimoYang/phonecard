@@ -1,27 +1,229 @@
-2019-09-17 10:35:42,195 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
-2019-09-17 11:01:32,627 WARN [http-nio-82-exec-10] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.dao.DataIntegrityViolationException: 
-### Error querying database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'is_delete' in where clause is ambiguous
-### The error may exist in file [D:\YGY\phonecard\target\classes\com\phonecard\mapper\CardInfoMapper.xml]
-### The error may involve defaultParameterMap
-### The error occurred while setting parameters
-### SQL: select     c.id, c.goods_uuid, c.destination, c.supplier, c.self_city, c.start_explain, c.cost_explain, c.product_explain,     c.reserve_notice, c.cancellation_policy, c.network, c.hotspot, c.card_size, c.is_delete, c.have_call,     c.device_stock ,s.state_name stateName     from card_info as c     left join state as s on c.destination = s.id     where goods_uuid = ? and is_delete = 0
-### Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'is_delete' in where clause is ambiguous
-; Column 'is_delete' in where clause is ambiguous; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column 'is_delete' in where clause is ambiguous]
-2019-09-17 11:02:03,731 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
-2019-09-17 11:02:07,556 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.dao.DataIntegrityViolationException: 
-### Error querying database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'is_delete' in where clause is ambiguous
-### The error may exist in file [D:\YGY\phonecard\target\classes\com\phonecard\mapper\CardInfoMapper.xml]
-### The error may involve defaultParameterMap
-### The error occurred while setting parameters
-### SQL: select     c.id, c.goods_uuid, c.destination, c.supplier, c.self_city, c.start_explain, c.cost_explain, c.product_explain,     c.reserve_notice, c.cancellation_policy, c.network, c.hotspot, c.card_size, c.is_delete, c.have_call,     c.device_stock ,s.state_name stateName     from card_info as c     left join state as s on c.destination = s.id     where goods_uuid = ? and is_delete = 0
-### Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'is_delete' in where clause is ambiguous
-; Column 'is_delete' in where clause is ambiguous; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column 'is_delete' in where clause is ambiguous]
-2019-09-17 11:02:38,653 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
-2019-09-17 11:03:14,555 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
-2019-09-17 14:03:58,003 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
-2019-09-17 14:35:58,236 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
-2019-09-17 14:46:44,374 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
-2019-09-17 14:58:30,344 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
-2019-09-17 14:59:44,454 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
-2019-09-17 14:59:55,513 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
-2019-09-17 15:07:32,135 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 14:13:37,079 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 14:13:38,691 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 14:13:50,055 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.jdbc.UncategorizedSQLException: 
+### Error querying database.  Cause: java.sql.SQLException: sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by
+### The error may exist in file [D:\YGY\phonecard\target\classes\com\phonecard\mapper\LeaderMapper.xml]
+### The error may involve com.phonecard.dao.LeaderMapper.getLeaderRow
+### The error occurred while executing a query
+### SQL: select     count(1)     from leader as l     left join income as i on i.open_id = l.open_id     where 0 = 0 and l.is_delete = 0                         and l.in_type = ?                       order by
+### Cause: java.sql.SQLException: sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by
+; uncategorized SQLException; SQL state [null]; error code [0]; sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by; nested exception is java.sql.SQLException: sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by]
+2019-09-21 14:13:50,955 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.jdbc.UncategorizedSQLException: 
+### Error querying database.  Cause: java.sql.SQLException: sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by
+### The error may exist in file [D:\YGY\phonecard\target\classes\com\phonecard\mapper\LeaderMapper.xml]
+### The error may involve com.phonecard.dao.LeaderMapper.getLeaderRow
+### The error occurred while executing a query
+### SQL: select     count(1)     from leader as l     left join income as i on i.open_id = l.open_id     where 0 = 0 and l.is_delete = 0                         and l.in_type = ?                       order by
+### Cause: java.sql.SQLException: sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by
+; uncategorized SQLException; SQL state [null]; error code [0]; sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by; nested exception is java.sql.SQLException: sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by]
+2019-09-21 14:13:53,248 WARN [http-nio-82-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 14:18:20,595 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 14:18:22,040 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 14:27:47,197 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 14:27:48,726 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 14:27:58,958 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.jdbc.UncategorizedSQLException: 
+### Error querying database.  Cause: java.sql.SQLException: sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by
+### The error may exist in file [D:\YGY\phonecard\target\classes\com\phonecard\mapper\LeaderMapper.xml]
+### The error may involve com.phonecard.dao.LeaderMapper.getLeaderRow
+### The error occurred while executing a query
+### SQL: select     count(1)     from leader as l     left join income as i on i.open_id = l.open_id     where 0 = 0 and l.is_delete = 0                         and l.in_type = ?                       order by
+### Cause: java.sql.SQLException: sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by
+; uncategorized SQLException; SQL state [null]; error code [0]; sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by; nested exception is java.sql.SQLException: sql injection violation, syntax error: EOF : select
+    count(1)
+    from leader as l
+    left join income as i on i.open_id = l.open_id
+    where 0 = 0 and l.is_delete = 0
+     
+     
+     
+      and l.in_type = ?
+     
+     
+     
+    order by]
+2019-09-21 14:27:59,662 WARN [http-nio-82-exec-5] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 14:34:44,033 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 14:34:45,086 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 14:34:54,715 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 14:34:56,316 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 14:39:11,356 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 14:42:10,970 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 14:43:34,246 WARN [http-nio-82-exec-10] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 14:45:13,498 WARN [http-nio-82-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 14:49:07,548 WARN [http-nio-82-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 14:55:19,270 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 14:55:20,234 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 14:57:11,563 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 14:57:15,424 WARN [http-nio-82-exec-5] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:00:59,057 WARN [http-nio-82-exec-10] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:01:00,473 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:01:10,813 WARN [http-nio-82-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:01:48,764 WARN [http-nio-82-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:01:50,258 WARN [http-nio-82-exec-8] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:06:07,450 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 15:06:09,011 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 15:06:21,416 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:12:09,509 WARN [http-nio-82-exec-7] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:12:12,654 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:12:19,370 WARN [http-nio-82-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:13:10,052 WARN [http-nio-82-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:18:54,815 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:19:01,421 WARN [http-nio-82-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:23:19,209 WARN [http-nio-82-exec-10] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:25:11,146 WARN [http-nio-82-exec-5] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:26:00,493 WARN [http-nio-82-exec-7] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:26:16,513 WARN [http-nio-82-exec-9] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:27:18,797 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:28:38,256 WARN [http-nio-82-exec-8] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:30:41,926 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:35:23,375 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:35:39,300 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:35:44,519 WARN [http-nio-82-exec-5] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-21 15:35:56,582 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 15:35:58,138 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 16:04:57,586 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 16:04:58,879 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 16:16:15,624 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 16:16:16,677 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 16:34:11,251 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 16:34:12,157 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 16:55:02,770 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 16:55:04,397 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 17:26:08,235 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 17:26:09,294 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 17:39:37,807 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 17:39:39,363 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-21 17:54:35,583 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-21 17:54:37,121 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]

@@ -18,6 +18,14 @@
     where floor_id = #{floorId} and goods_uuid = #{uuid}
   </select>
 
+  <select id="selectByGoods" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from floor_bind
+    where goods_uuid = #{uuid}
+  </select>
+
+
 
 
 

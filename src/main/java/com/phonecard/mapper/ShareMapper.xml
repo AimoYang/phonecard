@@ -24,7 +24,7 @@
     update share
     set
       one_open_id = #{nowOpenId}
-    where one_open_id = #{agoOpenId} and is_delete = 0
+    where one_open_id = #{agoOpenId} and is_delete = 0 and (open_id != #{agoOpenId})
   </update>
 
   <select id="selectLeaderBind" resultType="java.lang.Integer" >
@@ -36,9 +36,14 @@
 
   <select id="selectLeaderUserList" resultMap="ShareResultMap" >
     select
-    u.nick_name, u.icon, u.create_time, u.consume_money,
-    (select count(1) from product_order as p where p.open_id = s.open_id ) consumeSum,
-    (select sum(turnover_mon) from turnover as t where t.open_id = s.open_id) commissionAll
+    u.nick_name, u.icon, u.create_time,
+    (select sum(p.actual_price) from product_order as p where p.open_id = s.open_id and p.one_open_id = #{pageObject.openId} ) consume_money,
+    (select count(1) from product_order as p where p.open_id = s.open_id and p.one_open_id = #{pageObject.openId} ) consumeSum,
+    (select sum(t.turnover_mon) from turnover as t
+    left join product_order_detail as d on  t.order_uuid = d.uuid
+    left join product_order as p on p.uuid = d.product_order_uuid
+	left join `share` as s on s.open_id = p.open_id
+    where p.one_open_id = #{pageObject.openId} and s.open_id = u.open_id) commissionAll
     from `share` as s
     left join user_base as u on u.open_id = s.open_id
     where s.one_open_id = #{pageObject.openId} and s.is_delete = 0
@@ -52,6 +57,16 @@
     from `share`
     where one_open_id = #{pageObject.openId} and is_delete = 0
   </select>
+
+  <select id="selectLeader" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from share
+    where open_id = #{openId}
+  </select>
+
+
+
 
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

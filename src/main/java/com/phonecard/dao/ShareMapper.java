@@ -29,4 +29,6 @@ public interface ShareMapper {
     int getLeaderUserRow(@Param("pageObject") PageObject pageObject);
 
     List<ShareVo> selectLeaderUserList(@Param("pageObject")PageObject pageObject);
+
+    Share selectLeader(@Param("openId")String openId);
 }

@@ -15,8 +15,6 @@ import java.util.List;
 public class GoodsForm {
 
     private Integer id;
-
-    private String uuid;
     @NotNull
     private String goodsName;
     @NotNull

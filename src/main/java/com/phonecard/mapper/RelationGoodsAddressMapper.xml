@@ -25,6 +25,13 @@
     where r.goods_uuid = #{uuid} and r.is_delete = 0
   </select>
 
+  <update id="updateDelete" >
+    update relation_goods_address
+    set
+      is_delete = 1
+    where goods_uuid = #{uuid}
+  </update>
+
 
 
 

@@ -30,7 +30,7 @@ public class FeedbackService {
         Feedback feedback = feedbackMapper.selectByPrimaryKey(id);
         if (feedback != null) {
             feedback.setFeedType((short) 1);
-            int row = feedbackMapper.updateByPrimaryKey(feedback);
+            int row = feedbackMapper.updateByPrimaryKeySelective(feedback);
             if (row > 0) {
                 return true;
             } else {
@@ -54,7 +54,7 @@ public class FeedbackService {
         Feedback feedback = feedbackMapper.selectByPrimaryKey(id);
         if (feedback != null){
             feedback.setIsDelete((short) 1);
-            int row = feedbackMapper.updateByPrimaryKey(feedback);
+            int row = feedbackMapper.updateByPrimaryKeySelective(feedback);
             if (row > 0) {
                 return true;
             } else {

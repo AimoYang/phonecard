@@ -1,10 +1,7 @@
 package com.phonecard.service;
 
 import com.phonecard.bean.*;
-import com.phonecard.dao.CompanyMapper;
-import com.phonecard.dao.LeaderMapper;
-import com.phonecard.dao.ShareMapper;
-import com.phonecard.dao.UserBaseMapper;
+import com.phonecard.dao.*;
 import com.phonecard.util.PageObject;
 import com.phonecard.util.ResultUtil;
 import com.phonecard.vo.LeaderVo;
@@ -12,6 +9,7 @@ import com.phonecard.vo.ShareVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +30,8 @@ public class LeaderService {
     private UserBaseMapper userBaseMapper;
     @Autowired
     private CompanyMapper companyMapper;
+    @Autowired
+    private CompanyBindMapper companyBindMapper;
 
     public ResultVO selectLeaderList(PageObject pageObject) {
         int row = leaderMapper.getLeaderRow(pageObject);
@@ -62,7 +62,7 @@ public class LeaderService {
     public ResultVO setLeaderInfo(String openId, Short status) {
         if (status == 1){
            int count = shareMapper.selectLeaderBind(openId);
-           if (count > 0){
+           if (count > 1){
                return ResultUtil.fail("该团长下有用户");
            }
         }
@@ -75,6 +75,8 @@ public class LeaderService {
 
     public ResultVO selectLeaderDetail(Integer id) {
         LeaderVo leaderVo = leaderMapper.selectLeaderDetail(id);
+        leaderVo.setUserNum(leaderMapper.selectUserSum(leaderVo.getOpenId()));
+        leaderVo.setConsumeSum(leaderMapper.selectOrderSum(leaderVo.getOpenId()));
         return ResultUtil.success(leaderVo);
     }
 
@@ -82,10 +84,7 @@ public class LeaderService {
         int row = shareMapper.getLeaderUserRow(pageObject);
         pageObject.setRowCount(row);
         List<ShareVo> list = shareMapper.selectLeaderUserList(pageObject);
-        int sum = 0;
-        for (ShareVo s : list) {
-            sum = sum + s.getConsumeSum();
-        }
+        int sum = leaderMapper.selectOrderSum(pageObject.getOpenId());
         Map<String, Object> map = new HashMap<>(3);
         map.put("list", list);
         map.put("pageObject", pageObject);
@@ -96,9 +95,31 @@ public class LeaderService {
     public ResultVO agreeLeader(Leader leader) {
         try {
             Company company = companyMapper.selectByPrimaryKey(leader.getCompanyId());
+            if (company == null){
+                return ResultUtil.fail("申请公司不存在");
+            }
             leader.setInType((short)1);
             leader.setLeaderCompanyName(company.getCompanyName());
             leaderMapper.updateByPrimaryKeySelective(leader);
+
+            Share share = shareMapper.selectLeader(leader.getOpenId());
+            if (share == null){
+                Share share1 = new Share();
+                share1.setOpenId(leader.getOpenId());
+                share1.setCreateTime(new Date());
+                share1.setOneOpenId(leader.getOpenId());
+                share1.setInType((short)1);
+                shareMapper.insertSelective(share1);
+            }else {
+                share.setOneOpenId(leader.getOpenId());
+                shareMapper.updateByPrimaryKeySelective(share);
+            }
+
+            CompanyBind companyBind = new CompanyBind();
+            companyBind.setCompanyId(leader.getCompanyId());
+            companyBind.setLeaderId(leader.getId());
+            companyBindMapper.insertSelective(companyBind);
+
             UserBase userBase = userBaseMapper.selectByOpenId(leader.getOpenId());
             userBase.setUserType((short)2);
             userBaseMapper.updateByPrimaryKeySelective(userBase);

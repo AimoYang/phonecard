@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,7 +52,8 @@ public class RefundController {
                 HSSFWorkbook workbook = new HSSFWorkbook();
                 HSSFSheet sheet = workbook.createSheet("信息表");
                 List<RefundOrderDto> addressList = refundService.findOrderByPage(pageObject, orderNo, fetchType, leaderNickName, DateUtil.stringToDateTime(startTime),  DateUtil.stringToDateTime(endTime));
-                String fileName = "订单详情"  + ".xls";//设置要导出的文件的名字
+                String filename = "订单详情";//设置要导出的文件的名字
+                String fileName = new String(filename.getBytes(), "iso8859-1") + DateUtil.dateTimeToString(new Date()) + ".xls";
                 //新增数据行，并且设置单元格数据
                 int rowNum = 1;
                 String[] headers = { "订单编号", "下单时间", "商品名称", "数量", "单价", "总价" , "套餐类型", "取件方式", "所属团长", "返佣价格", "交易状态", "实收款", "退款金额", "用户昵称"};

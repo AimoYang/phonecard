@@ -56,7 +56,7 @@ public class LoginController {
                 Map<String, Object> map = new HashMap<String,Object>();
                 map.put("token", mytoken);
                 map.put("accountInfo", accountInfo);
-                redisService.set(mytoken, accountInfo , (long)7200);
+                redisService.set(mytoken, accountInfo , (long)36000);
                 accountInfo.setPassword(null);
                 map.put("accountInfo", accountInfo);
                 r.setResult(StatusCode.SUCCESS);
