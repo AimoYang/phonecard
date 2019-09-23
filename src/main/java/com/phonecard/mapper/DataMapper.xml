@@ -3,8 +3,15 @@
 <mapper namespace="com.phonecard.dao.DataMapper">
 
     <select id="getOrderNum" resultType="java.lang.Integer">
-        SELECT COUNT(1) FROM product_order_detail a LEFT JOIN product_ORDER b ON a.product_order_uuid = b.uuid WHERE
+        SELECT COUNT(1) FROM product_order_detail a LEFT JOIN product_ORDER b ON a.product_order_uuid = b.uuid
+         <if test="company != null">
+             LEFT JOIN leader l ON b.one_open_id = l.open_id  LEFT JOIN company c ON l.company_id = c.id
+         </if>
+         WHERE
         a.status = 1
+        <if test="company != null">
+            AND c.id = #{company}
+        </if>
         <if test="type == 1 || type == -1">
             AND DATE_FORMAT(b.create_time,'%Y-%m-%d') = #{startDate}
         </if>
@@ -15,7 +22,14 @@
 
     <select id="getOrderAmount" resultType="java.math.BigDecimal">
         SELECT SUM(a.actual_price) FROM product_order_detail a LEFT JOIN product_ORDER b ON a.product_order_uuid =
-        b.uuid WHERE a.status = 1
+        b.uuid
+        <if test="company != null">
+            LEFT JOIN leader l ON b.one_open_id = l.open_id  LEFT JOIN company c ON l.company_id = c.id
+        </if>
+        WHERE a.status = 1
+        <if test="company != null">
+            AND c.id = #{company}
+        </if>
         <if test="type == 1 || type == -1">
             AND DATE_FORMAT(b.create_time,'%Y-%m-%d') = #{startDate}
         </if>
@@ -50,6 +64,17 @@
         ORDER BY totalCommission DESC LIMIT 0,10
     </select>
 
+    <select id="getTop10CompanyLeader" resultType="map" parameterType="java.lang.Integer">
+        SELECT cc.leader_name, COUNT(*) orderNum, IFNULL(SUM(cc.actual_price),0) totalActualPrice, IFNULL(SUM(cc.commission),0) totalCommission FROM
+          (SELECT a.*,c.leader_name,co.id companyId  FROM product_order_detail a LEFT JOIN product_order b ON a.product_order_uuid = b.uuid
+        LEFT JOIN leader c ON b.one_open_id = c.open_id LEFT JOIN company co ON co.id = c.company_id WHERE b.one_open_id IS NOT NULL AND a.status = 1) cc
+        <if test="companyId != null">
+            WHERE cc.companyId = #{companyId}
+        </if>
+        GROUP BY cc.leader_name
+        ORDER BY totalCommission DESC LIMIT 0,10
+    </select>
+
     <select id="getOrderCount" resultType="map">
         SELECT a.date,IFNULL(cc.total,0) total FROM
         (SELECT DATE_FORMAT(ADDDATE(#{startDate},INTERVAL @d DAY),'%m-%d') AS DATE ,@d :=@d + 1 DAY
@@ -65,7 +90,14 @@
         </if>
         ORDER BY DAY) a LEFT JOIN (SELECT DATE_FORMAT(b.create_time,'%m-%d') groupDate,COUNT(1) total FROM
         product_order_detail a
-        LEFT JOIN product_ORDER b ON a.product_order_uuid = b.uuid WHERE a.status = 1
+        LEFT JOIN product_ORDER b ON a.product_order_uuid = b.uuid
+        <if test="company != null">
+            LEFT JOIN leader l ON b.one_open_id = l.open_id  LEFT JOIN company c ON l.company_id = c.id
+        </if>
+        WHERE a.status = 1
+        <if test="company != null">
+            AND c.id = #{company}
+        </if>
         <if test="type == 1 || type == -1">
             AND DATE_FORMAT(b.create_time,'%Y-%m-%d') = #{startDate}
         </if>
@@ -90,7 +122,14 @@
         </if>
         ORDER BY DAY) a LEFT JOIN (SELECT DATE_FORMAT(b.create_time,'%m-%d') groupDate,SUM(a.actual_price) total FROM
         product_order_detail a
-        LEFT JOIN product_ORDER b ON a.product_order_uuid = b.uuid WHERE a.status = 1
+        LEFT JOIN product_ORDER b ON a.product_order_uuid = b.uuid
+        <if test="company != null">
+            LEFT JOIN leader l ON b.one_open_id = l.open_id  LEFT JOIN company c ON l.company_id = c.id
+        </if>
+        WHERE a.status = 1
+        <if test="company != null">
+            AND c.id = #{company}
+        </if>
         <if test="type == 1 || type == -1">
             AND DATE_FORMAT(b.create_time,'%Y-%m-%d') = #{startDate}
         </if>

@@ -61,6 +61,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 			return true;
 		}
 
+		if (request.getRequestURI().contains("export")){
+			return true;
+		}
+
 		if (token == null || token.equals("")) {
 			System.out.println("token == null");
 			printJson(response,StatusCode.INVALID,"token为空");

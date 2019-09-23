@@ -28,7 +28,11 @@ public class DataController {
 
     @ApiOperation(value = "主页统计")
     @RequestMapping(value = "/homeCount", method = RequestMethod.POST)
-    public JsonResult homepageCount() {
-        return new JsonResult(StatusCode.SUCCESS,"请求成功！", dataService.getHomepageCount());
+    public JsonResult homepageCount(Integer companyId) {
+        if (companyId == null){
+            return new JsonResult(StatusCode.SUCCESS,"请求成功！", dataService.getHomepageCount());
+        } else{
+            return new JsonResult(StatusCode.SUCCESS,"请求成功！", dataService.getHomepageCompanyCount(companyId));
+        }
     }
 }

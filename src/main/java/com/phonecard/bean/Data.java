@@ -4,6 +4,7 @@ import com.phonecard.util.DateUtil;
 
 import java.util.Date;
 
+@lombok.Data
 public class Data {
     //0、全部，1、当天，2、本周，3、本月
     private Integer type;
@@ -12,6 +13,7 @@ public class Data {
 
     private String groupDate;
     private Integer total;
+    private Integer company;
 
     public Data() {
     }
@@ -22,71 +24,39 @@ public class Data {
         this.endDate = endDate;
     }
 
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
+    public Data(Integer type, String startDate, String endDate, Integer company) {
         this.type = type;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
         this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
         this.endDate = endDate;
+        this.company = company;
     }
 
-    public String getGroupDate() {
-        return groupDate;
+
+    public static Data getLastMonth(Integer companyId) {//上月
+        return new Data(-3, DateUtil.getFirstDayOfLastMonth(), DateUtil.getLastDayOfLastMonth(), companyId);
     }
 
-    public void setGroupDate(String groupDate) {
-        this.groupDate = groupDate;
+    public static Data getLastWeek(Integer companyId) {//上周
+        return new Data(-2, DateUtil.getDayOfLastWeek(DateUtil.getFirstDayOfWeek()), DateUtil.getDayOfLastWeek(DateUtil.getLastDayOfWeek()), companyId);
     }
 
-    public Integer getTotal() {
-        return total;
+    public static Data getYesterday(Integer companyId) {//昨天
+        return new Data(-1, DateUtil.getYesterday(), "", companyId);
     }
 
-    public void setTotal(Integer total) {
-        this.total = total;
+    public static Data getAll(Integer companyId) {//所有
+        return new Data(0, "", "", companyId);
     }
 
-    public static Data getLastMonth() {//上月
-        return new Data(-3, DateUtil.getFirstDayOfLastMonth(), DateUtil.getLastDayOfLastMonth());
+    public static Data getToday(Integer companyId) {//当天
+        return new Data(1, DateUtil.dateToString(new Date()), "", companyId);
     }
 
-    public static Data getLastWeek() {//上周
-        return new Data(-2, DateUtil.getDayOfLastWeek(DateUtil.getFirstDayOfWeek()), DateUtil.getDayOfLastWeek(DateUtil.getLastDayOfWeek()));
+    public static Data getThisWeek(Integer companyId) {//本周
+        return new Data(2, DateUtil.getFirstDayOfWeek(), DateUtil.getLastDayOfWeek(), companyId);
     }
 
-    public static Data getYesterday() {//昨天
-        return new Data(-1, DateUtil.getYesterday(), "");
-    }
-
-    public static Data getAll() {//所有
-        return new Data(0, "", "");
-    }
-
-    public static Data getToday() {//当天
-        return new Data(1, DateUtil.dateToString(new Date()), "");
-    }
-
-    public static Data getThisWeek() {//本周
-        return new Data(2, DateUtil.getFirstDayOfWeek(), DateUtil.getLastDayOfWeek());
-    }
-
-    public static Data getThisMonth() {//本月
-        return new Data(3, DateUtil.getFirstDayOfMonth(), DateUtil.getLastDayOfMonth());
+    public static Data getThisMonth(Integer companyId) {//本月
+        return new Data(3, DateUtil.getFirstDayOfMonth(), DateUtil.getLastDayOfMonth(), companyId);
     }
 }
