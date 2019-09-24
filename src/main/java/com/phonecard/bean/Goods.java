@@ -26,6 +26,29 @@ public class Goods {
     private Short isShelf;
 
     private Short pickUp;
+
+    private String goodsVideo;
+
+    private String videoName;
+
+    private String videoImage;
+
+    public String getVideoImage() {
+        return videoImage;
+    }
+
+    public void setVideoImage(String videoImage) {
+        this.videoImage = videoImage;
+    }
+
+    public String getVideoName() {
+        return videoName;
+    }
+
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
+    }
+
     @NotNull
     private Short goodsType;
 
@@ -159,6 +182,14 @@ public class Goods {
 
     public void setPickUp(Short pickUp) {
         this.pickUp = pickUp;
+    }
+
+    public String getGoodsVideo() {
+        return goodsVideo;
+    }
+
+    public void setGoodsVideo(String goodsVideo) {
+        this.goodsVideo = goodsVideo;
     }
 
     public Short getGoodsType() {

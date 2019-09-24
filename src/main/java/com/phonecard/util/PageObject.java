@@ -99,6 +99,16 @@ public class PageObject implements Serializable {
 
 	private String openId;
 
+	private Integer isShelf;
+
+	public Integer getIsShelf() {
+		return isShelf;
+	}
+
+	public void setIsShelf(Integer isShelf) {
+		this.isShelf = isShelf;
+	}
+
 	public Integer getState() {
 		return state;
 	}

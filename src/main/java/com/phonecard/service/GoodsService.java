@@ -10,6 +10,8 @@ import com.phonecard.util.PageObject;
 import com.phonecard.util.RandomNum;
 import com.phonecard.util.ResultUtil;
 import com.phonecard.vo.GoodsVo;
+import com.phonecard.vo.RelationGoodsAddressVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -240,7 +242,7 @@ public class GoodsService {
             }else {
                 goods.setPickUp((short)1);
             }
-            System.out.print(goods.getPickUp().toString());
+//            System.out.print(goods.getPickUp().toString());
             /*if (goods.getPickUp() != 1){
                 List <Short> shortList = new ArrayList<>();
                 for (RelationGoodsAddress r: goodsForm.getCardInfoForm().getRelationGoodsAddress()) {
@@ -394,5 +396,48 @@ public class GoodsService {
         map.put("list",getPrice(list));
         map.put("pageObject",pageObject);
         return ResultUtil.success(map);
+    }
+
+    public ResultVO copyGoods(Integer id) {
+        Goods goods = goodsMapper.selectGoodsDetail(id);
+        if(goods == null){
+            return ResultUtil.fail("商品不存在或被删除");
+        }
+        String uuid = "Gs"+RandomNum.getRandomFileName();
+
+        List<Sku> skuList = skuMapper.selectByGoodsUuid(goods.getUuid());
+        skuList.forEach(sku -> {
+            sku.setGoodsUuid(uuid);
+            sku.setId(null);
+            skuMapper.insertSelective(sku);
+        });
+        if (goods.getGoodsType() == 0){
+            CardInfo cardInfo = cardInfoMapper.selectCardInfo(goods.getUuid());
+            cardInfo.setGoodsUuid(uuid);
+            cardInfo.setId(null);
+            cardInfoMapper.insertSelective(cardInfo);
+            List<RelationGoodsAddress> relationGoodsAddressList = relationGoodsAddressMapper.selectRelationGoodsAddressList(goods.getUuid());
+            relationGoodsAddressList.forEach(relationGoodsAddress -> {
+                relationGoodsAddress.setId(null);
+                relationGoodsAddress.setGoodsUuid(uuid);
+                relationGoodsAddressMapper.insertSelective(relationGoodsAddress);
+            });
+//            if(StringUtils.isNotEmpty(cardInfo.getSelfCity())){
+//                String[] splits = cardInfo.getSelfCity().split(",");
+//                for(String str : splits){
+//                    RelationGoodsAddress relationGoodsAddress = relationGoodsAddressMapper.selectByPrimaryKey(Integer.valueOf(str));
+//                    relationGoodsAddress.setGoodsUuid(uuid);
+//                    relationGoodsAddress.setId(null);
+//                    relationGoodsAddressMapper.insertSelective(relationGoodsAddress);
+//                }
+//
+//            }
+        }
+        goods.setGoodsName("(复制)"+goods.getGoodsName());
+        goods.setGoodsCreateTime(new Date());
+        goods.setUuid(uuid);
+        goods.setId(null);
+        goodsMapper.insertSelective(goods);
+        return ResultUtil.success();
     }
 }

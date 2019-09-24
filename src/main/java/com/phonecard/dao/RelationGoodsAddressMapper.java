@@ -24,4 +24,6 @@ public interface RelationGoodsAddressMapper {
     List<RelationGoodsAddressVo> selectList(@Param("uuid") String uuid);
 
     void updateDelete(@Param("uuid")String uuid);
+
+    List<RelationGoodsAddress> selectRelationGoodsAddressList(@Param("uuid")String uuid);
 }

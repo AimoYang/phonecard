@@ -33,7 +33,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor()).addPathPatterns("/**")
-        .excludePathPatterns("/WeiXinRet/**","/login","/Code","/pay/notify","/error","/swagger-resources/**","/v2/**");
+        .excludePathPatterns("/WeiXinRet/**","/video/**","/login","/Code","/pay/notify","/error","/swagger-resources/**","/v2/**");
         super.addInterceptors(registry);
     }
 
