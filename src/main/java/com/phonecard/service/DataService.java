@@ -32,9 +32,23 @@ public class DataService {
         //获取团长返佣排行TOP10
         map.put("top10UserHeadCount", dataMapper.getTop10Leader());
         //获取订单统计
-        map.put("orderCount", getCountOrder());
+        map.put("orderCount", getCountOrder(null));
         //获取销售统计
-        map.put("saleCount", getCountSale());
+        map.put("saleCount", getCountSale(null));
+        return map;
+    }
+
+    /**
+     * 公司统计
+     */
+    public Map<String, Object> getHomepageCompanyCount(Integer companyId) {
+        Map<String, Object> map = new HashMap<>();
+        //获取团长返佣排行TOP10
+        map.put("top10UserHeadCount", dataMapper.getTop10CompanyLeader(companyId));
+        //获取订单统计
+        map.put("orderCount", getCountOrder(companyId));
+        //获取销售统计
+        map.put("saleCount", getCountSale(companyId));
         return map;
     }
 
@@ -46,13 +60,13 @@ public class DataService {
     private Map<String, Integer> getOrderNum() {
         Map<String, Integer> map = new HashMap<>();
         //今日订单数量
-        map.put("today", dataMapper.getOrderNum(Data.getToday()));
+        map.put("today", dataMapper.getOrderNum(Data.getToday(null)));
         //本周订单数量
-        map.put("thisWeek", dataMapper.getOrderNum(Data.getThisWeek()));
+        map.put("thisWeek", dataMapper.getOrderNum(Data.getThisWeek(null)));
         //本月订单数量
-        map.put("thisMonth", dataMapper.getOrderNum(Data.getThisMonth()));
+        map.put("thisMonth", dataMapper.getOrderNum(Data.getThisMonth(null)));
         //全部订单数量
-        map.put("all", dataMapper.getOrderNum(Data.getAll()));
+        map.put("all", dataMapper.getOrderNum(Data.getAll(null)));
         return map;
     }
 
@@ -64,16 +78,16 @@ public class DataService {
     private Map<String, BigDecimal> getOrderAmount() {
         Map<String, BigDecimal> map = new HashMap<>();
         //今日订单金额
-        BigDecimal today = dataMapper.getOrderAmount(Data.getToday());
+        BigDecimal today = dataMapper.getOrderAmount(Data.getToday(null));
         map.put("today", today == null ? BigDecimal.ZERO : today);
         //本周订单金额
-        BigDecimal thisWeek = dataMapper.getOrderAmount(Data.getThisWeek());
+        BigDecimal thisWeek = dataMapper.getOrderAmount(Data.getThisWeek(null));
         map.put("thisWeek", thisWeek == null ? BigDecimal.ZERO : thisWeek);
         //本月订单金额
-        BigDecimal thisMonth = dataMapper.getOrderAmount(Data.getThisMonth());
+        BigDecimal thisMonth = dataMapper.getOrderAmount(Data.getThisMonth(null));
         map.put("thisMonth", thisMonth == null ? BigDecimal.ZERO : thisMonth);
         //全部订单金额
-        BigDecimal all = dataMapper.getOrderAmount(Data.getAll());
+        BigDecimal all = dataMapper.getOrderAmount(Data.getAll(null));
         map.put("all", all == null ? BigDecimal.ZERO : all);
         return map;
     }
@@ -102,11 +116,11 @@ public class DataService {
     private Map<String, Integer> getUserOverview() {
         Map<String, Integer> map = new HashMap<>();
         //今日新增
-        map.put("today", dataMapper.getUserOverview(Data.getToday()));
+        map.put("today", dataMapper.getUserOverview(Data.getToday(null)));
         //昨日新增
-        map.put("yesterday", dataMapper.getUserOverview(Data.getYesterday()));
+        map.put("yesterday", dataMapper.getUserOverview(Data.getYesterday(null)));
         //用户总数
-        map.put("all", dataMapper.getUserOverview(Data.getAll()));
+        map.put("all", dataMapper.getUserOverview(Data.getAll(null)));
         return map;
     }
 
@@ -115,30 +129,30 @@ public class DataService {
      *
      * @return Map<String, Object>
      */
-    private Map<String, Object> getCountOrder() {
+    private Map<String, Object> getCountOrder(Integer company) {
         Map<String, Object> map = new HashMap<>();
         //本月订单数量
-        int thisMonthNum = dataMapper.getOrderNum(Data.getThisMonth());
+        int thisMonthNum = dataMapper.getOrderNum(Data.getThisMonth(company));
         map.put("thisMonth", thisMonthNum);
         //上月订单数量
-        int lastMonthNum = dataMapper.getOrderNum(Data.getLastMonth());
+        int lastMonthNum = dataMapper.getOrderNum(Data.getLastMonth(company));
         //同比上月
         String monthPercent = ((thisMonthNum - lastMonthNum) / (lastMonthNum == 0 ? 1 : lastMonthNum)) * 100 + "%";
         map.put("monthPercent", monthPercent);
         //本周订单数量
-        int thisWeekNum = dataMapper.getOrderNum(Data.getThisWeek());
+        int thisWeekNum = dataMapper.getOrderNum(Data.getThisWeek(company));
         map.put("thisWeek", thisWeekNum);
         //上周订单数量
-        int lastWeekNum = dataMapper.getOrderNum(Data.getLastWeek());
+        int lastWeekNum = dataMapper.getOrderNum(Data.getLastWeek(company));
         //同比上周
         String weekPercent = ((thisWeekNum - lastWeekNum) / (lastWeekNum == 0 ? 1 : lastWeekNum)) * 100 + "%";
         map.put("weekPercent", weekPercent);
         //今日订单统计
-        map.put("todayCount", dataMapper.getOrderCount(Data.getToday()));
+        map.put("todayCount", dataMapper.getOrderCount(Data.getToday(company)));
         //本周订单统计
-        map.put("thisWeekCount", dataMapper.getOrderCount(Data.getThisWeek()));
+        map.put("thisWeekCount", dataMapper.getOrderCount(Data.getThisWeek(company)));
         //本月订单统计
-        map.put("thisMonthCount", dataMapper.getOrderCount(Data.getThisMonth()));
+        map.put("thisMonthCount", dataMapper.getOrderCount(Data.getThisMonth(company)));
         return map;
     }
 
@@ -147,14 +161,14 @@ public class DataService {
      *
      * @return Map<String, Object>
      */
-    private Map<String, Object> getCountSale() {
+    private Map<String, Object> getCountSale(Integer company) {
         Map<String, Object> map = new HashMap<>();
         //本月销售总额
-        BigDecimal thisMonthAmount = dataMapper.getOrderAmount(Data.getThisMonth());
+        BigDecimal thisMonthAmount = dataMapper.getOrderAmount(Data.getThisMonth(company));
         map.put("thisMonth", thisMonthAmount);
         //上月销售总额
         System.out.print("1-------------------");
-        BigDecimal lastMonthAmount = dataMapper.getOrderAmount(Data.getLastMonth());
+        BigDecimal lastMonthAmount = dataMapper.getOrderAmount(Data.getLastMonth(company));
         lastMonthAmount = lastMonthAmount == null ? BigDecimal.ZERO : lastMonthAmount;
         //同比上月
         System.out.print("3--------------------");
@@ -163,21 +177,21 @@ public class DataService {
         map.put("monthPercent", monthPercent);
         System.out.print("4--------------------");
         //本周销售总额
-        BigDecimal thisWeekAmount = dataMapper.getOrderAmount(Data.getThisWeek());
+        BigDecimal thisWeekAmount = dataMapper.getOrderAmount(Data.getThisWeek(company));
         map.put("thisWeek", thisWeekAmount);
         //上周销售总额
-        BigDecimal lastWeekAmount = dataMapper.getOrderAmount(Data.getLastWeek());
+        BigDecimal lastWeekAmount = dataMapper.getOrderAmount(Data.getLastWeek(company));
         lastWeekAmount = lastWeekAmount == null ? BigDecimal.ZERO : lastWeekAmount;
         //同比上周
         thisWeekAmount = thisWeekAmount == null ? BigDecimal.ZERO : thisWeekAmount;
         String weekPercent = (thisWeekAmount.subtract(lastWeekAmount)).divide((lastWeekAmount.compareTo(BigDecimal.ZERO) == 0 ? BigDecimal.ONE : lastWeekAmount),2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)) + "%";
         map.put("weekPercent", weekPercent);
         //今日销售额统计
-        map.put("todayCount", dataMapper.getSaleCount(Data.getToday()));
+        map.put("todayCount", dataMapper.getSaleCount(Data.getToday(company)));
         //本周销售额统计
-        map.put("thisWeekCount", dataMapper.getSaleCount(Data.getThisWeek()));
+        map.put("thisWeekCount", dataMapper.getSaleCount(Data.getThisWeek(company)));
         //本月销售额统计
-        map.put("thisMonthCount", dataMapper.getSaleCount(Data.getThisMonth()));
+        map.put("thisMonthCount", dataMapper.getSaleCount(Data.getThisMonth(company)));
         return map;
     }
 }

@@ -30,4 +30,6 @@ public interface DataMapper {
     List<Data> getOrderCount(Data data);
 
     List<Data> getSaleCount(Data data);
+
+    List<UserBase> getTop10CompanyLeader(@Param("companyId") Integer companyId);
 }
