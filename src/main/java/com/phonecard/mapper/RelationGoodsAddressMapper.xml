@@ -32,6 +32,10 @@
     where goods_uuid = #{uuid}
   </update>
 
+  <select id="selectRelationGoodsAddressList" parameterType="string" resultMap="BaseResultMap">
+    SELECT * from relation_goods_address where goods_uuid = #{uuid} and is_delete = 0
+  </select>
+
 
 
 

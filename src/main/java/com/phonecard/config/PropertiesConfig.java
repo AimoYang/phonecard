@@ -23,7 +23,8 @@ public class PropertiesConfig {
 //    public static final String filePathLocal = "file:///d/git/upload/";
 //    public static String fileUrl = "http://127.0.0.1:8080/";
 
-    public static final String filePath = "/usr/local/service/upload/";
+//    public static final String filePath = "/usr/local/upload/";
+    public static final String filePath = "D:/";
     public static final String filePathLocal = "file:////usr/local/service/upload/";
     public static String fileUrl = "http://47.105.222.240:83/";
 }

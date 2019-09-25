@@ -49,7 +49,7 @@ public class WeiXinRefund {
 		reqData.put("op_user_id", wxPayConfig.getMchID());
 		
 		Map<String, String> resultMap = wxPay.refund(reqData);
-		System.out.print(resultMap.toString());
+//		System.out.print(resultMap.toString());
 		JsonResult r = new JsonResult();
 		if (resultMap.containsKey("result_code") && "SUCCESS".equals(resultMap.get("result_code"))) {
 			r.setResult(StatusCode.SUCCESS);

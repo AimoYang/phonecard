@@ -57,6 +57,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 			return true;
 		}
 
+		if (request.getRequestURI().contains("export")) {
+			return true;
+		}
+
 		if (request.getRequestURI().contains("WeiXinRet")) {
 			return true;
 		}

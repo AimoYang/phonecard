@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
@@ -95,9 +96,9 @@ public class OrdersController {
 
     @ApiOperation(value = "下载" , notes = "数据")
     @RequestMapping(value = "export/orderExcelDownload", method = RequestMethod.GET)
-    public void excelDownload(HttpServletResponse response,String token, String orderNo, Integer fetchType,String leaderNickName, String startTime, String endTime) throws IOException {
+    public void excelDownload(HttpServletResponse response, String token ,String orderNo, Integer fetchType, String leaderNickName, String startTime, String endTime) throws IOException {
         boolean flag = redisService.exists(token);
-        if (flag) {
+        if (flag){
             try {
                 PageObject pageObject = new PageObject();
                 if (StringUtils.isBlank(startTime)) {

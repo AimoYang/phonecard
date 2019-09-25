@@ -29,6 +29,12 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
+    @PostMapping("/copyGoods")
+    @ApiOperation("复制商品")
+    public ResultVO copyGoods(@RequestParam @ApiParam("商品id")Integer id){
+        return goodsService.copyGoods(id);
+    }
+
     @PostMapping("/addGoods")
     @ApiOperation("商品添加")
     public ResultVO getAllShops(@RequestBody @ApiParam("商品信息") @Valid GoodsForm goodsForm){

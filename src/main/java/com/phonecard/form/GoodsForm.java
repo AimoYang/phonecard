@@ -27,6 +27,13 @@ public class GoodsForm {
     private Short isShelf;
 
     private Short pickUp;
+
+    private String goodsVideo;
+
+    private String videoName;
+
+    private String videoImage;
+
     @NotNull
     private Short goodsType;
 

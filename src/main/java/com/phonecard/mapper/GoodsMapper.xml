@@ -13,6 +13,7 @@
     <result column="goods_update_time" property="goodsUpdateTime" jdbcType="TIMESTAMP" />
     <result column="is_shelf" property="isShelf" jdbcType="SMALLINT" />
     <result column="pick_up" property="pickUp" jdbcType="SMALLINT" />
+    <result column="goods_video" jdbcType="VARCHAR" property="goodsVideo" />
     <result column="goods_type" property="goodsType" jdbcType="SMALLINT" />
     <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="details" property="details" jdbcType="VARCHAR" />
@@ -20,6 +21,8 @@
     <result column="is_new" property="isNew" jdbcType="SMALLINT" />
     <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
     <result column="deposit" property="deposit" jdbcType="DOUBLE" />
+    <result column="video_name" jdbcType="VARCHAR" property="videoName" />
+    <result column="video_image" jdbcType="VARCHAR" property="videoImage" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.phonecard.bean.Goods" extends="BaseResultMap" >
     <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
@@ -31,8 +34,8 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, uuid, goods_name, one_sort_id, show_count, thumb, pictures, goods_create_time, 
-    goods_update_time, is_shelf, pick_up, goods_type, sort, details, is_hot, is_new, 
-    is_delete, deposit
+    goods_update_time, is_shelf, pick_up, goods_video, goods_type, sort, details, is_hot, is_new,
+    is_delete, deposit,video_name,video_image
   </sql>
   <sql id="Blob_Column_List" >
     introduction
@@ -156,6 +159,9 @@
     <if test="pageObject.id != null and pageObject.id != ''">
       and one_sort_id = #{pageObject.id}
     </if>
+    <if test="pageObject.isShelf != null and pageObject.isShelf != -1">
+      and is_shelf = #{pageObject.isShelf}
+    </if>
     <if test="pageObject.type == 1">
       and is_new = 1
     </if>
@@ -246,216 +252,270 @@
 
 
 
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from goods
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from goods
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.phonecard.bean.Goods" >
-    insert into goods (id, uuid, goods_name, 
-      one_sort_id, show_count, thumb, 
-      pictures, goods_create_time, goods_update_time, 
-      is_shelf, pick_up, goods_type, 
-      sort, details, is_hot, 
-      is_new, is_delete, deposit, 
-      introduction)
-    values (#{id,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
-      #{oneSortId,jdbcType=INTEGER}, #{showCount,jdbcType=INTEGER}, #{thumb,jdbcType=VARCHAR}, 
-      #{pictures,jdbcType=VARCHAR}, #{goodsCreateTime,jdbcType=TIMESTAMP}, #{goodsUpdateTime,jdbcType=TIMESTAMP}, 
-      #{isShelf,jdbcType=SMALLINT}, #{pickUp,jdbcType=SMALLINT}, #{goodsType,jdbcType=SMALLINT}, 
-      #{sort,jdbcType=INTEGER}, #{details,jdbcType=VARCHAR}, #{isHot,jdbcType=SMALLINT}, 
-      #{isNew,jdbcType=SMALLINT}, #{isDelete,jdbcType=SMALLINT}, #{deposit,jdbcType=DOUBLE}, 
-      #{introduction,jdbcType=LONGVARCHAR})
+  <insert id="insert" parameterType="com.phonecard.bean.Goods">
+    insert into goods (id, uuid, goods_name,
+    one_sort_id, show_count, thumb,
+    pictures, goods_create_time, goods_update_time,
+    is_shelf, pick_up, goods_type,
+    goods_video, sort, details,
+    is_hot, is_new, is_delete,
+    deposit, video_name, video_image,
+    introduction)
+    values (#{id,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR},
+    #{oneSortId,jdbcType=INTEGER}, #{showCount,jdbcType=INTEGER}, #{thumb,jdbcType=VARCHAR},
+    #{pictures,jdbcType=VARCHAR}, #{goodsCreateTime,jdbcType=TIMESTAMP}, #{goodsUpdateTime,jdbcType=TIMESTAMP},
+    #{isShelf,jdbcType=SMALLINT}, #{pickUp,jdbcType=SMALLINT}, #{goodsType,jdbcType=SMALLINT},
+    #{goodsVideo,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{details,jdbcType=VARCHAR},
+    #{isHot,jdbcType=SMALLINT}, #{isNew,jdbcType=SMALLINT}, #{isDelete,jdbcType=SMALLINT},
+    #{deposit,jdbcType=DOUBLE}, #{videoName,jdbcType=VARCHAR}, #{videoImage,jdbcType=VARCHAR},
+    #{introduction,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.phonecard.bean.Goods" >
+  <insert id="insertSelective" parameterType="com.phonecard.bean.Goods">
     insert into goods
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="uuid != null" >
+      <if test="uuid != null">
         uuid,
       </if>
-      <if test="goodsName != null" >
+      <if test="goodsName != null">
         goods_name,
       </if>
-      <if test="oneSortId != null" >
+      <if test="oneSortId != null">
         one_sort_id,
       </if>
-      <if test="showCount != null" >
+      <if test="showCount != null">
         show_count,
       </if>
-      <if test="thumb != null" >
+      <if test="thumb != null">
         thumb,
       </if>
-      <if test="pictures != null" >
+      <if test="pictures != null">
         pictures,
       </if>
-      <if test="goodsCreateTime != null" >
+      <if test="goodsCreateTime != null">
         goods_create_time,
       </if>
-      <if test="goodsUpdateTime != null" >
+      <if test="goodsUpdateTime != null">
         goods_update_time,
       </if>
-      <if test="isShelf != null" >
+      <if test="isShelf != null">
         is_shelf,
       </if>
-      <if test="pickUp != null" >
+      <if test="pickUp != null">
         pick_up,
       </if>
-      <if test="goodsType != null" >
+      <if test="goodsType != null">
         goods_type,
       </if>
-      <if test="sort != null" >
+      <if test="goodsVideo != null">
+        goods_video,
+      </if>
+      <if test="sort != null">
         sort,
       </if>
-      <if test="details != null" >
+      <if test="details != null">
         details,
       </if>
-      <if test="isHot != null" >
+      <if test="isHot != null">
         is_hot,
       </if>
-      <if test="isNew != null" >
+      <if test="isNew != null">
         is_new,
       </if>
-      <if test="isDelete != null" >
+      <if test="isDelete != null">
         is_delete,
       </if>
-      <if test="deposit != null" >
+      <if test="deposit != null">
         deposit,
       </if>
-      <if test="introduction != null" >
+      <if test="videoName != null">
+        video_name,
+      </if>
+      <if test="videoImage != null">
+        video_image,
+      </if>
+      <if test="introduction != null">
         introduction,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="uuid != null" >
+      <if test="uuid != null">
         #{uuid,jdbcType=VARCHAR},
       </if>
-      <if test="goodsName != null" >
+      <if test="goodsName != null">
         #{goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="oneSortId != null" >
+      <if test="oneSortId != null">
         #{oneSortId,jdbcType=INTEGER},
       </if>
-      <if test="showCount != null" >
+      <if test="showCount != null">
         #{showCount,jdbcType=INTEGER},
       </if>
-      <if test="thumb != null" >
+      <if test="thumb != null">
         #{thumb,jdbcType=VARCHAR},
       </if>
-      <if test="pictures != null" >
+      <if test="pictures != null">
         #{pictures,jdbcType=VARCHAR},
       </if>
-      <if test="goodsCreateTime != null" >
+      <if test="goodsCreateTime != null">
         #{goodsCreateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="goodsUpdateTime != null" >
+      <if test="goodsUpdateTime != null">
         #{goodsUpdateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="isShelf != null" >
+      <if test="isShelf != null">
         #{isShelf,jdbcType=SMALLINT},
       </if>
-      <if test="pickUp != null" >
+      <if test="pickUp != null">
         #{pickUp,jdbcType=SMALLINT},
       </if>
-      <if test="goodsType != null" >
+      <if test="goodsType != null">
         #{goodsType,jdbcType=SMALLINT},
       </if>
-      <if test="sort != null" >
+      <if test="goodsVideo != null">
+        #{goodsVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
         #{sort,jdbcType=INTEGER},
       </if>
-      <if test="details != null" >
+      <if test="details != null">
         #{details,jdbcType=VARCHAR},
       </if>
-      <if test="isHot != null" >
+      <if test="isHot != null">
         #{isHot,jdbcType=SMALLINT},
       </if>
-      <if test="isNew != null" >
+      <if test="isNew != null">
         #{isNew,jdbcType=SMALLINT},
       </if>
-      <if test="isDelete != null" >
+      <if test="isDelete != null">
         #{isDelete,jdbcType=SMALLINT},
       </if>
-      <if test="deposit != null" >
+      <if test="deposit != null">
         #{deposit,jdbcType=DOUBLE},
       </if>
-      <if test="introduction != null" >
+      <if test="videoName != null">
+        #{videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoImage != null">
+        #{videoImage,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
         #{introduction,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.phonecard.bean.Goods" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.phonecard.bean.Goods">
     update goods
-    <set >
-      <if test="uuid != null" >
+    <set>
+      <if test="uuid != null">
         uuid = #{uuid,jdbcType=VARCHAR},
       </if>
-      <if test="goodsName != null" >
+      <if test="goodsName != null">
         goods_name = #{goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="oneSortId != null" >
+      <if test="oneSortId != null">
         one_sort_id = #{oneSortId,jdbcType=INTEGER},
       </if>
-      <if test="showCount != null" >
+      <if test="showCount != null">
         show_count = #{showCount,jdbcType=INTEGER},
       </if>
-      <if test="thumb != null" >
+      <if test="thumb != null">
         thumb = #{thumb,jdbcType=VARCHAR},
       </if>
-      <if test="pictures != null" >
+      <if test="pictures != null">
         pictures = #{pictures,jdbcType=VARCHAR},
       </if>
-      <if test="goodsCreateTime != null" >
+      <if test="goodsCreateTime != null">
         goods_create_time = #{goodsCreateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="goodsUpdateTime != null" >
+      <if test="goodsUpdateTime != null">
         goods_update_time = #{goodsUpdateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="isShelf != null" >
+      <if test="isShelf != null">
         is_shelf = #{isShelf,jdbcType=SMALLINT},
       </if>
-      <if test="pickUp != null" >
+      <if test="pickUp != null">
         pick_up = #{pickUp,jdbcType=SMALLINT},
       </if>
-      <if test="goodsType != null" >
+      <if test="goodsType != null">
         goods_type = #{goodsType,jdbcType=SMALLINT},
       </if>
-      <if test="sort != null" >
+      <if test="goodsVideo != null">
+        goods_video = #{goodsVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
         sort = #{sort,jdbcType=INTEGER},
       </if>
-      <if test="details != null" >
+      <if test="details != null">
         details = #{details,jdbcType=VARCHAR},
       </if>
-      <if test="isHot != null" >
+      <if test="isHot != null">
         is_hot = #{isHot,jdbcType=SMALLINT},
       </if>
-      <if test="isNew != null" >
+      <if test="isNew != null">
         is_new = #{isNew,jdbcType=SMALLINT},
       </if>
-      <if test="isDelete != null" >
+      <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=SMALLINT},
       </if>
-      <if test="deposit != null" >
+      <if test="deposit != null">
         deposit = #{deposit,jdbcType=DOUBLE},
       </if>
-      <if test="introduction != null" >
+      <if test="videoName != null">
+        video_name = #{videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoImage != null">
+        video_image = #{videoImage,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
         introduction = #{introduction,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.phonecard.bean.Goods" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.phonecard.bean.Goods">
+    update goods
+    set uuid = #{uuid,jdbcType=VARCHAR},
+    goods_name = #{goodsName,jdbcType=VARCHAR},
+    one_sort_id = #{oneSortId,jdbcType=INTEGER},
+    show_count = #{showCount,jdbcType=INTEGER},
+    thumb = #{thumb,jdbcType=VARCHAR},
+    pictures = #{pictures,jdbcType=VARCHAR},
+    goods_create_time = #{goodsCreateTime,jdbcType=TIMESTAMP},
+    goods_update_time = #{goodsUpdateTime,jdbcType=TIMESTAMP},
+    is_shelf = #{isShelf,jdbcType=SMALLINT},
+    pick_up = #{pickUp,jdbcType=SMALLINT},
+    goods_type = #{goodsType,jdbcType=SMALLINT},
+    goods_video = #{goodsVideo,jdbcType=VARCHAR},
+    sort = #{sort,jdbcType=INTEGER},
+    details = #{details,jdbcType=VARCHAR},
+    is_hot = #{isHot,jdbcType=SMALLINT},
+    is_new = #{isNew,jdbcType=SMALLINT},
+    is_delete = #{isDelete,jdbcType=SMALLINT},
+    deposit = #{deposit,jdbcType=DOUBLE},
+    video_name = #{videoName,jdbcType=VARCHAR},
+    video_image = #{videoImage,jdbcType=VARCHAR},
+    introduction = #{introduction,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.phonecard.bean.Goods">
     update goods
     set uuid = #{uuid,jdbcType=VARCHAR},
       goods_name = #{goodsName,jdbcType=VARCHAR},
@@ -468,34 +528,15 @@
       is_shelf = #{isShelf,jdbcType=SMALLINT},
       pick_up = #{pickUp,jdbcType=SMALLINT},
       goods_type = #{goodsType,jdbcType=SMALLINT},
+      goods_video = #{goodsVideo,jdbcType=VARCHAR},
       sort = #{sort,jdbcType=INTEGER},
       details = #{details,jdbcType=VARCHAR},
       is_hot = #{isHot,jdbcType=SMALLINT},
       is_new = #{isNew,jdbcType=SMALLINT},
       is_delete = #{isDelete,jdbcType=SMALLINT},
       deposit = #{deposit,jdbcType=DOUBLE},
-      introduction = #{introduction,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.phonecard.bean.Goods" >
-    update goods
-    set uuid = #{uuid,jdbcType=VARCHAR},
-      goods_name = #{goodsName,jdbcType=VARCHAR},
-      one_sort_id = #{oneSortId,jdbcType=INTEGER},
-      show_count = #{showCount,jdbcType=INTEGER},
-      thumb = #{thumb,jdbcType=VARCHAR},
-      pictures = #{pictures,jdbcType=VARCHAR},
-      goods_create_time = #{goodsCreateTime,jdbcType=TIMESTAMP},
-      goods_update_time = #{goodsUpdateTime,jdbcType=TIMESTAMP},
-      is_shelf = #{isShelf,jdbcType=SMALLINT},
-      pick_up = #{pickUp,jdbcType=SMALLINT},
-      goods_type = #{goodsType,jdbcType=SMALLINT},
-      sort = #{sort,jdbcType=INTEGER},
-      details = #{details,jdbcType=VARCHAR},
-      is_hot = #{isHot,jdbcType=SMALLINT},
-      is_new = #{isNew,jdbcType=SMALLINT},
-      is_delete = #{isDelete,jdbcType=SMALLINT},
-      deposit = #{deposit,jdbcType=DOUBLE}
+      video_name = #{videoName,jdbcType=VARCHAR},
+      video_image = #{videoImage,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
