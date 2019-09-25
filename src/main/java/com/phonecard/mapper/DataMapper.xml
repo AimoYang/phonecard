@@ -56,12 +56,12 @@
     </select>
 
     <select id="getUserView" resultType="java.lang.Integer">
-        SELECT COUNT(1) FROM user_base WHERE 1 = 1
+        SELECT COUNT(1) FROM record_login WHERE 1 = 1
         <if test="type == 1 || type == -1">
-            AND DATE_FORMAT(last_login,'%Y-%m-%d') = #{startDate}
+            AND DATE_FORMAT(create_time,'%Y-%m-%d') = #{startDate}
         </if>
         <if test="type == 2 || type == 3 || type == -2 || type == -3">
-            AND DATE_FORMAT(last_login,'%Y-%m-%d %H:%i:%s') BETWEEN #{startDate} AND #{endDate}
+            AND DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') BETWEEN #{startDate} AND #{endDate}
         </if>
     </select>
     <select id="getTop10SaleGoods" resultType="map">
