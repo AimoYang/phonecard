@@ -50,8 +50,20 @@
         <if test="type == 1 || type == -1">
             AND DATE_FORMAT(create_time,'%Y-%m-%d') = #{startDate}
         </if>
+        <if test="type == 2 || type == 3 || type == -2 || type == -3">
+            AND DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') BETWEEN #{startDate} AND #{endDate}
+        </if>
     </select>
 
+    <select id="getUserView" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM user_base WHERE 1 = 1
+        <if test="type == 1 || type == -1">
+            AND DATE_FORMAT(last_login,'%Y-%m-%d') = #{startDate}
+        </if>
+        <if test="type == 2 || type == 3 || type == -2 || type == -3">
+            AND DATE_FORMAT(last_login,'%Y-%m-%d %H:%i:%s') BETWEEN #{startDate} AND #{endDate}
+        </if>
+    </select>
     <select id="getTop10SaleGoods" resultType="map">
          SELECT goods_name goodsName, show_count showCount, (SELECT IFNULL(SUM(a.actual_price),0) FROM product_order_detail a WHERE a.goods_uuid = goods.uuid AND STATUS = 1) totalPrice
          FROM goods ORDER BY show_count DESC LIMIT 0,10
