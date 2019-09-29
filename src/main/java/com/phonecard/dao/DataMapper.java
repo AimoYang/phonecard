@@ -32,4 +32,7 @@ public interface DataMapper {
     List<Data> getSaleCount(Data data);
 
     List<UserBase> getTop10CompanyLeader(@Param("companyId") Integer companyId);
+
+    //获取用户浏览量
+    Integer getUserView(Data yesterday);
 }

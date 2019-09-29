@@ -121,6 +121,16 @@ public class DataService {
         map.put("yesterday", dataMapper.getUserOverview(Data.getYesterday(null)));
         //用户总数
         map.put("all", dataMapper.getUserOverview(Data.getAll(null)));
+        //本月新增
+        map.put("month", dataMapper.getUserOverview(Data.getThisMonth(null)));
+        //用户浏览量昨日
+        map.put("userViewYesterday", dataMapper.getUserView(Data.getYesterday(null)));
+        //用户浏览量今日
+        map.put("userViewToday", dataMapper.getUserView(Data.getToday(null)));
+        //用户浏览量昨日
+        map.put("userViewWeek", dataMapper.getUserView(Data.getThisMonth(null)));
+        //用户浏览量昨日
+        map.put("userViewTotal", dataMapper.getUserView(Data.getAll(null)));
         return map;
     }
 
