@@ -252,3 +252,318 @@
 2019-09-29 14:00:27,908 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
 2019-09-29 14:00:41,927 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
 2019-09-29 14:00:42,996 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 14:18:33,252 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 14:18:34,971 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 15:19:55,338 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 15:19:57,106 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 15:20:46,694 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public void com.phonecard.controller.OrdersController.excelDownload(javax.servlet.http.HttpServletResponse,java.lang.String,com.phonecard.util.PageObject) throws java.io.IOException]
+2019-09-29 15:23:57,922 WARN [http-nio-82-exec-5] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public void com.phonecard.controller.OrdersController.excelDownload(javax.servlet.http.HttpServletResponse,java.lang.String,com.phonecard.util.PageObject) throws java.io.IOException]
+2019-09-29 15:26:52,187 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 15:26:53,340 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 15:30:38,555 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public void com.phonecard.controller.OrdersController.excelDownload(javax.servlet.http.HttpServletResponse,com.phonecard.util.PageObject) throws java.io.IOException]
+2019-09-29 15:32:42,087 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 15:32:43,229 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 16:50:47,050 WARN [http-nio-82-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public void com.phonecard.controller.OrdersController.excelDownload(com.phonecard.util.PageObject)]
+2019-09-29 16:51:09,880 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 16:51:11,024 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 17:07:03,459 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 17:07:05,258 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 17:08:37,777 WARN [http-nio-82-exec-10] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-29 17:08:40,507 WARN [http-nio-82-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-29 17:08:41,886 WARN [http-nio-82-exec-9] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.dao.QueryTimeoutException: Redis command timed out; nested exception is io.lettuce.core.RedisCommandTimeoutException: Command timed out after 300 millisecond(s)]
+2019-09-29 17:08:41,888 WARN [http-nio-82-exec-8] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.dao.QueryTimeoutException: Redis command timed out; nested exception is io.lettuce.core.RedisCommandTimeoutException: io.lettuce.core.RedisCommandTimeoutException: Command timed out after 300 millisecond(s)]
+2019-09-29 17:08:45,327 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 17:08:46,485 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 17:09:13,264 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 17:09:14,448 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 17:09:35,604 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 17:09:37,357 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 17:10:09,493 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pageObject' in 'class com.phonecard.util.PageObject']
+2019-09-29 17:13:40,371 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 17:13:41,453 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 17:16:46,665 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 17:16:47,766 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 17:43:38,836 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 17:43:40,720 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 17:44:48,094 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 17:44:49,901 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 17:54:28,466 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2019-09-29 17:54:40,820 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2019-09-29 18:01:24,534 WARN [http-nio-82-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2019-09-29 18:21:22,469 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 18:21:24,249 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 18:22:47,601 WARN [http-nio-82-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'id' is not present]
+2019-09-29 18:24:56,196 WARN [http-nio-82-exec-9] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'id' is not present]
+2019-09-29 18:26:02,678 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 18:26:03,871 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 18:26:13,613 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'id' is not present]
+2019-09-29 18:26:59,518 WARN [http-nio-82-exec-7] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'id' is not present]
+2019-09-29 18:28:09,564 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.jdbc.UncategorizedSQLException: 
+### Error updating database.  Cause: java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'here id ?',expect QUES, actual QUES id : update leader set company_id = ? where id ?
+### SQL: update leader set company_id = ? where id ?
+### Cause: java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'here id ?',expect QUES, actual QUES id : update leader set company_id = ? where id ?
+; uncategorized SQLException; SQL state [null]; error code [0]; sql injection violation, syntax error: syntax error, error in :'here id ?',expect QUES, actual QUES id : update leader set company_id = ? where id ?; nested exception is java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'here id ?',expect QUES, actual QUES id : update leader set company_id = ? where id ?]
+2019-09-29 18:28:13,836 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 18:28:14,969 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 18:28:57,565 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 18:28:58,772 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 18:29:50,309 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 18:29:51,563 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 18:44:37,493 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 18:44:39,258 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 18:51:06,164 WARN [http-nio-82-exec-9] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis; nested exception is io.lettuce.core.RedisConnectionException: Unable to connect to 47.103.135.181:6379]
+2019-09-29 18:51:08,093 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 18:51:09,215 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 18:51:20,116 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 18:51:21,889 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 18:51:36,222 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 18:51:37,457 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 19:14:23,579 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 19:14:24,947 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 19:14:29,855 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 19:14:30,990 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 19:14:38,526 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 19:14:40,313 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 19:15:09,907 WARN [http-nio-82-exec-8] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.lang.NullPointerException]
+2019-09-29 19:15:37,655 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.lang.NullPointerException]
+2019-09-29 19:16:10,182 WARN [http-nio-82-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.lang.NullPointerException]
+2019-09-29 19:16:16,169 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 19:16:17,430 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 19:16:24,387 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.lang.NullPointerException]
+2019-09-29 19:17:56,904 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 19:17:58,208 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 19:18:25,621 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 19:18:27,391 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 19:20:36,959 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 19:20:38,105 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 19:20:38,275 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.jdbc.UncategorizedSQLException: 
+### Error querying database.  Cause: java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'     is_delete = 0 
+      order by ',expect IDENTIFIER, actual IDENTIFIER is_delete : select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name
+    from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid
+    = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on
+    o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id
+     WHERE  od.one_sort_id = ?
+      
+      
+      
+      
+      
+      
+      
+        and od.status =3
+      
+      
+      
+      
+      
+      
+      is_delete = 0 
+      order by o.create_time desc
+### The error may exist in file [D:\git\phonecard\target\classes\com\phonecard\mapper\ProductOrderMapper.xml]
+### The error may involve com.phonecard.dao.ProductOrderMapper.postOrderByCondition
+### The error occurred while executing a query
+### SQL: select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name     from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid     = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on     o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id      WHERE  od.one_sort_id = ?                                                          and od.status =3                                                 is_delete = 0        order by o.create_time desc
+### Cause: java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'     is_delete = 0 
+      order by ',expect IDENTIFIER, actual IDENTIFIER is_delete : select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name
+    from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid
+    = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on
+    o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id
+     WHERE  od.one_sort_id = ?
+      
+      
+      
+      
+      
+      
+      
+        and od.status =3
+      
+      
+      
+      
+      
+      
+      is_delete = 0 
+      order by o.create_time desc
+; uncategorized SQLException; SQL state [null]; error code [0]; sql injection violation, syntax error: syntax error, error in :'     is_delete = 0 
+      order by ',expect IDENTIFIER, actual IDENTIFIER is_delete : select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name
+    from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid
+    = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on
+    o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id
+     WHERE  od.one_sort_id = ?
+      
+      
+      
+      
+      
+      
+      
+        and od.status =3
+      
+      
+      
+      
+      
+      
+      is_delete = 0 
+      order by o.create_time desc; nested exception is java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'     is_delete = 0 
+      order by ',expect IDENTIFIER, actual IDENTIFIER is_delete : select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name
+    from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid
+    = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on
+    o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id
+     WHERE  od.one_sort_id = ?
+      
+      
+      
+      
+      
+      
+      
+        and od.status =3
+      
+      
+      
+      
+      
+      
+      is_delete = 0 
+      order by o.create_time desc]
+2019-09-29 19:20:50,193 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 19:20:51,977 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 19:20:56,685 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.jdbc.UncategorizedSQLException: 
+### Error querying database.  Cause: java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'     is_delete = 0 
+      order by ',expect IDENTIFIER, actual IDENTIFIER is_delete : select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name
+    from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid
+    = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on
+    o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id
+     WHERE  od.one_sort_id = ?
+      
+      
+      
+      
+      
+      
+      
+        and od.status =3
+      
+      
+      
+      
+      
+      
+      is_delete = 0 
+      order by o.create_time desc
+### The error may exist in file [D:\git\phonecard\target\classes\com\phonecard\mapper\ProductOrderMapper.xml]
+### The error may involve com.phonecard.dao.ProductOrderMapper.postOrderByCondition
+### The error occurred while executing a query
+### SQL: select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name     from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid     = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on     o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id      WHERE  od.one_sort_id = ?                                                          and od.status =3                                                 is_delete = 0        order by o.create_time desc
+### Cause: java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'     is_delete = 0 
+      order by ',expect IDENTIFIER, actual IDENTIFIER is_delete : select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name
+    from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid
+    = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on
+    o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id
+     WHERE  od.one_sort_id = ?
+      
+      
+      
+      
+      
+      
+      
+        and od.status =3
+      
+      
+      
+      
+      
+      
+      is_delete = 0 
+      order by o.create_time desc
+; uncategorized SQLException; SQL state [null]; error code [0]; sql injection violation, syntax error: syntax error, error in :'     is_delete = 0 
+      order by ',expect IDENTIFIER, actual IDENTIFIER is_delete : select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name
+    from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid
+    = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on
+    o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id
+     WHERE  od.one_sort_id = ?
+      
+      
+      
+      
+      
+      
+      
+        and od.status =3
+      
+      
+      
+      
+      
+      
+      is_delete = 0 
+      order by o.create_time desc; nested exception is java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'     is_delete = 0 
+      order by ',expect IDENTIFIER, actual IDENTIFIER is_delete : select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name
+    from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid
+    = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on
+    o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id
+     WHERE  od.one_sort_id = ?
+      
+      
+      
+      
+      
+      
+      
+        and od.status =3
+      
+      
+      
+      
+      
+      
+      is_delete = 0 
+      order by o.create_time desc]
+2019-09-29 19:21:08,177 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 19:21:09,354 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 19:21:12,825 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.dao.DataIntegrityViolationException: 
+### Error querying database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'is_delete' in where clause is ambiguous
+### The error may exist in file [D:\git\phonecard\target\classes\com\phonecard\mapper\ProductOrderMapper.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name     from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid     = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on     o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id      WHERE  od.one_sort_id = ?                                                          and od.status =3                                                 and is_delete = 0        order by o.create_time desc
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'is_delete' in where clause is ambiguous
+; Column 'is_delete' in where clause is ambiguous; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column 'is_delete' in where clause is ambiguous]
+2019-09-29 19:21:35,773 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 19:21:36,835 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 19:30:56,062 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 19:30:57,160 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 20:12:34,364 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 20:12:35,720 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 20:12:42,173 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 20:12:43,932 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 20:16:50,562 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 20:16:51,740 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 20:17:43,066 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 20:17:44,144 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 20:24:54,721 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 20:24:55,805 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 20:51:59,677 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 20:52:00,825 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 20:52:33,279 WARN [http-nio-82-exec-5] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.util.ConcurrentModificationException]
+2019-09-29 20:53:37,256 WARN [http-nio-82-exec-8] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.util.ConcurrentModificationException]
+2019-09-29 20:54:09,115 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.util.ConcurrentModificationException]
+2019-09-29 20:54:29,905 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 20:54:31,728 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 20:55:13,169 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.util.ConcurrentModificationException]
+2019-09-29 20:56:28,393 WARN [http-nio-82-exec-7] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.util.ConcurrentModificationException]
+2019-09-29 20:56:46,785 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.util.ConcurrentModificationException]
+2019-09-29 20:57:32,233 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 20:57:33,447 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 20:58:28,604 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 20:58:29,797 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 20:58:35,667 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.util.ConcurrentModificationException]
+2019-09-29 20:59:15,302 WARN [http-nio-82-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.util.ConcurrentModificationException]
+2019-09-29 21:00:04,353 WARN [http-nio-82-exec-9] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [java.util.ConcurrentModificationException]
+2019-09-29 21:01:07,326 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 21:01:08,484 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 21:10:46,775 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 21:10:47,955 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]

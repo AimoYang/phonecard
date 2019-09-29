@@ -34,10 +34,11 @@
 
   <select id="selectLeaderList" resultMap="LeaderResultMap" >
     select
-    l.id, l.open_id, l.leader_wechat, l.leader_name, l.leader_phone, l.leader_ID, l.leader_company_name,
+    l.id, l.open_id, l.leader_wechat, l.leader_name, l.leader_phone, l.leader_ID, c.company_name leader_company_name,
     l.leader_post, l.leader_address, l.company_id, l.explains, i.income_all as leader_balance, l.introduce_name,
     l.introduce_phone, l.is_code, l.in_type, l.is_delete, l.is_introduce, l.is_disable, u.nick_name, u.icon
     from leader as l
+    left JOIN company as c on c.id = l.company_id
     left join user_base as u on u.open_id = l.open_id
     left join income as i on i.open_id = l.open_id
     where 0 = 0 and l.is_delete = 0
@@ -131,6 +132,10 @@
     from leader
     where is_delete = 0 and is_disable = 0 and in_type = 1
   </select>
+
+  <update id="leaderUpdateCompany" parameterType="map">
+    update leader set company_id = #{companyId} where id=#{id}
+  </update>
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

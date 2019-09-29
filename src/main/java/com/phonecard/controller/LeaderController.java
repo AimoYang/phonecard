@@ -78,4 +78,11 @@ public class LeaderController {
         return leaderService.refuseLeader(leader);
     }
 
+    //团长换公司
+    @PostMapping("/leaderUpdateCompany")
+    @ApiOperation("团长变更公司")
+    public ResultVO leaderUpdateCompany(@ApiParam("团长id") @RequestParam("id")Integer id, @ApiParam("公司id") @RequestParam("companyId") Integer companyId){
+        return leaderService.leaderUpdateCompany(id,companyId);
+    }
+
 }

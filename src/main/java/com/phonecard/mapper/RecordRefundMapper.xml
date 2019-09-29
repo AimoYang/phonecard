@@ -92,30 +92,49 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
    <select id="findRefundOrderByPage" resultMap="refundOrderExportMap">
-     SELECT pod.*,po.*,us.nick_name,temp.leader_name,rr.refund_fee FROM record_refund rr
-     LEFT JOIN product_order_detail pod ON pod.uuid = rr.order_uuid
+     SELECT pod.*,po.*,us.nick_name,temp.leader_name,r.refund_fee FROM record_refund r
+     LEFT JOIN product_order_detail pod ON pod.uuid = r.order_uuid
      LEFT JOIN product_order po ON pod.product_order_uuid = po.uuid
      LEFT JOIN user_base us ON po.open_id = us.open_id
      LEFT JOIN
      (
      SELECT l.leader_name,s.open_id FROM leader l LEFT JOIN `share` s ON l.open_id = s.one_open_id
      ) temp  ON us.open_id = temp.open_id
-     where 1 =1
-     <if test="orderNo != null">
-       and pod.uuid = #{orderNo,jdbcType=VARCHAR}
+     where 0 = 0
+     <if test="pageObject.type != null and pageObject.type != ''">
+       and pod.distribution_type = #{pageObject.type}
      </if>
-     <if test="fetchType != null">
-       and pod.distribution_type = #{fetchType,jdbcType=INTEGER}
+     <if test="pageObject.type == '0'.toString()">
+       and pod.distribution_type = 0
      </if>
-     <if test="leaderNickName != null">
-       and temp.leader_name = #{leaderNickName,jdbcType=VARCHAR}
+     <if test="pageObject.id != null and pageObject.id != ''">
+       and pod.one_sort_id = #{pageObject.id}
      </if>
-     <if test="startTime != null">
-       and po.create_time &gt;= #{startTime,jdbcType=VARCHAR}
+     <if test="pageObject.title != null and pageObject.title != ''">
+       and pod.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
      </if>
-     <if test="endTime != null">
-       and po.create_time &lt;= #{endTime,jdbcType=VARCHAR}
+     <if test="pageObject.name != null and pageObject.name != ''">
+       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
      </if>
+     <if test="pageObject.companyName != null and pageObject.companyName != ''">
+       and l.leader_company_name LIKE CONCAT ('%',#{pageObject.companyName},'%')
+     </if>
+     <if test="pageObject.goodsName != null and pageObject.goodsName != ''">
+       and pod.product_name LIKE CONCAT ('%',#{pageObject.goodsName},'%')
+     </if>
+     <if test="pageObject.state != null and pageObject.state != 3">
+       and r.is_success = #{pageObject.state}
+     </if>
+     <if test="pageObject.state == '0'.toString()">
+       and r.is_success = 0
+     </if>
+     <if test="pageObject.startTime != null">
+       and r.create_time &gt; #{pageObject.startTime}
+     </if>
+     <if test="pageObject.endTime != null">
+       and r.create_time &lt; #{pageObject.endTime}
+     </if>
+     order by r.create_time desc
    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from record_refund

@@ -26,4 +26,6 @@ public interface UserBaseMapper {
     List<UserBase> getCouponList(@Param("pageObject") PageObject pageObject);
 
     UserBase selectByOpenId(String openId);
+
+    int updateLeaderToUser(String agoOpenId);
 }

@@ -30,11 +30,7 @@ public interface RecordRefundMapper {
 
     RecordRefund selectByOutRefundNo(@Param("outRefundNo") String outRefundNo);
 
-    List<RefundOrderDto> findRefundOrderByPage(@Param("pageObject") PageObject pageObject,
-                                               @Param("orderNo") String orderNo,
-                                               @Param("fetchType") Integer fetchType,
-                                               @Param("leaderNickName") String leaderNickName,
-                                               @Param("startTime")Date startTime, @Param("endTime") Date endTime);
+    List<RefundOrderDto> findRefundOrderByPage(@Param("pageObject") PageObject pageObject);
 
     RecordRefund selectByOrdersUuidAndDesposit(@Param("uuid") String uuid, @Param("isDeposit") Short isDeposit);
 }

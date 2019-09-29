@@ -56,6 +56,10 @@ public class LeaderService {
             }
            return ResultUtil.fail("更换失败");
         }
+        int row1 = leaderMapper.setLeaderInfo(agoOpenId, (short)1);
+        if (row1 <= 0){
+            return ResultUtil.fail("更新失败");
+        }
         return ResultUtil.success();
     }
 
@@ -142,5 +146,13 @@ public class LeaderService {
     public ResultVO selectLeaderAllList() {
         List<Leader> list = leaderMapper.selectLeaderAllList();
         return ResultUtil.success(list);
+    }
+
+    public ResultVO leaderUpdateCompany(Integer id, Integer companyId) {
+        int update  = leaderMapper.leaderUpdateCompany(id,companyId);
+        if(update == 0){
+            return ResultUtil.fail("设置失败");
+        }
+        return ResultUtil.success();
     }
 }

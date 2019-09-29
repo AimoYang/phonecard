@@ -17,8 +17,8 @@ public class RefundService {
     @Autowired
     private RecordRefundMapper recordRefund;
 
-    public List<RefundOrderDto> findOrderByPage(PageObject pageObject, String orderNo, Integer fetchType, String leaderNickName, Date startTime, Date endTime) {
-        List<RefundOrderDto> list = recordRefund.findRefundOrderByPage(pageObject, orderNo, fetchType, leaderNickName, startTime, endTime);
+    public List<RefundOrderDto> findOrderByPage(PageObject pageObject) {
+        List<RefundOrderDto> list = recordRefund.findRefundOrderByPage(pageObject);
         return list;
     }
 }

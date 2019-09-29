@@ -29,6 +29,10 @@
     where open_id = #{openId}
   </select>
 
+  <update id="updateLeaderToUser" parameterType="string">
+    update user_base set user_type = 0 where open_id = #{agoOpenId}
+  </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

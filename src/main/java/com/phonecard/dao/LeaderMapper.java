@@ -35,4 +35,6 @@ public interface LeaderMapper {
     Integer selectUserSum(@Param("openId") String openId);
 
     List<Leader> selectLeaderAllList();
+
+    int leaderUpdateCompany(@Param("id") Integer id, @Param("companyId") Integer companyId);
 }

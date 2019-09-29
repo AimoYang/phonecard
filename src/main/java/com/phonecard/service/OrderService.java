@@ -7,6 +7,7 @@ import com.phonecard.util.RandomNum;
 import com.phonecard.util.ResultUtil;
 import com.phonecard.util.WeiXinRefund;
 import com.phonecard.vo.CancelOrdersDetailVo;
+import com.phonecard.vo.OrderExcelVo;
 import com.phonecard.vo.ProductOrderVo;
 import com.phonecard.bean.OrderDto;
 import com.phonecard.dao.ProductOrderDetailMapper;
@@ -75,6 +76,13 @@ public class OrderService {
             pageObject.setType(null);
         }
         List<CancelOrdersDetailVo> list = productOrderDetailMapper.selectCancelOrders(pageObject);
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getId() == null){
+                list.remove(list.get(i));
+            }else{
+                list.get(i).setRecordRefund(recordRefundMapper.selectByOrdersUuidAndDesposit(list.get(i).getUuid(),list.get(i).getIsDeposit()));
+            }
+        }
         for (CancelOrdersDetailVo c: list) {
             c.setRecordRefund(recordRefundMapper.selectByOrdersUuidAndDesposit(c.getUuid(),c.getIsDeposit()));
         }
@@ -230,5 +238,9 @@ public class OrderService {
     public List<OrderDto> findOrderByPage(PageObject pageObject, String orderNo, Integer fetchType, String leaderNickName, Date startTime, Date endTime) {
             List<OrderDto> list = productOrderDetailMapper.findOrderByPage(pageObject, orderNo, fetchType, leaderNickName, startTime, endTime);
             return list;
+    }
+
+    public List<OrderExcelVo> postOrderByCondition(PageObject pageObject) {
+        return productOrderMapper.postOrderByCondition(pageObject);
     }
 }

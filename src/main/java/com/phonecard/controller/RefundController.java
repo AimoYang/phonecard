@@ -1,6 +1,5 @@
 package com.phonecard.controller;
 
-import com.phonecard.bean.OrderDto;
 import com.phonecard.bean.RefundOrderDto;
 import com.phonecard.enums.OrderEnums;
 import com.phonecard.service.RedisService;
@@ -38,20 +37,33 @@ public class RefundController {
 
     @ApiOperation(value = "下载" , notes = "数据")
     @RequestMapping(value = "export/refundExcelDownload", method = RequestMethod.GET)
-    public void excelDownload(HttpServletResponse response,String token, String orderNo, Integer fetchType, String leaderNickName, String startTime, String endTime) throws IOException {
+    public void excelDownload(HttpServletResponse response,String token, String orderNo, Integer fetchType, String leaderNickName, String startTime, String endTime,String companyName,Integer id,Integer state,String goodsName ) throws IOException {
         boolean flag = redisService.exists(token);
         if (flag) {
             try{
-                PageObject pageObject = new PageObject();
                 if (StringUtils.isBlank(startTime)){
                     startTime = "1970-01-01 00:00:00";
                 }
                 if (StringUtils.isBlank(endTime)){
                     endTime = "2090-01-01 00:00:00";
                 }
+                PageObject pageObject = new PageObject();
+                pageObject.setTitle(orderNo);
+                pageObject.setName(leaderNickName);
+                if(fetchType != null){
+                    pageObject.setType(fetchType.shortValue());
+                }
+                if(startTime != null){
+                    pageObject.setStartTime(DateUtil.stringToDateTime(startTime));
+                    pageObject.setEndTime(DateUtil.stringToDateTime(endTime));
+                }
+                pageObject.setCompanyName(companyName);
+                pageObject.setState(state);
+                pageObject.setId(id);
+                pageObject.setGoodsName(goodsName);
                 HSSFWorkbook workbook = new HSSFWorkbook();
                 HSSFSheet sheet = workbook.createSheet("信息表");
-                List<RefundOrderDto> addressList = refundService.findOrderByPage(pageObject, orderNo, fetchType, leaderNickName, DateUtil.stringToDateTime(startTime),  DateUtil.stringToDateTime(endTime));
+                List<RefundOrderDto> addressList = refundService.findOrderByPage(pageObject);
                 String filename = "订单详情";//设置要导出的文件的名字
                 String fileName = new String(filename.getBytes(), "iso8859-1") + DateUtil.dateTimeToString(new Date()) + ".xls";
                 //新增数据行，并且设置单元格数据
