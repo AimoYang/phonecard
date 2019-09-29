@@ -126,7 +126,7 @@ public class OrderService {
                 if (r.getResult() != 0){
                     return  ResultUtil.fail(r.getMsg());
                 }
-                recordRefund.setOutRefundNo(out_refund_no);
+//                recordRefund.setOutRefundNo(out_refund_no);
                 recordRefund.setIsSuccess(1);
                 recordRefundMapper.updateByPrimaryKeySelective(recordRefund);
                 if (recordRefund.getIsDeposit() != 1){

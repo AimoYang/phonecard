@@ -92,3 +92,163 @@
 2019-09-24 20:14:10,007 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
 2019-09-24 20:16:34,977 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
 2019-09-24 20:16:36,855 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 11:02:00,895 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 11:02:02,717 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 11:08:31,239 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 11:08:32,355 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 11:12:51,881 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 11:12:52,928 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 11:14:02,693 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 11:14:04,820 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 11:21:56,159 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 11:21:57,253 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 11:22:04,155 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 11:22:06,009 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 11:22:23,480 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.jdbc.UncategorizedSQLException: 
+### Error querying database.  Cause: java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'name p.create_time
+    from product',expect DOT, actual DOT p : select
+    d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
+    d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
+    d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name,l.leader_company_name p.create_time
+    from product_order_detail as d
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    left join user_base as u on u.open_id = p.open_id
+    where p.order_status = 1
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+    order by p.create_time desc
+    limit ?, ?
+### The error may exist in file [D:\git\phonecard\target\classes\com\phonecard\mapper\ProductOrderDetailMapper.xml]
+### The error may involve com.phonecard.dao.ProductOrderDetailMapper.selectOrdersList
+### The error occurred while executing a query
+### SQL: select     d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,     d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,     d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,     d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name,l.leader_company_name p.create_time     from product_order_detail as d     left join product_order as p on p.uuid = d.product_order_uuid     left join leader as l on p.one_open_id = l.open_id     left join user_base as u on u.open_id = p.open_id     where p.order_status = 1                                                                 order by p.create_time desc     limit ?, ?
+### Cause: java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'name p.create_time
+    from product',expect DOT, actual DOT p : select
+    d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
+    d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
+    d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name,l.leader_company_name p.create_time
+    from product_order_detail as d
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    left join user_base as u on u.open_id = p.open_id
+    where p.order_status = 1
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+    order by p.create_time desc
+    limit ?, ?
+; uncategorized SQLException; SQL state [null]; error code [0]; sql injection violation, syntax error: syntax error, error in :'name p.create_time
+    from product',expect DOT, actual DOT p : select
+    d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
+    d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
+    d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name,l.leader_company_name p.create_time
+    from product_order_detail as d
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    left join user_base as u on u.open_id = p.open_id
+    where p.order_status = 1
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+    order by p.create_time desc
+    limit ?, ?; nested exception is java.sql.SQLException: sql injection violation, syntax error: syntax error, error in :'name p.create_time
+    from product',expect DOT, actual DOT p : select
+    d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
+    d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
+    d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name,l.leader_company_name p.create_time
+    from product_order_detail as d
+    left join product_order as p on p.uuid = d.product_order_uuid
+    left join leader as l on p.one_open_id = l.open_id
+    left join user_base as u on u.open_id = p.open_id
+    where p.order_status = 1
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+    order by p.create_time desc
+    limit ?, ?]
+2019-09-29 11:23:39,626 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 11:23:40,757 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 11:25:41,674 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 11:25:48,942 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 11:25:50,640 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 12:58:37,069 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 12:58:38,210 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 13:10:09,041 WARN [http-nio-82-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "20190919220550930031"]
+2019-09-29 13:10:27,384 WARN [http-nio-82-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "20190919220550930031"]
+2019-09-29 13:11:05,865 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "20190919220550930031"]
+2019-09-29 13:11:09,342 WARN [http-nio-82-exec-7] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "20190919220550930031"]
+2019-09-29 13:12:04,460 WARN [http-nio-82-exec-9] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "20190919220550930031"]
+2019-09-29 13:12:58,402 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 13:12:59,494 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 13:13:56,447 WARN [http-nio-82-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'orderUuid' is not present]
+2019-09-29 13:14:10,782 WARN [http-nio-82-exec-7] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'orderUuid' is not present]
+2019-09-29 13:22:03,387 WARN [http-nio-82-exec-7] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:22:19,931 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:22:29,619 WARN [http-nio-82-exec-10] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:22:50,875 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:23:28,073 WARN [http-nio-82-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:28:12,916 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 13:28:14,047 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 13:30:57,713 WARN [http-nio-82-exec-10] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:30:58,609 WARN [http-nio-82-exec-5] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:31:18,143 WARN [http-nio-82-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:32:32,485 WARN [http-nio-82-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:32:41,746 WARN [http-nio-82-exec-9] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:32:52,256 WARN [http-nio-82-exec-5] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:34:41,832 WARN [http-nio-82-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:34:46,418 WARN [http-nio-82-exec-10] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:34:55,499 WARN [http-nio-82-exec-7] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:35:34,184 WARN [http-nio-82-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:36:05,736 WARN [http-nio-82-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:37:47,194 WARN [http-nio-82-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:37:47,247 WARN [http-nio-82-exec-8] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java : 198] Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2]
+2019-09-29 13:37:53,913 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 13:37:55,642 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 13:42:17,668 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 13:42:18,788 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 13:47:03,613 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 13:47:04,691 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 13:51:39,288 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 13:51:40,370 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 13:57:21,345 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 13:57:22,387 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 13:58:06,500 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 13:58:07,506 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 14:00:26,763 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 14:00:27,908 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2019-09-29 14:00:41,927 WARN [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 60] Unable to start LiveReload server
+2019-09-29 14:00:42,996 WARN [restartedMain] s.d.s.w.r.p.ParameterDataTypeReader [ParameterDataTypeReader.java : 86] Trying to infer dataType org.springframework.web.multipart.MultipartFile[]

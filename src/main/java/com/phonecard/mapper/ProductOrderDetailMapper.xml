@@ -35,6 +35,7 @@
     <result column="icon" property="icon" jdbcType="VARCHAR" />
     <result column="leader_name" property="leaderName" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="leader_company_name" property="companyName" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="CancelVoResultMap" type="com.phonecard.vo.CancelOrdersDetailVo" extends="OrderVoResultMap">
     <result column="is_deposit" property="isDeposit" jdbcType="SMALLINT" />
@@ -83,7 +84,7 @@
     d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
     d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
     d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
-    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name, p.create_time
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name,l.leader_company_name,p.create_time
     from product_order_detail as d
     left join product_order as p on p.uuid = d.product_order_uuid
     left join leader as l on p.one_open_id = l.open_id
@@ -104,11 +105,26 @@
     <if test="pageObject.goodsName != null and pageObject.goodsName != ''">
       and d.product_name LIKE CONCAT ('%',#{pageObject.goodsName},'%')
     </if>
-    <if test="pageObject.state != null and pageObject.state != ''">
-      and d.status = #{pageObject.state}
-    </if>
+      <if test="pageObject.state == 0">
+        and d.status in (1,2,3,4)
+      </if>
+      <if test="pageObject.state == 1">
+        and d.status = 1
+      </if>
+      <if test="pageObject.state == 2">
+        and d.status =2
+      </if>
+      <if test="pageObject.state == 3">
+        and d.status =3
+      </if>
+      <if test="pageObject.state == 4">
+        and d.status =4
+      </if>
     <if test="pageObject.name != null and pageObject.name != ''">
       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.companyName != null and pageObject.companyName != ''">
+      and l.leader_company_name LIKE CONCAT ('%',#{pageObject.companyName},'%')
     </if>
     <if test="pageObject.startTime != null">
       and p.create_time &gt; #{pageObject.startTime}
@@ -145,9 +161,21 @@
     <if test="pageObject.goodsName != null and pageObject.goodsName != ''">
       and d.product_name LIKE CONCAT ('%',#{pageObject.goodsName},'%')
     </if>
-    <if test="pageObject.state != null and pageObject.state != ''">
-      and d.status = #{pageObject.state}
-    </if>
+      <if test="pageObject.state == 0">
+        and d.status in (1,2,3,4)
+      </if>
+      <if test="pageObject.state == 1">
+        and d.status = 1
+      </if>
+      <if test="pageObject.state == 2">
+        and d.status =2
+      </if>
+      <if test="pageObject.state == 3">
+        and d.status =3
+      </if>
+      <if test="pageObject.state == 4">
+        and d.status =4
+      </if>
     <if test="pageObject.startTime != null">
       and p.create_time &gt; #{pageObject.startTime}
     </if>
@@ -174,7 +202,7 @@
     d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
     d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
     d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
-    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name, r.is_deposit,
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name,l.leader_company_name,r.is_deposit,
     p.create_time
     from record_refund as r
     left join product_order_detail as d on r.order_uuid = d.uuid
@@ -196,6 +224,9 @@
     </if>
     <if test="pageObject.name != null and pageObject.name != ''">
       and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+    </if>
+    <if test="pageObject.companyName != null and pageObject.companyName != ''">
+      and l.leader_company_name LIKE CONCAT ('%',#{pageObject.companyName},'%')
     </if>
     <if test="pageObject.goodsName != null and pageObject.goodsName != ''">
       and d.product_name LIKE CONCAT ('%',#{pageObject.goodsName},'%')
@@ -269,13 +300,15 @@
     d.id, d.uuid, d.product_order_uuid, d.one_sort_id, d.goods_uuid, d.is_one, d.properties, d.sku_id,
     d.price, d.quantity, d.amount, d.start_time, d.end_time, d.status, d.deposit, d.commission, d.thumb,
     d.product_name, d.name_self, d.phone_self, d.distribution_type, d.is_comment, d.address, d.remark,
-    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name
+    d.status_prefix, d.self_address_id, d.actual_price ,u.icon ,u.nick_name,l.leader_name,p.create_time
     from record_refund as r
     left join product_order_detail as d on r.order_uuid = d.uuid
     left join product_order as p on p.uuid = d.product_order_uuid
     left join leader as l on p.one_open_id = l.open_id
     left join user_base as u on u.open_id = p.open_id
     where r.order_uuid = #{orderUuid}
+    order by r.id
+    limit 1
   </select>
 
   <select id="findCompanyOrderInfo" resultMap="OrderVoResultMap" >

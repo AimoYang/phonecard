@@ -25,6 +25,16 @@ public class PageObject implements Serializable {
 	
     private Date startTime;
 
+    private String companyName;
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 	public Integer getSortId() {
 		return sortId;
 	}

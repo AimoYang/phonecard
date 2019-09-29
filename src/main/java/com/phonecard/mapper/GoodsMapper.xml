@@ -23,6 +23,8 @@
     <result column="deposit" property="deposit" jdbcType="DOUBLE" />
     <result column="video_name" jdbcType="VARCHAR" property="videoName" />
     <result column="video_image" jdbcType="VARCHAR" property="videoImage" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="is_show" property="isShow" jdbcType="SMALLINT" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.phonecard.bean.Goods" extends="BaseResultMap" >
     <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
@@ -35,7 +37,7 @@
   <sql id="Base_Column_List" >
     id, uuid, goods_name, one_sort_id, show_count, thumb, pictures, goods_create_time, 
     goods_update_time, is_shelf, pick_up, goods_video, goods_type, sort, details, is_hot, is_new,
-    is_delete, deposit,video_name,video_image
+    is_delete, deposit,video_name,video_image,supplier,is_show
   </sql>
   <sql id="Blob_Column_List" >
     introduction
@@ -272,7 +274,7 @@
     goods_video, sort, details,
     is_hot, is_new, is_delete,
     deposit, video_name, video_image,
-    introduction)
+    supplier, introduction,is_show)
     values (#{id,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR},
     #{oneSortId,jdbcType=INTEGER}, #{showCount,jdbcType=INTEGER}, #{thumb,jdbcType=VARCHAR},
     #{pictures,jdbcType=VARCHAR}, #{goodsCreateTime,jdbcType=TIMESTAMP}, #{goodsUpdateTime,jdbcType=TIMESTAMP},
@@ -280,7 +282,7 @@
     #{goodsVideo,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{details,jdbcType=VARCHAR},
     #{isHot,jdbcType=SMALLINT}, #{isNew,jdbcType=SMALLINT}, #{isDelete,jdbcType=SMALLINT},
     #{deposit,jdbcType=DOUBLE}, #{videoName,jdbcType=VARCHAR}, #{videoImage,jdbcType=VARCHAR},
-    #{introduction,jdbcType=LONGVARCHAR})
+    #{supplier,jdbcType=VARCHAR}, #{introduction,jdbcType=LONGVARCHAR},#{isShow,jdbcType=SMALLINT})
   </insert>
   <insert id="insertSelective" parameterType="com.phonecard.bean.Goods">
     insert into goods
@@ -348,8 +350,14 @@
       <if test="videoImage != null">
         video_image,
       </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
       <if test="introduction != null">
         introduction,
+      </if>
+      <if test="isShow != null">
+        is_show,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -416,8 +424,14 @@
       <if test="videoImage != null">
         #{videoImage,jdbcType=VARCHAR},
       </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
       <if test="introduction != null">
         #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=SMALLINT},
       </if>
     </trim>
   </insert>
@@ -484,8 +498,14 @@
       <if test="videoImage != null">
         video_image = #{videoImage,jdbcType=VARCHAR},
       </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
       <if test="introduction != null">
         introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=SMALLINT}
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -512,31 +532,35 @@
     deposit = #{deposit,jdbcType=DOUBLE},
     video_name = #{videoName,jdbcType=VARCHAR},
     video_image = #{videoImage,jdbcType=VARCHAR},
-    introduction = #{introduction,jdbcType=LONGVARCHAR}
+    supplier = #{supplier,jdbcType=VARCHAR},
+    introduction = #{introduction,jdbcType=LONGVARCHAR},
+    is_show = #{isShow,jdbcType=SMALLINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.phonecard.bean.Goods">
     update goods
     set uuid = #{uuid,jdbcType=VARCHAR},
-      goods_name = #{goodsName,jdbcType=VARCHAR},
-      one_sort_id = #{oneSortId,jdbcType=INTEGER},
-      show_count = #{showCount,jdbcType=INTEGER},
-      thumb = #{thumb,jdbcType=VARCHAR},
-      pictures = #{pictures,jdbcType=VARCHAR},
-      goods_create_time = #{goodsCreateTime,jdbcType=TIMESTAMP},
-      goods_update_time = #{goodsUpdateTime,jdbcType=TIMESTAMP},
-      is_shelf = #{isShelf,jdbcType=SMALLINT},
-      pick_up = #{pickUp,jdbcType=SMALLINT},
-      goods_type = #{goodsType,jdbcType=SMALLINT},
-      goods_video = #{goodsVideo,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=INTEGER},
-      details = #{details,jdbcType=VARCHAR},
-      is_hot = #{isHot,jdbcType=SMALLINT},
-      is_new = #{isNew,jdbcType=SMALLINT},
-      is_delete = #{isDelete,jdbcType=SMALLINT},
-      deposit = #{deposit,jdbcType=DOUBLE},
-      video_name = #{videoName,jdbcType=VARCHAR},
-      video_image = #{videoImage,jdbcType=VARCHAR}
+    goods_name = #{goodsName,jdbcType=VARCHAR},
+    one_sort_id = #{oneSortId,jdbcType=INTEGER},
+    show_count = #{showCount,jdbcType=INTEGER},
+    thumb = #{thumb,jdbcType=VARCHAR},
+    pictures = #{pictures,jdbcType=VARCHAR},
+    goods_create_time = #{goodsCreateTime,jdbcType=TIMESTAMP},
+    goods_update_time = #{goodsUpdateTime,jdbcType=TIMESTAMP},
+    is_shelf = #{isShelf,jdbcType=SMALLINT},
+    pick_up = #{pickUp,jdbcType=SMALLINT},
+    goods_type = #{goodsType,jdbcType=SMALLINT},
+    goods_video = #{goodsVideo,jdbcType=VARCHAR},
+    sort = #{sort,jdbcType=INTEGER},
+    details = #{details,jdbcType=VARCHAR},
+    is_hot = #{isHot,jdbcType=SMALLINT},
+    is_new = #{isNew,jdbcType=SMALLINT},
+    is_delete = #{isDelete,jdbcType=SMALLINT},
+    deposit = #{deposit,jdbcType=DOUBLE},
+    video_name = #{videoName,jdbcType=VARCHAR},
+    video_image = #{videoImage,jdbcType=VARCHAR},
+    supplier = #{supplier,jdbcType=VARCHAR},
+    #{isShow,jdbcType=SMALLINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

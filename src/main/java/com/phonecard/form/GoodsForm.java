@@ -34,6 +34,8 @@ public class GoodsForm {
 
     private String videoImage;
 
+    private String supplier;
+
     @NotNull
     private Short goodsType;
 
@@ -50,6 +52,8 @@ public class GoodsForm {
     private Double deposit;
 
     private String introduction;
+
+    private Integer isShow;
     @NotNull
     private List<SkuForm> skus;
 

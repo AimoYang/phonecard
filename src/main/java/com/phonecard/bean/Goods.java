@@ -72,6 +72,26 @@ public class Goods {
 
     private Integer state;
 
+    private String supplier;
+
+    private Integer isShow;
+
+    public Integer getIsShow() {
+        return isShow;
+    }
+
+    public void setIsShow(Integer isShow) {
+        this.isShow = isShow;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
     public Integer getState() {
         return state;
     }

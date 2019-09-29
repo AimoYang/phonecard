@@ -64,6 +64,8 @@
     <include refid="Base_Column_List" />
     from record_refund
     where order_uuid = #{orderUuid}
+    order by id desc
+    limit 1
   </select>
 
   <update id="updateRefuseCancel" >

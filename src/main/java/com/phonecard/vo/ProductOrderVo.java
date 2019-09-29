@@ -20,6 +20,16 @@ public class ProductOrderVo extends ProductOrderDetail {
 
     private String icon;
 
+    private String companyName;
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
