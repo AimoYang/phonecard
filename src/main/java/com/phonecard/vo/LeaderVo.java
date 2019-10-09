@@ -18,4 +18,6 @@ public class LeaderVo extends Leader {
     private Integer UserNum;
 
     private Integer consumeSum;
+
+    private Integer relation;
 }

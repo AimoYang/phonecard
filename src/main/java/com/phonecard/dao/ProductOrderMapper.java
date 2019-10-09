@@ -25,4 +25,6 @@ public interface ProductOrderMapper {
     ProductOrder selectProductOrderuuid(@Param("orderUuid") String orderUuid);
 
     List<OrderExcelVo> postOrderByCondition(@Param("pageObject") PageObject pageObject);
+
+    List<OrderExcelVo> postOrderAllByCondition(@Param("pageObject") PageObject pageObject);
 }

@@ -31,4 +31,10 @@ public interface ShareMapper {
     List<ShareVo> selectLeaderUserList(@Param("pageObject")PageObject pageObject);
 
     Share selectLeader(@Param("openId")String openId);
+
+    int checkOne(@Param("openId")String openId, @Param("leaderOpenId")String leaderOpenId);
+
+    int deleteByOpenId(@Param("openId")String openId, @Param("leaderOpenId")String leaderOpenId);
+
+    int checkOneEd(String openId);
 }

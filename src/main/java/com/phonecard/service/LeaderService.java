@@ -155,4 +155,22 @@ public class LeaderService {
         }
         return ResultUtil.success();
     }
+
+    public ResultVO leaderListForEdit(PageObject pageObject) {
+        int row = leaderMapper.queryLeaderListRow(pageObject.getCompanyName());
+        pageObject.setRowCount(row);
+        List<LeaderVo> leaderVoList = leaderMapper.queryLeaderList(pageObject);
+        leaderVoList.forEach(leaderVo -> {
+            int count = shareMapper.checkOne(pageObject.getOpenId(),leaderVo.getOpenId());
+            if(count >0){
+                leaderVo.setRelation(1);
+            }else{
+                leaderVo.setRelation(0);
+            }
+        });
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("list", leaderVoList);
+        map.put("pageObject", pageObject);
+        return ResultUtil.success(map);
+    }
 }

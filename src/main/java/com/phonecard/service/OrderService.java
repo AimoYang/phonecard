@@ -243,4 +243,21 @@ public class OrderService {
     public List<OrderExcelVo> postOrderByCondition(PageObject pageObject) {
         return productOrderMapper.postOrderByCondition(pageObject);
     }
+
+    public List<OrderExcelVo> postOrderAllByCondition(PageObject pageObject) {
+        return productOrderMapper.postOrderAllByCondition(pageObject);
+    }
+
+    public ResultVO ordersListAll(PageObject pageObject) {
+        if (pageObject.getType() == null || pageObject.getType().intValue() == 2){
+            pageObject.setType(null);
+        }
+        int row = productOrderDetailMapper.getOrdersListAllRow(pageObject);
+        pageObject.setRowCount(row);
+        List<ProductOrderVo> list = productOrderDetailMapper.selectOrdersAllList(pageObject);
+        Map<String,Object> map = new HashMap<>(2);
+        map.put("list",list);
+        map.put("pageObject",pageObject);
+        return ResultUtil.success(map);
+    }
 }

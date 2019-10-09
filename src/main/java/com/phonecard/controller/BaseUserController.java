@@ -8,10 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -59,6 +56,18 @@ public class BaseUserController {
             r.setResult(StatusCode.FAIL);
         }
         return r;
+    }
+
+    @ApiOperation(value = "用户关联团长")
+    @PostMapping("/userRelationLeader")
+    public JsonResult userRelationLeader(@ApiParam(value = "用户openId")@RequestParam("openId") String openId,@ApiParam("团长openId") @RequestParam("leaderOpenId")String leaderOpenId){
+        return baseUserService.userRelationLeader(openId,leaderOpenId);
+    }
+
+    @ApiOperation(value = "用户取消关联团长")
+    @PostMapping("/userUNRelationLeader")
+    public JsonResult userUNRelationLeader(@ApiParam(value = "用户openId") @RequestParam("openId")String openId,@ApiParam("团长openId") @RequestParam("leaderOpenId")String leaderOpenId){
+        return baseUserService.userUNRelationLeader(openId,leaderOpenId);
     }
 
 }

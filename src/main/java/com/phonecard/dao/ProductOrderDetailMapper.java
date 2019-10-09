@@ -52,4 +52,8 @@ public interface ProductOrderDetailMapper {
     int getCompanyOrderRow(@Param("pageObject")PageObject pageObject);
 
     List<ProductOrderVo> findCompanyOrderInfo(@Param("pageObject")PageObject pageObject);
+
+    int getOrdersListAllRow(@Param("pageObject")PageObject pageObject);
+
+    List<ProductOrderVo> selectOrdersAllList(@Param("pageObject")PageObject pageObject);
 }

@@ -85,4 +85,11 @@ public class LeaderController {
         return leaderService.leaderUpdateCompany(id,companyId);
     }
 
+    //根据公司id,用户id查询团长列表
+    @PostMapping("/leaderListForEdit")
+    @ApiOperation("根据公司id,用户id查询团长列表")
+    public ResultVO leaderListForEdit(@ApiParam(value = "分页信息")@RequestBody PageObject pageObject){
+        return leaderService.leaderListForEdit(pageObject);
+    }
+
 }

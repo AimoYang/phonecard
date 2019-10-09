@@ -220,10 +220,10 @@
     <if test="pageObject.title != null and pageObject.title != ''">
       and l.leader_name LIKE CONCAT ('%',#{pageObject.title},'%')
     </if>
-
+    AND ub.nick_name is not null
   </select>
   <select id="getCouponList" resultType="map">
-    SELECT ub.id, ub.open_id ,ub.icon,ub.nick_name nickName,ub.create_time createTime,l.leader_name leaderName,ub.consume_money consumeMoney,COUNT(temp.uuid) AS orderCount,ub.is_enable isEnable
+    SELECT ub.id, ub.open_id ,ub.icon,ub.nick_name nickName,ub.user_type,ub.create_time createTime,l.leader_name leaderName,ub.consume_money consumeMoney,COUNT(temp.uuid) AS orderCount,ub.is_enable isEnable
     FROM user_base ub
     LEFT JOIN `share` s ON ub.open_id = s.open_id
     LEFT JOIN leader l ON s.one_open_id = l.open_id

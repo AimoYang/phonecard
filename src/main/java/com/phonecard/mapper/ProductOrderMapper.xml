@@ -105,6 +105,56 @@
       order by o.create_time desc
   </select>
 
+  <select id="postOrderAllByCondition" resultMap="OrderExcelMap">
+    select od.uuid,od.product_name,od.quantity,od.commission,od.price,od.amount,od.distribution_type,od.`status`,od.actual_price,o.create_time,u.nick_name,pu.nick_name
+    from product_order_detail od LEFT JOIN product_order o  on od.product_order_uuid
+    = o.uuid left join user_base u on o.open_id = u.open_id LEFT JOIN user_base pu on
+    o.one_open_id = pu.open_id left join leader as l on o.one_open_id = l.open_id
+    <where>
+      <if test="pageObject.type != null and pageObject.type != ''">
+        and od.distribution_type = #{pageObject.type}
+      </if>
+      <if test="pageObject.type == '0'.toString()">
+        and od.distribution_type = 0
+      </if>
+      <if test="pageObject.id != null and pageObject.id != ''">
+        and od.one_sort_id = #{pageObject.id}
+      </if>
+      <if test="pageObject.title != null and pageObject.title != ''">
+        and od.uuid LIKE CONCAT ('%',#{pageObject.title},'%')
+      </if>
+      <if test="pageObject.goodsName != null and pageObject.goodsName != ''">
+        and od.product_name LIKE CONCAT ('%',#{pageObject.goodsName},'%')
+      </if>
+      <if test="pageObject.state == 1">
+        and od.status = 1
+      </if>
+      <if test="pageObject.state == 2">
+        and od.status =2
+      </if>
+      <if test="pageObject.state == 3">
+        and od.status =3
+      </if>
+      <if test="pageObject.state == 4">
+        and od.status =4
+      </if>
+      <if test="pageObject.name != null and pageObject.name != ''">
+        and l.leader_name LIKE CONCAT ('%',#{pageObject.name},'%')
+      </if>
+      <if test="pageObject.companyName != null and pageObject.companyName != ''">
+        and l.leader_company_name LIKE CONCAT ('%',#{pageObject.companyName},'%')
+      </if>
+      <if test="pageObject.startTime != null">
+        and o.create_time &gt; #{pageObject.startTime}
+      </if>
+      <if test="pageObject.endTime != null">
+        and o.create_time &lt; #{pageObject.endTime}
+      </if>
+      and o.is_delete = 0 and o.order_status = 1
+    </where>
+    order by o.create_time desc
+  </select>
+
 
 
 

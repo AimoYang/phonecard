@@ -73,6 +73,18 @@
     limit #{pageObject.startIndex}, #{pageObject.pageSize}
   </select>
 
+  <select id="queryLeaderList" resultMap="LeaderResultMap">
+    select l.id, l.open_id, l.leader_name,c.company_name leader_company_name from leader l left JOIN company as c on c.id = l.company_id
+    <where>
+    <if test="pageObject.companyName != null and pageObject.companyName != ''">
+      and l.company_id in (select id from `company` where c.company_name = #{pageObject.companyName})
+    </if>
+    and l.is_disable = 0
+    and l.is_delete = 0 and l.in_type = 1
+  </where>
+    limit #{pageObject.startIndex}, #{pageObject.pageSize}
+  </select>
+
   <select id="getLeaderRow" resultType="java.lang.Integer" >
     select
     count(1)
@@ -136,6 +148,17 @@
   <update id="leaderUpdateCompany" parameterType="map">
     update leader set company_id = #{companyId} where id=#{id}
   </update>
+
+  <select id="queryLeaderListRow" resultType="java.lang.Integer">
+    select count(1) from leader
+    <where>
+      <if test="companyName != null and companyName != ''">
+        and leader_company_name = #{companyName}
+      </if>
+      and is_disable = 0
+      and is_delete = 0 and in_type = 1
+    </where>
+  </select>
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

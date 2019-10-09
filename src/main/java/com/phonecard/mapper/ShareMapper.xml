@@ -65,6 +65,18 @@
     where open_id = #{openId}
   </select>
 
+  <select id="checkOne" parameterType="map" resultType="java.lang.Integer" >
+    select count(1) from `share` where open_id = #{openId}  and one_open_id = #{leaderOpenId} and is_delete = 0
+  </select>
+
+  <select id="checkOneEd" parameterType="string" resultType="java.lang.Integer" >
+    select count(1) from `share` where open_id = #{openId} and is_delete = 0
+  </select>
+
+  <delete id="deleteByOpenId" parameterType="map">
+    update `share` set is_delete = 1 where open_id = #{openId} and one_open_id = #{leaderOpenId}
+  </delete>
+
 
 
 

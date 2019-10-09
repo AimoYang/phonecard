@@ -37,4 +37,8 @@ public interface LeaderMapper {
     List<Leader> selectLeaderAllList();
 
     int leaderUpdateCompany(@Param("id") Integer id, @Param("companyId") Integer companyId);
+
+    int queryLeaderListRow(@Param("companyName") String companyName);
+
+    List<LeaderVo> queryLeaderList(@Param("pageObject")PageObject pageObject);
 }
